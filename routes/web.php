@@ -12,12 +12,21 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Route::group(['as'=>'', 'namespace'=>'App\Http\Controllers\Frontend'], function(){
+	// Auth::routes();
+// });
+Route::group(['as'=>'frontend.', 'namespace'=>'App\Http\Controllers\Frontend'], function(){
+		// Member
+	route::get('/member', [App\Http\Controllers\Frontend\MemberController::class, 'index'])->name('member.index');
+	route::get('/login', [App\Http\Controllers\Frontend\MemberController::class, 'getLogin'])->name('show.login');
+	route::post('/login', [App\Http\Controllers\Frontend\MemberController::class, 'postLogin'])->name('post.login');
 
-Route::get('/', function () {
-    return view('welcome');
+	route::get('/register', [App\Http\Controllers\Frontend\MemberController::class, 'getRegister'])->name('show.register');
+	route::post('/register', [App\Http\Controllers\Frontend\MemberController::class, 'postRegister'])->name('post.register');
+
+	route::get('/job', [App\Http\Controllers\Frontend\MemberController::class, 'getJob'])->name('show.job');
+	route::put('/member/{id}', [App\Http\Controllers\Frontend\MemberController::class, 'updateMember'])->name('put.member');
+		// End Member
 });
 
-Auth::routes();
-route::get('/', [App\Http\Controllers\MemberController::class, 'getLogin']);
-route::post('/', [App\Http\Controllers\MemberController::class, 'postLogin']);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

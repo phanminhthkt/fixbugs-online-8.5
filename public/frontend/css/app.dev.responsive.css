@@ -1,0 +1,9 @@
+@media (max-width: 500px) {
+    .login-4 .form-section .social-list li a i {
+        display: none;
+    }
+
+    .login-4 .form-section .social-list li a {
+        width: 100px;
+    }
+}

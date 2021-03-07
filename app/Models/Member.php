@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 class Member extends Authenticatable
 {
     use HasFactory, Notifiable;
-
+    protected $table = 'members';
     /**
      * The attributes that are mass assignable.
      *
@@ -20,6 +20,7 @@ class Member extends Authenticatable
         'name',
         'email',
         'password',
+        'username'
     ];
 
     /**
