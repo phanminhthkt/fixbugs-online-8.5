@@ -9,4 +9,8 @@ class Job extends Model
 {
     use HasFactory;
     protected $table = 'jobs';
+
+    public function member(){
+    	return $this->hasMany(Member::class,'is_job','id');
+    }
 }
