@@ -22,9 +22,10 @@ use Illuminate\Support\Facades\Route;
 	/*Member */
 	Route::get('/member',['uses' => 'MemberController@index','as' => 'member.index']);
 	Route::get('/member/add',['uses' => 'MemberController@create','as' => 'member.add']);
-	Route::get('/member/store',['uses' => 'MemberController@store','as' => 'member.store']);
+	Route::post('/member/store',['uses' => 'MemberController@store','as' => 'member.store']);
 	Route::get('/member/edit/{id}',['uses' => 'MemberController@edit','as' => 'member.edit']);
-	Route::get('/member/delele/{id}',['uses' => 'MemberController@delete','as' => 'member.delete']);
+	Route::put('/member/{id}', ['uses' => 'MemberController@update','as' => 'member.update']);
+	Route::delete('/member/delele/{id}',['uses' => 'MemberController@delete','as' => 'member.delete']);
 
 	/*Job */
 	Route::get('/job',['uses' => 'JobController@index','as'=>'job.index']);

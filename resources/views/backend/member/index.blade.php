@@ -15,7 +15,7 @@
 </div>
 <div class="row">
     <div class="col-12">
-         
+         @include('blocks.messages')
     </div>
 </div>
 <!-- end page title --> 
@@ -97,7 +97,8 @@
                                 </div>
                               </td>
                               <td align="center">
-                                <input type="text" name="priority" class="form-control input-mini input-priority" value="1" data-ajax="act=update_priority|table=categories|id=11|col=priority">
+                                <!-- <input type="text" name="priority" class="form-control input-mini input-priority" value="1" data-ajax="act=update_priority|table=categories|id=11|col=priority"> -->
+                                <input type="text" name="is_priority" class="form-control input-mini input-priority" value="{{$item->is_priority}}" >
                               </td>
                               <td align="center"><a href="{{route('admin.member.edit',$item->id)}}">{{$item->name}}</a></td>
                               <td align="center">{{$item->job ? $item->job->name :''}}</td>
@@ -108,12 +109,17 @@
                                 </a>
                               </td>
                               <td align="center">
-                                <a href="{{route('admin.member.edit',$item->id)}}" class="btn btn-icon waves-effect waves-light btn-secondary">
-                                  <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="{{route('admin.member.delete',$item->id)}}" class="btn btn-icon waves-effect waves-light btn-danger">
-                                  <i class="fas fa-times"></i>
-                                </a>
+                                <div class="d-flex">
+                                  <a href="{{route('admin.member.edit',$item->id)}}" class="btn btn-icon waves-effect waves-light btn-info">
+                                    <i class="mdi mdi-pencil"></i>
+                                  </a>
+                                  <form action="{{ route('admin.member.delete',$item->id)}}" method="post">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <button type="submit" onclick="confirm('Chắc chắn xóa !')" class="btn btn-icon waves-effect waves-light btn-danger ml-1" title="Xóa"> <i class="mdi mdi-close"></i></button>
+                                    </form>
+                                  </a>
+                                </div>
                               </td>
                            </tr>
                            @endforeach

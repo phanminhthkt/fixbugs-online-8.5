@@ -12,7 +12,57 @@
          </div>
       </div>
    </div>
+   <div class="col-12">
+      @include('blocks.messages')
+    </div>
+ </div>
+ <form role="form" method="POST" action="{{route('admin.member.store') }}" enctype="multipart/form-data" >
+   @csrf
+  <div class="row d-flex flex-sm-row-reverse">
+   <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header py-2">
+            <h5 class="card-title mb-0">THÔNG TIN CHUNG</h5>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+              <label>Chức vụ</label>
+              <select class="selectpicker" name="is_job" id="job">
+              <option id="" >Chọn chức vụ</option>
+                @foreach($jobs as $job)
+                <option 
+                  id="{{$job->id}}" 
+                  {{ $item->is_job == $job->id ? 'selected' : ''}}
+                >
+                {{$job->name}}
+                </option>
+                @endforeach
+              </select>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-6 col-12">
+                <div class="form-group">
+                <label>Tình trạng</label>
+                <select class="selectpicker" name="is_status">
+                    <option id="1" {{ $item->is_status == 1 ? 'selected' : ''}}> Hiển thị</option>
+                    <option id="0" {{ $item->is_status == 0 ? 'selected' : ''}}> Ẩn</option>
+                </select>
+              </div>
+              </div>
+              <div class="col-sm-6 col-12">
+                <div class="form-group">
+                  <label id="priority">Thứ tự</label>
+                    <input type="text" class="form-control" id="priority" name='is_priority' placeholder="Thứ tự" value="{{$item->is_priority}}">
+                </div>
+              </div>
+            </div>
+              
+          </div>
 
+        </div>
+      </div>
+   </div>
    <div class="col-lg-8">
       <div class="card">
         <div class="card-header py-2 text-white">
@@ -64,8 +114,17 @@
                       <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-lock"></i></span>
                       </div>
-                      <input type="password" class="form-control" id="password" placeholder="Mật khẩu" value="{{$item->password}}" required="">
+                      <input type="password" class="form-control" id="password" placeholder="Mật khẩu" value="" required="">
                       <div class="valid-feedback">Vui lòng nhập mật khẩu</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-lock"></i></span>
+                      </div>
+                      <input type="password" class="form-control" id="password" name="password_confirmation" placeholder="Nhập lại mật khẩu" value="" required="">
+                      <div class="valid-feedback">Vui lòng xác nhận lại mật khẩu.</div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -85,71 +144,8 @@
         </div>
       </div>
    </div>
-   <div class="col-lg-4">
-      <div class="card">
-        <div class="card-header py-2">
-            <h5 class="card-title mb-0">THÔNG TIN CHUNG</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-group">
-              <label>Chức vụ</label>
-              <select class="selectpicker" name="is_job" id="job">
-              <option id="" >Chọn chức vụ</option>
-                @foreach($jobs as $job)
-                <option 
-                  id="{{$job->id}}" 
-                  {{ $item->is_job == $job->id ? 'selected' : ''}}
-                >
-                {{$job->name}}
-                </option>
-                @endforeach
-              </select>
-          </div>
-          <div class="form-group">
-            <label id="code">Tải hình ảnh</label>
-              <form action="/" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-upload-preview-template="#uploadPreviewTemplate">
-                  <div class="fallback">
-                      <input name="file" type="file">
-                  </div>
-                  <div class="photoUpload-detail" id="photoUpload-preview">
-                    <!-- <img class="rounded" src="assets/images/noimage.png" onerror="src='assets/images/noimage.png'" alt="Alt Photo"> -->
-                  </div>
-                  <div class="dz-message needsclick">
-                      <p class="h1 text-muted"><i class="mdi mdi-cloud-upload"></i></p>
-                      <h5>Kéo và thả hình vào đây</h5>
-                      <span class="btn btn-purple bg-gradient-primary text-white"><i class="mr-1 mdi mdi mdi-wallpaper"></i>Chọn hình</span>
-                  </div>
-              </form>
-              <p class="text-muted font-13 m-b-30">
-                  Hình: (.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF)
-              </p>
-          </div>
-          
-          <div class="form-group">
-            <div class="row">
-              <div class="col-sm-6 col-12">
-                <div class="form-group">
-                <label>Tình trạng</label>
-                <select class="selectpicker" name="is_status">
-                    <option id="1" {{ $item->is_status == 1 ? 'selected' : ''}}> Hiển thị</option>
-                    <option id="0" {{ $item->is_status == 0 ? 'selected' : ''}}> Ẩn</option>
-                </select>
-              </div>
-              </div>
-              <div class="col-sm-6 col-12">
-                <div class="form-group">
-                  <label id="priority">Thứ tự</label>
-                    <input type="text" class="form-control" id="priority" name='is_priority' placeholder="Thứ tự" value="{{$item->is_priority}}">
-                </div>
-              </div>
-            </div>
-              
-          </div>
-
-        </div>
-      </div>
-   </div>
+   
 </div>
-
+</form>
 
 @endsection
