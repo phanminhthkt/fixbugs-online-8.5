@@ -20,7 +20,11 @@ class Member extends Authenticatable
         'name',
         'email',
         'password',
-        'username'
+        'username',
+        'is_job',
+        'is_status',
+        'is_priority',
+        'remember_token'
     ];
 
     /**

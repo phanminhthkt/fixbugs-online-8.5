@@ -13,5 +13,6 @@
 <link href="{{asset('public/backend')}}\libs\multiselect\multi-select.css" rel="stylesheet" type="text/css">
 <link href="{{asset('public/backend')}}\libs\bootstrap-select\bootstrap-select.min.css" rel="stylesheet" type="text/css">
 <link href="{{asset('public/backend')}}\libs\select2\select2.min.css" rel="stylesheet" type="text/css">
+<link href="{{asset('public/backend')}}\libs\sweetalert2\sweetalert2.css" rel="stylesheet" type="text/css">
 <link href="{{asset('public/backend')}}\css\app.min.css" rel="stylesheet" type="text/css">
 <link href="{{asset('public/backend')}}\css\app.dev.css" rel="stylesheet" type="text/css">

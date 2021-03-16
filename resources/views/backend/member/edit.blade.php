@@ -16,8 +16,9 @@
       @include('blocks.messages')
     </div>
  </div>
- <form role="form" method="POST" action="{{route('admin.member.store') }}" enctype="multipart/form-data" >
+ <form role="form" method="POST" action="{{route('admin.member.update',$item->id) }}" enctype="multipart/form-data" >
    @csrf
+   {{ method_field('PUT') }}
   <div class="row d-flex flex-sm-row-reverse">
    <div class="col-lg-4">
       <div class="card">
@@ -27,11 +28,11 @@
         <div class="card-body">
           <div class="form-group">
               <label>Chức vụ</label>
-              <select class="selectpicker" name="is_job" id="job">
-              <option id="" >Chọn chức vụ</option>
+              <select class="selectpicker" data-live-search="true" name="is_job" id="job" required>
+              <option value="" >Chọn chức vụ</option>
                 @foreach($jobs as $job)
                 <option 
-                  id="{{$job->id}}" 
+                  value="{{$job->id}}" 
                   {{ $item->is_job == $job->id ? 'selected' : ''}}
                 >
                 {{$job->name}}
@@ -45,8 +46,8 @@
                 <div class="form-group">
                 <label>Tình trạng</label>
                 <select class="selectpicker" name="is_status">
-                    <option id="1" {{ $item->is_status == 1 ? 'selected' : ''}}> Hiển thị</option>
-                    <option id="0" {{ $item->is_status == 0 ? 'selected' : ''}}> Ẩn</option>
+                    <option value="1" {{ $item->is_status == 1 ? 'selected' : ''}}> Hiển thị</option>
+                    <option value="0" {{ $item->is_status == 0 ? 'selected' : ''}}> Ẩn</option>
                 </select>
               </div>
               </div>
@@ -96,7 +97,7 @@
                       <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-user"></i></span>
                       </div>
-                      <input type="text" class="form-control" id="username" placeholder="Tên người dùng" value="{{$item->username}}" required="">
+                      <input type="text" class="form-control" id="username" name="username"  placeholder="Tên người dùng" value="{{$item->username}}" required="">
                       <div class="valid-feedback">Vui lòng nhập username</div>
                     </div>
                 </div>
@@ -105,7 +106,7 @@
                       <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-envelope"></i></span>
                       </div>
-                      <input type="text" class="form-control" id="email" placeholder="Email" value="{{$item->email}}" required="">
+                      <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{$item->email}}" required="">
                       <div class="valid-feedback">Vui lòng nhập email</div>
                     </div>
                 </div>
@@ -114,7 +115,7 @@
                       <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-lock"></i></span>
                       </div>
-                      <input type="password" class="form-control" id="password" placeholder="Mật khẩu" value="" required="">
+                      <input type="password" class="form-control" id="password" name="password"  placeholder="Mật khẩu" value="" required="">
                       <div class="valid-feedback">Vui lòng nhập mật khẩu</div>
                     </div>
                 </div>
@@ -132,7 +133,7 @@
                       <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-user"></i></span>
                       </div>
-                      <input type="text" class="form-control" id="name" placeholder="Họ và tên" value="{{$item->name}}" required="">
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Họ và tên" value="{{$item->name}}" required="">
                       <div class="valid-feedback">Vui lòng nhập họ và tên</div>
                     </div>
                 </div>
@@ -143,6 +144,8 @@
           </div>
         </div>
       </div>
+      <button type="submit" class="btn btn-success waves-effect waves-light"><i class="far fa-plus-square mr-1"></i>Submit</button>
+      <button type="reset" class="btn btn-secondary waves-effect waves-light"><i class="fa fas fa-redo mr-1"></i>Reset</button>
    </div>
    
 </div>

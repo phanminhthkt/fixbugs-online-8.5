@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 // });
  Route::group(['as' => 'admin.','namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'], function()
 {	
+	Route::put('/ajax/status/{id}', ['uses' => 'AjaxController@updateStatus']);
+	Route::put('/ajax/priority/{id}', ['uses' => 'AjaxController@updatePriority']);
 	// Route::resource('member', 'MemberController');
 	Route::get('',['uses' => 'IndexController@index','as'=>'index']);
 	/*Member */

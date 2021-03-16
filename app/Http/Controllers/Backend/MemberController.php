@@ -23,13 +23,14 @@ class MemberController extends Controller
     public function __construct(Member $member)
     {
         $this->member = $member;
+        $this->_data['table'] = 'members';
         $this->_data['jobs'] = Job::all();
         $this->_data['title'] = 'Thành viên';
     }
 
     public function index()
     {
-        $this->_data['items'] = Member::with(['job'])->orderBy('id','asc')->get();
+        $this->_data['items'] = Member::with(['job'])->orderBy('id','asc')->paginate(2);
         return view('backend.member.index', $this->_data);
     }
 
@@ -51,7 +52,7 @@ class MemberController extends Controller
      */
     public function store(SignupRequest $request)
     {       
-        $data = $request->all();
+        $data = $request->except('_token','password_confirmation');
         $data['password'] = Hash::make($request->password);
         $data['remember_token'] = $request->_token;
         if($this->member->create($data)){
@@ -96,10 +97,9 @@ class MemberController extends Controller
     {
         $this->member->findOrFail($id);
         
-        $data = $request->all();
+        $data = $request->except('_token','_method','password_confirmation');//# request only
         $data['password'] = Hash::make($request->password);
         $data['remember_token'] = $request->_token;
-       
         if($this->member->where('id', $id)->update($data)){
             return redirect()->route('admin.member.index')->with('success', 'Chỉnh sửa thành viên <b>'. $request->name .'</b> thành công');
         }else{
@@ -117,9 +117,9 @@ class MemberController extends Controller
     {
         $this->member->findOrFail($id);
         if($this->member->where('id', $id)->delete()){
-            return redirect()->route('admin.member.index')->with('success', 'Xóa thành viên thành công');
+            return ['success' => true, 'message' => 'Xóa thành viên thành công !!'];
         }else{
-            return redirect()->route('admin.member.index')->with('error', 'Xóa thành viên thất bại.Xin vui lòng thử lại');
+            return ['error' => true, 'message' => 'Xóa thành viên thất bại.Xin vui lòng thử lại !!'];
         }
     }
 }

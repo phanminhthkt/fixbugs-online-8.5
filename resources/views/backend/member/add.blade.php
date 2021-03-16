@@ -29,9 +29,9 @@
           <div class="form-group">
               <label>Chức vụ</label>
               <select class="selectpicker" data-live-search="true" name="is_job" id="job">
-              <option id="" >Chọn chức vụ</option>
+              <option value="" >Chọn chức vụ</option>
                 @foreach($jobs as $job)
-                <option id="{{$job->id}}">
+                <option value="{{$job->id}}">
                 {{$job->name}}
                 </option>
                 @endforeach
@@ -43,8 +43,8 @@
                 <div class="form-group">
                 <label>Tình trạng</label>
                 <select class="selectpicker" name="is_status">
-                    <option id="1"> Hiển thị</option>
-                    <option id="0"> Ẩn</option>
+                    <option value="1"> Hiển thị</option>
+                    <option value="0"> Ẩn</option>
                 </select>
               </div>
               </div>

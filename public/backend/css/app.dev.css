@@ -20,6 +20,8 @@
 .btn-icon-mini{width: 20px;height: 20px;padding:0;}
 .btn-icon i{font-size: 12px;}
 .form-search .input-group-sm>.custom-select, .form-search .input-group-sm>.form-control:not(textarea){height: calc(2.2em + .5rem + 2px);}
+.custom-checkbox{padding-left: 2rem !important}
+.custom-control-label{cursor: pointer;}
 @media (max-width: 569px){
 .form-search {
     width: 100%;

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Requests;
-
 use Illuminate\Foundation\Http\FormRequest;
 
 class SignupRequest extends FormRequest
@@ -23,11 +22,10 @@ class SignupRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
             'name' => 'required',
-            'email' => 'required|email|unique:members,email',
-            'username' => 'required|alpha_dash|unique:members,username',
+            'email' => 'required|email|unique:members,email,'.$this->id,
+            'username' => 'required|alpha_dash|unique:members,username,'.$this->id,
             'password' => 'required|confirmed|min:6'
         ];
         
