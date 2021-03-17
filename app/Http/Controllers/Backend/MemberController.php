@@ -28,9 +28,14 @@ class MemberController extends Controller
         $this->_data['title'] = 'Thành viên';
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $this->_data['items'] = Member::with(['job'])->orderBy('id','asc')->paginate(2);
+        $member  = Member::with(['job']);
+        if($request->has('term')){
+            $member->where('name', 'Like', '%' . $request->term . '%');
+            // $member->appends(['q' => $request->term]);//Append page
+        }
+        $this->_data['items'] = $member->orderBy('id','asc')->paginate(2);
         return view('backend.member.index', $this->_data);
     }
 

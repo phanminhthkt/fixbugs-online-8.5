@@ -15,7 +15,7 @@ class CreateProjectTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('photo',255)->nullable();
             $table->string('contact_code',50)->nullable();
             $table->string('file',255)->nullable();

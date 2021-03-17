@@ -15,16 +15,19 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('email')->unique();
+            $table->string('name', 255->nullable());
+            $table->string('username', 55)->unique();
+            $table->string('email', 255)->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password', 255);
             $table->integer('id_parent')->default(0);
-            $table->string('project', 50);
+            $table->string('project', 50)->nullable();
             $table->integer('role')->default(0);
             $table->integer('is_status')->default(0);
             $table->integer('is_active')->default(0);
             $table->rememberToken();
+            $table->integer('is_priority')->default(0);
+            $table->integer('is_job')->default(0);
             $table->timestamps();
         });
     }

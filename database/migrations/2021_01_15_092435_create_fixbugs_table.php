@@ -18,10 +18,10 @@ class CreateFixbugsTable extends Migration
             $table->string('name');
             $table->integer('id_project')->default(0);
             $table->integer('id_member')->default(0);
-            $table->text('content_error');
-            $table->text('content_fix');
+            $table->text('content_error')->nullable();
+            $table->text('content_fix')->nullable();
             $table->string('link',255);
-            $table->string('email')->unique();
+            $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('project', 50);
