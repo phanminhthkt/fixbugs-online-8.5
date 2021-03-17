@@ -19,10 +19,12 @@ class MemberController extends Controller
      */
 
     private $_data;
+    private $_pathType;
 
     public function __construct(Member $member)
     {
         $this->member = $member;
+        $this->_pathType = '';
         $this->_data['table'] = 'members';
         $this->_data['jobs'] = Job::all();
         $this->_data['title'] = 'Thành viên';
@@ -33,9 +35,9 @@ class MemberController extends Controller
         $member  = Member::with(['job']);
         if($request->has('term')){
             $member->where('name', 'Like', '%' . $request->term . '%');
-            // $member->appends(['q' => $request->term]);//Append page
+            $this->_pathType .= '?term='.$request->term;
         }
-        $this->_data['items'] = $member->orderBy('id','asc')->paginate(2);
+        $this->_data['items'] = $member->orderBy('id','asc')->paginate(2)->withPath(url()->current().$this->_pathType);
         return view('backend.member.index', $this->_data);
     }
 
