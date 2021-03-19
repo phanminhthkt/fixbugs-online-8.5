@@ -25,6 +25,7 @@ class MemberController extends Controller
     {
         $this->member = $member;
         $this->_pathType = '';
+        $this->_data['pageIndex'] = route('admin.member.index');
         $this->_data['table'] = 'members';
         $this->_data['jobs'] = Job::all();
         $this->_data['title'] = 'Thành viên';
@@ -37,7 +38,7 @@ class MemberController extends Controller
             $member->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '?term='.$request->term;
         }
-        $this->_data['items'] = $member->orderBy('id','asc')->paginate(2)->withPath(url()->current().$this->_pathType);
+        $this->_data['items'] = $member->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
         return view('backend.member.index', $this->_data);
     }
 
@@ -124,6 +125,14 @@ class MemberController extends Controller
     {
         $this->member->findOrFail($id);
         if($this->member->where('id', $id)->delete()){
+            return ['success' => true, 'message' => 'Xóa thành viên thành công !!'];
+        }else{
+            return ['error' => true, 'message' => 'Xóa thành viên thất bại.Xin vui lòng thử lại !!'];
+        }
+    }
+    public function deleteMultiple($listId)
+    {
+        if($this->member->whereIn('id',explode(",",$listId))->delete()){
             return ['success' => true, 'message' => 'Xóa thành viên thành công !!'];
         }else{
             return ['error' => true, 'message' => 'Xóa thành viên thất bại.Xin vui lòng thử lại !!'];

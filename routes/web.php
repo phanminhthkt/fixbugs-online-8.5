@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 // });
  Route::group(['as' => 'admin.','namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'], function()
 {	
+
 	Route::put('/ajax/status/{id}', ['uses' => 'AjaxController@updateStatus']);
 	Route::put('/ajax/priority/{id}', ['uses' => 'AjaxController@updatePriority']);
 	// Route::resource('member', 'MemberController');
@@ -28,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 	Route::get('/member/edit/{id}',['uses' => 'MemberController@edit','as' => 'member.edit']);
 	Route::put('/member/{id}', ['uses' => 'MemberController@update','as' => 'member.update']);
 	Route::delete('/member/delele/{id}',['uses' => 'MemberController@delete','as' => 'member.delete']);
+	Route::delete('/member/delete-multiple/{id}',['uses' => 'MemberController@deleteMultiple','as' => 'member.deleteMultiple']);
 
 	/*Job */
 	Route::get('/job',['uses' => 'JobController@index','as'=>'job.index']);

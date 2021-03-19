@@ -6,8 +6,9 @@
       <div class="page-title-box">
          <div class="page-title-left">
             <ol class="breadcrumb m-0">
-               <li class="breadcrumb-item"><a href="javascript: void(0);"><i class="remixicon-home-8-line"></i> {{$title}}</a></li>
-               <li class="breadcrumb-item active">Thêm {{$title}}</li>
+               <li class="breadcrumb-item"><a href="{{route('admin.index') }}"><i class="remixicon-home-8-line"></i></a></li>
+               <li class="breadcrumb-item"><a href="{{$pageIndex}}">{{$title}}</a></li>
+               <li class="breadcrumb-item active">Sửa {{$title}}</li>
             </ol>
          </div>
       </div>

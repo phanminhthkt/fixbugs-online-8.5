@@ -6,8 +6,8 @@
       <div class="page-title-box">
          <div class="page-title-left">
             <ol class="breadcrumb m-0">
-               <li class="breadcrumb-item"><a href="javascript: void(0);"><i class="remixicon-home-8-line"></i> Danh mục</a></li>
-               <li class="breadcrumb-item active">Danh sách</li>
+               <li class="breadcrumb-item"><a href=""><i class="remixicon-home-8-line"></i></a></li>
+               <li class="breadcrumb-item active">{{$title}}</li>
             </ol>
          </div>
       </div>
@@ -37,12 +37,12 @@
                            <tr role="row">
                               <th width="1%">
                                   <div class="custom-control custom-checkbox text-center">
-                                    <input type="checkbox" class="custom-control-input" id="autoSizingCheck">
-                                    <label class="custom-control-label" for="autoSizingCheck"></label>
+                                    <input type="checkbox" class="custom-control-input" id="selectall-checkbox">
+                                    <label class="custom-control-label" for="selectall-checkbox"></label>
                                   </div>
                               </th>
                               <th width="5%" class="text-center">Thứ tự</th>
-                              <th class="text-center"width="20%">Tiêu đề</th>
+                              <th class="text-center"width="20%">{{$title}}</th>
                               <th class="text-center"width="20%">Chức vụ</th>
                               <th width="15%" class="text-center">Ngày tạo</th>
                               <th width="7%" class="text-center">Trạng thái</th>
@@ -54,8 +54,8 @@
                            <tr role="row" class="even">
                               <td class="sorting_1" tabindex="0">
                                 <div class="custom-control custom-checkbox text-center">
-                                  <input type="checkbox" class="custom-control-input" id="autoSizingCheck">
-                                  <label class="custom-control-label" for="autoSizingCheck"></label>
+                                  <input type="checkbox" class="custom-control-input select-checkbox" value="{{$item->id}}" id="autoSizingCheck-{{$item->id}}">
+                                  <label class="custom-control-label" for="autoSizingCheck-{{$item->id}}"></label>
                                 </div>
                               </td>
                               <td align="center">
@@ -63,7 +63,6 @@
                                 name="is_priority"
                                 data-table="{{$table}}"
                                 data-id="{{$item->id}}"
-                                data-token="{{ csrf_token() }}"
                                 class="form-control input-mini input-priority p-0 text-center" 
                                 value="{{$item->is_priority}}" >
                               </td>
@@ -77,14 +76,12 @@
                                   type="checkbox" 
                                   data-table="{{$table}}"
                                   data-id="{{$item->id}}"
-                                  data-token="{{ csrf_token() }}" 
-                                  data-method="PUT"
                                   data-kind="is_status"
                                   class="custom-control-input dev-checkbox"
-                                  id="autoSizingCheck-{{$item->id}}"
+                                  id="autoSizingCheckKink-{{$item->id}}"
                                   {{$item->is_status==1 ? 'checked' :''}}
                                   >
-                                  <label class="custom-control-label" for="autoSizingCheck-{{$item->id}}"></label>
+                                  <label class="custom-control-label" for="autoSizingCheckKink-{{$item->id}}"></label>
                                 </div>
                               </td>
 
@@ -97,8 +94,6 @@
                                   <a href="#" 
                                     data-url="{{url()->current().'/delete/'.$item->id}}"
                                     data-id="{{$item->id}}"
-                                    data-token="{{ csrf_token() }}" 
-                                    data-method="DELETE" 
                                     class="btn btn-icon waves-effect waves-light btn-danger ml-1" 
                                     id="delete-item">
                                     <i class="mdi mdi-close"></i>
