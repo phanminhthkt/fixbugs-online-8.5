@@ -1,3 +1,4 @@
+// Alert
 function notifyDialog(text)
 {
 	const swalconst = Swal.mixin({
@@ -17,7 +18,27 @@ function notifyDialog(text)
 			popup: 'animated fadeOut faster'
 		}
 	})
-}		
+}	
+function notifyError(text)
+{
+	const swalconst = Swal.mixin({
+		customClass: {
+			confirmButton: 'btn btn-danger text-sm',
+		},
+		buttonsStyling: false
+	})
+	swalconst.fire({
+		text: text,
+		icon: "error",
+		confirmButtonText: '<i class="fas fa-times mr-2"></i>Xảy ra lỗi',
+		showClass: {
+			popup: 'animated fadeIn faster'
+		},
+		hideClass: {
+			popup: 'animated fadeOut faster'
+		}
+	})
+}	
 function confirmDialog(action,text,value)
 {
 	const swalconst = Swal.mixin({
@@ -47,6 +68,7 @@ function confirmDialog(action,text,value)
 		}
 	})
 }
+// End alert
 
 /* Delete */
 function deleteItem(data)
@@ -56,6 +78,9 @@ function deleteItem(data)
     	type: 'DELETE',
     	headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
     	data: { id: data.id },
+    	error:function(x,e) {
+		    backErrorAjax(x,e);
+		},
 	    success: function(result){
 	    	location.reload();
 	    }
@@ -70,12 +95,30 @@ function deleteAll(data)
     	type: 'DELETE',
     	headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
     	data: { listId: data.listId },
+    	error:function(x,e) {
+		    backErrorAjax(x,e);
+		},
 	    success: function(result){
 	    	location.reload();
 	    }
 	});
 }
 
+function backErrorAjax(x,e){
+    if (x.status==0) {
+        notifyError('You are offline!!\n Please Check Your Network.');
+    } else if(x.status==404) {
+        notifyError('Requested URL not found.');
+    } else if(x.status==500) {
+        notifyError('Internel Server Error.');
+    } else if(e=='parsererror') {
+        notifyError('Error.\nParsing JSON Request failed.');
+    } else if(e=='timeout'){
+        notifyError('Request Time out.');
+    } else {
+        notifyError('Unknow Error.\n'+x.responseText);
+    }
+}
 $('body').on('click','#delete-all', function(){
 	var data = data || {};
 		data.url = $(this).data("url");
@@ -93,12 +136,13 @@ $('body').on('click','#delete-all', function(){
 	confirmDialog("delete-all","Bạn có chắc muốn xóa mục này ?",data);
 });
 
-$('body').on('click','#delete-item', function(){
+$('body').on('click','.delete-item', function(){
 	var data = data || {};
 		data.url = $(this).data("url");
 		data.id = $(this).data("id");
 	confirmDialog("delete-item","Bạn có chắc muốn xóa mục này ?",data);
 });
+
 
 
 $('body').on('click','#selectall-checkbox', function(){
@@ -128,8 +172,12 @@ $('body').on('click','.dev-checkbox',function(){
     	type: 'PUT',
     	headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
     	data: { id: id,table: table,kind: kind},
+    	error:function(x,e) {
+		    backErrorAjax(x,e);
+		},
 	    success: function(result){
 	    }
+	    
 	});
 })
 $('body').on('keyup','.input-priority',function(){
@@ -143,8 +191,12 @@ $('body').on('keyup','.input-priority',function(){
     	type: 'PUT',
     	headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
     	data: {id: id,table: table,value: value},
+    	error:function(x,e) {
+		    backErrorAjax(x,e);
+		},
 	    success: function(result){
 	    }
+	    
 	});
 	return false;
 })

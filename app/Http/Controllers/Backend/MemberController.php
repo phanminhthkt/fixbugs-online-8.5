@@ -20,10 +20,11 @@ class MemberController extends Controller
 
     private $_data;
     private $_pathType;
+    private $_model;
 
     public function __construct(Member $member)
     {
-        $this->member = $member;
+        $this->_model = $member;
         $this->_pathType = '';
         $this->_data['pageIndex'] = route('admin.member.index');
         $this->_data['table'] = 'members';
@@ -63,7 +64,7 @@ class MemberController extends Controller
         $data = $request->except('_token','password_confirmation');
         $data['password'] = Hash::make($request->password);
         $data['remember_token'] = $request->_token;
-        if($this->member->create($data)){
+        if($this->_model->create($data)){
             return redirect()->route('admin.member.index')->with('success', 'Thêm thành viên <b>'. $request->name .'</b> thành công');
         }else{
             return redirect()->route('admin.member.index')->with('error', 'Thêm thành viên <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
@@ -89,7 +90,7 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        $this->_data['item'] = $this->member->findOrFail($id);
+        $this->_data['item'] = $this->_model->findOrFail($id);
         return view('backend.member.edit',$this->_data);
         
     }
@@ -103,12 +104,12 @@ class MemberController extends Controller
      */
     public function update(SignupRequest $request, $id)
     {
-        $this->member->findOrFail($id);
+        $this->_model->findOrFail($id);
         
         $data = $request->except('_token','_method','password_confirmation');//# request only
         $data['password'] = Hash::make($request->password);
         $data['remember_token'] = $request->_token;
-        if($this->member->where('id', $id)->update($data)){
+        if($this->_model->where('id', $id)->update($data)){
             return redirect()->route('admin.member.index')->with('success', 'Chỉnh sửa thành viên <b>'. $request->name .'</b> thành công');
         }else{
             return redirect()->route('admin.member.index')->with('error', 'Chỉnh sửa thành viên <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
@@ -123,8 +124,8 @@ class MemberController extends Controller
      */
     public function delete($id)
     {
-        $this->member->findOrFail($id);
-        if($this->member->where('id', $id)->delete()){
+        $this->_model->findOrFail($id);
+        if($this->_model->where('id', $id)->delete()){
             return ['success' => true, 'message' => 'Xóa thành viên thành công !!'];
         }else{
             return ['error' => true, 'message' => 'Xóa thành viên thất bại.Xin vui lòng thử lại !!'];
@@ -132,7 +133,7 @@ class MemberController extends Controller
     }
     public function deleteMultiple($listId)
     {
-        if($this->member->whereIn('id',explode(",",$listId))->delete()){
+        if($this->_model->whereIn('id',explode(",",$listId))->delete()){
             return ['success' => true, 'message' => 'Xóa thành viên thành công !!'];
         }else{
             return ['error' => true, 'message' => 'Xóa thành viên thất bại.Xin vui lòng thử lại !!'];

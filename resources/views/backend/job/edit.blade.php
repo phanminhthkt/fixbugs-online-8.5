@@ -28,20 +28,6 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-              <label>Chức vụ</label>
-              <select class="selectpicker" data-live-search="true" name="is_job" id="job" required>
-              <option value="" >Chọn chức vụ</option>
-                @foreach($jobs as $job)
-                <option 
-                  value="{{$job->id}}" 
-                  {{ $item->is_job == $job->id ? 'selected' : ''}}
-                >
-                {{$job->name}}
-                </option>
-                @endforeach
-              </select>
-          </div>
-          <div class="form-group">
             <div class="row">
               <div class="col-sm-6 col-12">
                 <div class="form-group">
@@ -95,47 +81,12 @@
               <div class="tab-pane fade active show" id="vi">
                 <div class="form-group">
                     <div class="input-group">
+
                       <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-user"></i></span>
                       </div>
-                      <input type="text" class="form-control" id="username" name="username"  placeholder="Tên người dùng" value="{{$item->username}}" required="">
-                      <div class="valid-feedback">Vui lòng nhập username</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-envelope"></i></span>
-                      </div>
-                      <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{$item->email}}" required="">
-                      <div class="valid-feedback">Vui lòng nhập email</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-lock"></i></span>
-                      </div>
-                      <input type="password" class="form-control" id="password" name="password"  placeholder="Mật khẩu" value="" required="">
-                      <div class="valid-feedback">Vui lòng nhập mật khẩu</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-lock"></i></span>
-                      </div>
-                      <input type="password" class="form-control" id="password" name="password_confirmation" placeholder="Nhập lại mật khẩu" value="" required="">
-                      <div class="valid-feedback">Vui lòng xác nhận lại mật khẩu.</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-user"></i></span>
-                      </div>
-                      <input type="text" class="form-control" id="name" name="name" placeholder="Họ và tên" value="{{$item->name}}" required="">
-                      <div class="valid-feedback">Vui lòng nhập họ và tên</div>
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Chức vụ" value="{{$item->name}}" required="">
+                      <div class="valid-feedback">Vui lòng nhập chức vụ</div>
                     </div>
                 </div>
                 

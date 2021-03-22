@@ -1,5 +1,5 @@
 <div class="d-inline-flex justify-content-end">
-    <form role="form" method="GET" action="{{route('admin.member.index') }}" enctype="multipart/form-data" >
+    <form role="form" method="GET" action="{{url()->current()}}" enctype="multipart/form-data" >
         <div class="form-inline form-search d-inline-block align-middle ml-3">
             <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar text-sm" type="search" id="keyword" placeholder="Tìm kiếm" aria-label="Tìm kiếm" name='term' value="{{Request('term')}}" >

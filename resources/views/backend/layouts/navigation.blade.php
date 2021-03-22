@@ -4,12 +4,41 @@
         <div id="sidebar-menu">
             <ul class="metismenu" id="side-menu">
                 <li>
-                    <a href="javascript: void(0);" class="waves-effect">
+                    <a href="{{Route('admin.index')}}" class="waves-effect">
                         <i class="remixicon-home-8-line"></i>
                         <span> Trang điều khiển </span>
                     </a>
                 </li>
-                <li class="menu-title">Quản lý trang</li>
+                <li class="menu-title">Quản lý thành viên</li>
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="remixicon-stack-line"></i>
+                        <span>Quản lý thành viên</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li>
+                            <a href="{{Route('admin.job.index')}}"><i class="remixicon-movie-line"></i> Chức vụ</a>
+                        </li>
+                        <li>
+                            <a href="{{Route('admin.member.index')}}"> <i class="remixicon-movie-line"></i>Thành viên</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-title">Quản lý dự án</li>
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="remixicon-book-mark-line"></i>
+                        <span>Quản lý dự án</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li>
+                            <a href="{{Route('admin.project.index')}}"><i class="remixicon-movie-line"></i> Dự án</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- <li class="menu-title">Quản lý trang</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <i class="remixicon-stack-line"></i>
@@ -111,7 +140,7 @@
                             <a href="extras-profile.html"><i class="remixicon-movie-line"></i> Video</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="menu-title">Quản lý cấu hình</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">

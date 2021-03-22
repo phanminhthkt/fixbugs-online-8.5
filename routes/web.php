@@ -22,28 +22,33 @@ use Illuminate\Support\Facades\Route;
 	Route::put('/ajax/priority/{id}', ['uses' => 'AjaxController@updatePriority']);
 	// Route::resource('member', 'MemberController');
 	Route::get('',['uses' => 'IndexController@index','as'=>'index']);
+	
 	/*Member */
 	Route::get('/member',['uses' => 'MemberController@index','as' => 'member.index']);
 	Route::get('/member/add',['uses' => 'MemberController@create','as' => 'member.add']);
 	Route::post('/member/store',['uses' => 'MemberController@store','as' => 'member.store']);
 	Route::get('/member/edit/{id}',['uses' => 'MemberController@edit','as' => 'member.edit']);
-	Route::put('/member/{id}', ['uses' => 'MemberController@update','as' => 'member.update']);
-	Route::delete('/member/delele/{id}',['uses' => 'MemberController@delete','as' => 'member.delete']);
-	Route::delete('/member/delete-multiple/{id}',['uses' => 'MemberController@deleteMultiple','as' => 'member.deleteMultiple']);
+	Route::put('/member/update/{id}', ['uses' => 'MemberController@update','as' => 'member.update']);
+	Route::delete('/member/delete/{id}',['uses' => 'MemberController@delete','as' => 'member.delete']);
+	Route::delete('/member/delete-multiple/{id}',['uses' => 'MemberController@deleteMultiple']);
 
 	/*Job */
-	Route::get('/job',['uses' => 'JobController@index','as'=>'job.index']);
-	Route::get('/job/add',['uses' => 'JobController@create','as'=>'job.add']);
-	Route::get('/job/store',['uses' => 'JobController@store','as'=>'job.store']);
-	Route::get('/job/edit/{id}',['uses' => 'JobController@edit','as'=>'job.edit']);
-	Route::get('/job/delele/{id}',['uses' => 'JobController@delete','as'=>'job.delete']);
+	Route::get('/job',['uses' => 'JobController@index','as' => 'job.index']);
+	Route::get('/job/add',['uses' => 'JobController@create','as' => 'job.add']);
+	Route::post('/job/store',['uses' => 'JobController@store','as' => 'job.store']);
+	Route::get('/job/edit/{id}',['uses' => 'JobController@edit','as' => 'job.edit']);
+	Route::put('/job/update/{id}', ['uses' => 'JobController@update','as' => 'job.update']);
+	Route::delete('/job/delete/{id}',['uses' => 'JobController@delete','as' => 'job.delete']);
+	Route::delete('/job/delete-multiple/{id}',['uses' => 'JobController@deleteMultiple']);
 
 	/*Project */
-	Route::get('/project',['uses' => 'ProjectController@index','as'=>'project.index']);
-	Route::get('/project/add',['uses' => 'ProjectController@create','as'=>'project.add']);
-	Route::get('/project/store',['uses' => 'ProjectController@store','as'=>'project.store']);
-	Route::get('/project/edit/{id}',['uses' => 'ProjectController@edit','as'=>'project.edit']);
-	Route::get('/project/delele/{id}',['uses' => 'ProjectController@delete','as'=>'project.delete']);
+	Route::get('/project',['uses' => 'ProjectController@index','as' => 'project.index']);
+	Route::get('/project/add',['uses' => 'ProjectController@create','as' => 'project.add']);
+	Route::post('/project/store',['uses' => 'ProjectController@store','as' => 'project.store']);
+	Route::get('/project/edit/{id}',['uses' => 'ProjectController@edit','as' => 'project.edit']);
+	Route::put('/project/update/{id}', ['uses' => 'ProjectController@update','as' => 'project.update']);
+	Route::delete('/project/delete/{id}',['uses' => 'ProjectController@delete','as' => 'project.delete']);
+	Route::delete('/project/delete-multiple/{id}',['uses' => 'ProjectController@deleteMultiple']);
 });
 
 

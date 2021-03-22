@@ -43,7 +43,6 @@
                               </th>
                               <th width="5%" class="text-center">Thứ tự</th>
                               <th class="text-center"width="20%">{{$title}}</th>
-                              <th class="text-center"width="20%">Chức vụ</th>
                               <th width="15%" class="text-center">Ngày tạo</th>
                               <th width="7%" class="text-center">Trạng thái</th>
                               <th width="10%">Hành động</th>
@@ -67,7 +66,6 @@
                                 value="{{$item->is_priority}}" >
                               </td>
                               <td align="center"><a href="{{url()->current().'/edit/'.$item->id}}">{{$item->name}}</a></td>
-                              <td align="center">{{$item->job ? $item->job->name :''}}</td>
                               <td align="center">{{$item->created_at}}</td>
 
                               <td align="center">
@@ -94,7 +92,8 @@
                                   <a href="#" 
                                     data-url="{{url()->current().'/delete/'.$item->id}}"
                                     data-id="{{$item->id}}"
-                                    class="delete-item btn btn-icon waves-effect waves-light btn-danger ml-1">
+                                    class="delete-item btn btn-icon waves-effect waves-light btn-danger ml-1" 
+                                    >
                                     <i class="mdi mdi-close"></i>
                                   </a>
                                 </div>
