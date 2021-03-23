@@ -17,9 +17,13 @@ class CreateProjectTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('photo',255)->nullable();
-            $table->string('contact_code',50)->nullable();
+            $table->string('contract_code',50)->nullable();
+            $table->string('project_staff',255)->nullable();
             $table->string('file',255)->nullable();
-            $table->rememberToken();
+            $table->integer('is_priority')->default(0);
+            $table->integer('is_status')->default(0);
+            $table->integer('is_active')->default(0);
+            $table->integer('note')->nullable();
             $table->timestamps();
         });
     }

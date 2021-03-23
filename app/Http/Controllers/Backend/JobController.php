@@ -29,12 +29,12 @@ class JobController extends Controller
 
     public function index(Request $request)
     {
-        $job  = $this->_model::where('id','<>', 0);
+        $sql  = $this->_model::where('id','<>', 0);
         if($request->has('term')){
-            $job->where('name', 'Like', '%' . $request->term . '%');
+            $sql->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '?term='.$request->term;
         }
-        $this->_data['items'] = $job->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
+        $this->_data['items'] = $sql->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
         return view('backend.job.index', $this->_data);
     }
 

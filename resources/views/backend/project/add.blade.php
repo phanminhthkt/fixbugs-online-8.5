@@ -1,0 +1,169 @@
+@extends('backend.layouts.index')
+@section('content')
+<!-- start page title -->
+<div class="row">
+   <div class="col-12">
+      <div class="page-title-box">
+         <div class="page-title-left">
+            <ol class="breadcrumb m-0">
+               <li class="breadcrumb-item"><a href="{{route('admin.index') }}"><i class="remixicon-home-8-line"></i></a></li>
+               <li class="breadcrumb-item"><a href="{{$pageIndex}}">{{$title}}</a></li>
+               <li class="breadcrumb-item active">Thêm {{$title}}</li>
+            </ol>
+         </div>
+      </div>
+   </div>
+    <div class="col-12">
+       @include('blocks.messages')
+    </div>
+  </div>
+    <form role="form" method="POST" action="{{$pageIndex.'/store'}}" enctype="multipart/form-data" >
+   @csrf
+   <div class="row d-flex flex-sm-row-reverse">
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header py-2">
+            <h5 class="card-title mb-0">THÔNG TIN CHUNG</h5>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label id="code">Tải hình ảnh</label>
+              <form action="/" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-upload-preview-template="#uploadPreviewTemplate">
+                  <div class="fallback">
+                      <input name="file" type="file">
+                  </div>
+                  <div class="photoUpload-detail" id="photoUpload-preview">
+                    <!-- <img class="rounded" src="assets/images/noimage.png" onerror="src='assets/images/noimage.png'" alt="Alt Photo"> -->
+                  </div>
+                  <div class="dz-message needsclick">
+                      <p class="h1 text-muted"><i class="mdi mdi-cloud-upload"></i></p>
+                      <h5>Kéo và thả hình vào đây</h5>
+                      <span class="btn btn-purple bg-gradient-primary text-white"><i class="mr-1 mdi mdi mdi-wallpaper"></i>Chọn hình</span>
+                  </div>
+              </form>
+              <p class="text-muted font-13 m-b-30">
+                  Hình: (.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF)
+              </p>
+          </div>
+          <div class="form-group">
+              <label>Kinh doanh phụ trách</label>
+              <select class="selectpicker">
+                  <option>Mustard</option>
+                  <option>Ketchup</option>
+                  <option>Relish</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <label>Kỹ thuật phụ trách</label>
+              <select class="selectpicker">
+                  <option>Mustard</option>
+                  <option>Ketchup</option>
+                  <option>Relish</option>
+              </select>
+          </div>
+          
+          <div class="form-group">
+              <label id="contract_code">Mã hợp đồng</label>
+              <input type="text" class="form-control" id="contract_code" name="contract_code" placeholder="Mã hợp đồng" value="{{old('contract_code')}}">
+          </div>
+          <div class="form-group">
+            <div class="row">
+
+              <div class="col-sm-6 col-12">
+                <div class="form-group">
+                <label>Tình trạng</label>
+                <select class="selectpicker" name="is_status">
+                    <option value="1"> Hiển thị</option>
+                    <option value="0"> Ẩn</option>
+                </select>
+              </div>
+              </div>
+              <div class="col-sm-6 col-12">
+                <div class="form-group">
+                  <label id="priority">Thứ tự</label>
+                    <input type="text" class="form-control" id="priority" name='is_priority' placeholder="Thứ tự" value="1">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                <label>Tình trạng dự án</label>
+                <select class="selectpicker" name="is_status">
+                    <option value="3"> Đang lập trình </option>
+                    <option value="2"> Đã hủy </option>
+                    <option value="1"> Đã bàn giao </option>
+                    <option value="0"> Chưa bàn giao </option>
+                </select>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+   </div>
+   <div class="col-lg-8">
+      <div class="card">
+        <div class="card-header py-2">
+            <h5 class="card-title mb-0">URL</h5>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+              <label id="slug">Đường dẫn</label>
+              <input type="text" class="form-control" id="slug" placeholder="Đường dẫn" value="" required="">
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header py-2 text-white">
+            <h5 class="card-title mb-0">THÔNG TIN CHI TIẾT</h5>
+        </div>
+        <div class="card-body">
+          <ul class="nav nav-tabs nav-bordered">
+            <li class="nav-item">
+                <a href="#vi" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                    <span class="d-inline-block d-sm-none"><i class="fas fa-home"></i></span>
+                    <span class="d-none d-sm-inline-block">Tiếng Việt</span> 
+                </a>
+            </li>
+            <li class="nav-item d-none">
+                <a href="#en" data-toggle="tab" aria-expanded="true" class="nav-link">
+                    <span class="d-inline-block d-sm-none"><i class="far fa-user"></i></span>
+                    <span class="d-none d-sm-inline-block">Tiếng Anh</span> 
+                </a>
+            </li>
+            <li class="nav-item d-none">
+                <a href="#kr" data-toggle="tab" aria-expanded="false" class="nav-link">
+                    <span class="d-inline-block d-sm-none"><i class="far fa-envelope"></i></span>
+                    <span class="d-none d-sm-inline-block">Tiếng Hàn</span>  
+                </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade active show" id="vi">
+              <div class="form-group">
+                <label>Tên dự án</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Dự án" value="{{old('name')}}" required="">
+                    <div class="valid-feedback">Vui lòng nhập tên dự án</div>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label>Ghi chú</label>
+                <div class="input-group">
+                  <textarea rows="4" name="note" id="note" class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade d-none" id="en">Anh</div>
+            <div class="tab-pane fade d-none" id="kr">Hàn</div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success waves-effect waves-light"><i class="far fa-plus-square mr-1"></i>Submit</button>
+      <button type="reset" class="btn btn-secondary waves-effect waves-light"><i class="fa fas fa-redo mr-1"></i>Reset</button>
+   </div>
+   
+</div>
+ </form>
+
+
+@endsection
