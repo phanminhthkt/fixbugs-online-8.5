@@ -17,7 +17,11 @@
       @include('blocks.messages')
     </div>
  </div>
- <form role="form" method="POST" action="{{$pageIndex.'/update/'.$item->id}}" enctype="multipart/form-data" >
+ <form role="form" 
+  method="POST" 
+  action="{{$pageIndex.'/update/'.$item->id.$path_type}}" 
+  enctype="multipart/form-data" 
+  >
    @csrf
    {{ method_field('PUT') }}
   <div class="row d-flex flex-sm-row-reverse">

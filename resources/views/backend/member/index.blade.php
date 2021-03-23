@@ -66,7 +66,7 @@
                                 class="form-control input-mini input-priority p-0 text-center" 
                                 value="{{$item->is_priority}}" >
                               </td>
-                              <td align="center"><a href="{{url()->current().'/edit/'.$item->id}}">{{$item->name}}</a></td>
+                              <td align="center"><a href="{{url()->current().'/edit/'.$item->id.$path_type}}">{{$item->name}}</a></td>
                               <td align="center">{{$item->job ? $item->job->name :''}}</td>
                               <td align="center">{{$item->created_at}}</td>
 

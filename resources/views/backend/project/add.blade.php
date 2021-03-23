@@ -23,49 +23,61 @@
     <div class="col-lg-4">
       <div class="card">
         <div class="card-header py-2">
-            <h5 class="card-title mb-0">THÔNG TIN CHUNG</h5>
+            <h5 class="card-title mb-0">File đặc tả</h5>
         </div>
         <div class="card-body">
           <div class="form-group">
             <label id="code">Tải hình ảnh</label>
-              <form action="/" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-upload-preview-template="#uploadPreviewTemplate">
-                  <div class="fallback">
-                      <input name="file" type="file">
-                  </div>
-                  <div class="photoUpload-detail" id="photoUpload-preview">
-                    <!-- <img class="rounded" src="assets/images/noimage.png" onerror="src='assets/images/noimage.png'" alt="Alt Photo"> -->
-                  </div>
-                  <div class="dz-message needsclick">
-                      <p class="h1 text-muted"><i class="mdi mdi-cloud-upload"></i></p>
-                      <h5>Kéo và thả hình vào đây</h5>
-                      <span class="btn btn-purple bg-gradient-primary text-white"><i class="mr-1 mdi mdi mdi-wallpaper"></i>Chọn hình</span>
-                  </div>
-              </form>
-              <p class="text-muted font-13 m-b-30">
-                  Hình: (.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF)
-              </p>
           </div>
-          <div class="form-group">
-              <label>Kinh doanh phụ trách</label>
-              <select class="selectpicker">
-                  <option>Mustard</option>
-                  <option>Ketchup</option>
-                  <option>Relish</option>
-              </select>
-          </div>
-          <div class="form-group">
-              <label>Kỹ thuật phụ trách</label>
-              <select class="selectpicker">
-                  <option>Mustard</option>
-                  <option>Ketchup</option>
-                  <option>Relish</option>
-              </select>
-          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header py-2">
+            <h5 class="card-title mb-0">THÔNG TIN CHUNG</h5>
+        </div>
+        <div class="card-body">
           
           <div class="form-group">
-              <label id="contract_code">Mã hợp đồng</label>
-              <input type="text" class="form-control" id="contract_code" name="contract_code" placeholder="Mã hợp đồng" value="{{old('contract_code')}}">
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                  <label>Sale phụ trách</label>
+                  <select class="selectpicker">
+                      <option>Mustard</option>
+                      <option>Ketchup</option>
+                      <option>Relish</option>
+                  </select>
+                </div>
+                <div class="col-sm-6 col-12">
+                    <label>Dev phụ trách</label>
+                    <select class="selectpicker">
+                        <option>Mustard</option>
+                        <option>Ketchup</option>
+                        <option>Relish</option>
+                    </select>
+                </div>
+              </div>
           </div>
+          <div class="form-group">
+              <div class="row">
+                <div class="col-sm-6 col-12">
+                    <label>Tình trạng lập trình</label>
+                    <select class="selectpicker" name="is_status_build">
+                        <option value="0"> Chưa lập trình</option>
+                        <option value="1"> Đang lập trình </option>
+                        <option value="2"> Đã lập trình </option>
+                    </select>
+                </div>
+                <div class="col-sm-6 col-12">
+                    <label>Tình trạng dự án</label>
+                    <select class="selectpicker" name="is_status_project">
+                        <option value="0"> Chưa bàn giao</option>
+                        <option value="2"> Đã bàn giao</option>
+                    </select>
+                </div>
+              </div>
+            </div>
+          
+          
           <div class="form-group">
             <div class="row">
 
@@ -85,33 +97,16 @@
                 </div>
               </div>
             </div>
+            
             <div class="form-group">
-                <div class="form-group">
-                <label>Tình trạng dự án</label>
-                <select class="selectpicker" name="is_status">
-                    <option value="3"> Đang lập trình </option>
-                    <option value="2"> Đã hủy </option>
-                    <option value="1"> Đã bàn giao </option>
-                    <option value="0"> Chưa bàn giao </option>
-                </select>
-              </div>
-          </div>
+                
+            </div>
+            
           </div>
         </div>
       </div>
    </div>
    <div class="col-lg-8">
-      <div class="card">
-        <div class="card-header py-2">
-            <h5 class="card-title mb-0">URL</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-group">
-              <label id="slug">Đường dẫn</label>
-              <input type="text" class="form-control" id="slug" placeholder="Đường dẫn" value="" required="">
-          </div>
-        </div>
-      </div>
       <div class="card">
         <div class="card-header py-2 text-white">
             <h5 class="card-title mb-0">THÔNG TIN CHI TIẾT</h5>
@@ -145,6 +140,14 @@
                     <input type="text" class="form-control" id="name" name="name" placeholder="Dự án" value="{{old('name')}}" required="">
                     <div class="valid-feedback">Vui lòng nhập tên dự án</div>
                   </div>
+              </div>
+              <div class="form-group">
+                <label id="contract_code">Mã hợp đồng</label>
+                <input type="text" class="form-control" id="contract_code" name="contract_code" placeholder="Mã hợp đồng" value="{{old('contract_code')}}">
+              </div>
+              <div class="form-group">
+                <label id="link_design">Link design</label>
+                <input type="text" class="form-control" id="link_design" name="link_design" placeholder="Mã hợp đồng" value="{{old('link_design')}}">
               </div>
               <div class="form-group">
                 <label>Ghi chú</label>

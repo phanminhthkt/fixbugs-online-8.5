@@ -22,7 +22,7 @@ class MemberController extends Controller
     private $_pathType;
     private $_model;
 
-    public function __construct(Member $member)
+    public function __construct(Member $member,Request $request)
     {
         $this->_model = $member;
         $this->_pathType = '';
@@ -30,14 +30,17 @@ class MemberController extends Controller
         $this->_data['table'] = 'members';
         $this->_data['jobs'] = Job::all();
         $this->_data['title'] = 'Thành viên';
+        $this->_data['type'] = $request->type;
+        $this->_data['path_type'] = isset($_GET['type']) ? '?type='.$_GET['type']:'';
     }
 
     public function index(Request $request)
     {
-        $member  = Member::with(['job']);
+        $member  = Member::with(['job'])->where('type',$request->type);
+        $this->_pathType = '?type='.$request->type;
         if($request->has('term')){
             $member->where('name', 'Like', '%' . $request->term . '%');
-            $this->_pathType .= '?term='.$request->term;
+            $this->_pathType .= '&term='.$request->term;
         }
         $this->_data['items'] = $member->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
         return view('backend.member.index', $this->_data);
@@ -64,10 +67,11 @@ class MemberController extends Controller
         $data = $request->except('_token','password_confirmation');
         $data['password'] = Hash::make($request->password);
         $data['remember_token'] = $request->_token;
+
         if($this->_model->create($data)){
-            return redirect()->route('admin.member.index')->with('success', 'Thêm thành viên <b>'. $request->name .'</b> thành công');
+            return redirect()->route('admin.member.index',['type' => $request->type])->with('success', 'Thêm thành viên <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.member.index')->with('error', 'Thêm thành viên <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.member.index',['type' => $request->type])->with('error', 'Thêm thành viên <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 
@@ -110,9 +114,9 @@ class MemberController extends Controller
         $data['password'] = Hash::make($request->password);
         $data['remember_token'] = $request->_token;
         if($this->_model->where('id', $id)->update($data)){
-            return redirect()->route('admin.member.index')->with('success', 'Chỉnh sửa thành viên <b>'. $request->name .'</b> thành công');
+            return redirect()->route('admin.member.index',['type' => $request->type])->with('success', 'Chỉnh sửa thành viên <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.member.index')->with('error', 'Chỉnh sửa thành viên <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.member.index',['type' => $request->type])->with('error', 'Chỉnh sửa thành viên <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 

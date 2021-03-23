@@ -22,6 +22,7 @@ class CreateMembersTable extends Migration
             $table->string('password', 255);
             $table->integer('id_parent')->default(0);
             $table->string('project', 50)->nullable();
+            $table->string('type', 50)->nullable();
             $table->integer('role')->default(0);
             $table->integer('is_status')->default(0);
             $table->integer('is_active')->default(0);

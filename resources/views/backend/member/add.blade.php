@@ -18,7 +18,11 @@
          @include('blocks.messages')
     </div>
   </div>
-    <form role="form" method="POST" action="{{$pageIndex.'/store'}}" enctype="multipart/form-data" >
+    <form role="form" 
+    method="POST" 
+    action="{{$pageIndex.'/store'.$path_type}}" 
+    enctype="multipart/form-data" 
+    >
    @csrf
    <div class="row d-flex flex-sm-row-reverse">
     <div class="col-lg-4">

@@ -21,6 +21,7 @@ class Member extends Authenticatable
         'email',
         'password',
         'username',
+        'type',
         'is_job',
         'is_status',
         'is_priority',

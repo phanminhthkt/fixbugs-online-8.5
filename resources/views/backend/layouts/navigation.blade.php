@@ -1,4 +1,3 @@
-
     <div class="slimscroll-menu">
         <!--- Sidemenu -->
         <div id="sidebar-menu">
@@ -11,32 +10,32 @@
                 </li>
                 <li class="menu-title">Quản lý thành viên</li>
                 <li>
-                    <a href="javascript: void(0);" class="waves-effect">
+                    <a href="javascript: void(0)" class="waves-effect">
                         <i class="remixicon-stack-line"></i>
                         <span>Quản lý thành viên</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
                         <li>
-                            <a href="{{Route('admin.job.index')}}"><i class="remixicon-movie-line"></i> Chức vụ</a>
+                            <a href="{{Route('admin.member.index',['type'=>'dev'])}}"><i class="remixicon-movie-line"></i>Kỹ thuật</a>
                         </li>
                         <li>
-                            <a href="{{Route('admin.member.index')}}"> <i class="remixicon-movie-line"></i>Thành viên</a>
+                            <a href="{{Route('admin.member.index',['type'=>'sale'])}}"> <i class="remixicon-movie-line"></i>Kinh doanh</a>
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="{{Route('admin.job.index')}}" class="waves-effect">
+                        <i class="remixicon-vip-crown-2-line"></i>
+                        <span>Quản lý chức vụ</span>
+                    </a>
+                </li>
                 <li class="menu-title">Quản lý dự án</li>
                 <li>
-                    <a href="javascript: void(0);" class="waves-effect">
+                    <a href="{{Route('admin.project.index')}}" class="waves-effect">
                         <i class="remixicon-book-mark-line"></i>
                         <span>Quản lý dự án</span>
-                        <span class="menu-arrow"></span>
                     </a>
-                    <ul class="nav-second-level" aria-expanded="false">
-                        <li>
-                            <a href="{{Route('admin.project.index')}}"><i class="remixicon-movie-line"></i> Dự án</a>
-                        </li>
-                    </ul>
                 </li>
                 <!-- <li class="menu-title">Quản lý trang</li>
                 <li>
