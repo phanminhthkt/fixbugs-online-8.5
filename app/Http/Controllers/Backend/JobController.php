@@ -25,6 +25,7 @@ class JobController extends Controller
         $this->_data['pageIndex'] = route('admin.job.index');
         $this->_data['table'] = 'jobs';
         $this->_data['title'] = 'Chức vụ';
+        $this->_data['path_type'] = isset($_GET['type']) ? '?type='.$_GET['type']:'';
     }
 
     public function index(Request $request)

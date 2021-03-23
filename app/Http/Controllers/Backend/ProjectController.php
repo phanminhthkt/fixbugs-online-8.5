@@ -29,6 +29,7 @@ class ProjectController extends Controller
         $this->_data['jobs'] = Job::all();
         $this->_data['members'] = Member::all();
         $this->_data['title'] = 'Dự án';
+        $this->_data['path_type'] = isset($_GET['type']) ? '?type='.$_GET['type']:'';
     }
 
     public function index(Request $request)
