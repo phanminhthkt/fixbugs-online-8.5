@@ -15,9 +15,11 @@ class CreateProjectDetailTable extends Migration
     {
         Schema::create('project_detail', function (Blueprint $table) {
             $table->id();
-            $table->integer('is_dev')->default(0);;
-            $table->integer('is_sale')->default(0);;
-            $table->integer('is_project')->default(0);;
+            $table->integer('id_dev')->default(0);
+            $table->integer('id_sale')->default(0);
+            $table->integer('id_status_code')->default(0);
+            $table->integer('id_status_project')->default(0);
+            $table->integer('id_project')->default(0);
             $table->timestamps();
         });
     }

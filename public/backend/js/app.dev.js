@@ -226,3 +226,12 @@ if(URL.type!=''){
 	})
 }
 // End active menu third
+// Change file
+$('body').on('change','.custom-file-dev input[type=file]', function(){
+	var fileName = $(this).val();
+	fileName = fileName.substr(fileName.lastIndexOf('\\') + 1, fileName.length);
+	$(this).siblings('label').html(fileName);
+	$(this).parents("div.form-group").children(".change-photo").find("b.text-sm").html(fileName);
+	$(this).parents("div.form-group  label").children(".change-file").find("b.text-sm").html(fileName);
+});
+// End change file

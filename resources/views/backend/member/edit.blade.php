@@ -17,11 +17,13 @@
       @include('blocks.messages')
     </div>
  </div>
- <form role="form" 
+ <form 
+  class='needs-validation'
+  role="form" 
   method="POST" 
   action="{{$pageIndex.'/update/'.$item->id.$path_type}}" 
   enctype="multipart/form-data" 
-  >
+  novalidate >
    @csrf
    {{ method_field('PUT') }}
   <div class="row d-flex flex-sm-row-reverse">
@@ -33,7 +35,7 @@
         <div class="card-body">
           <div class="form-group">
               <label>Chức vụ</label>
-              <select class="selectpicker" data-live-search="true" name="is_job" id="job" required>
+              <select class="selectpicker" data-live-search="true" name="is_job" id="job">
               <option value="" >Chọn chức vụ</option>
                 @foreach($jobs as $job)
                 <option 
@@ -103,7 +105,7 @@
                           <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-user"></i></span>
                       </div>
                       <input type="text" class="form-control" id="username" name="username"  placeholder="Tên người dùng" value="{{$item->username}}" required="">
-                      <div class="valid-feedback">Vui lòng nhập username</div>
+                      <div class="invalid-feedback">Vui lòng nhập username</div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -112,7 +114,7 @@
                           <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-envelope"></i></span>
                       </div>
                       <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{$item->email}}" required="">
-                      <div class="valid-feedback">Vui lòng nhập email</div>
+                      <div class="invalid-feedback">Vui lòng nhập email</div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -121,7 +123,7 @@
                           <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-lock"></i></span>
                       </div>
                       <input type="password" class="form-control" id="password" name="password"  placeholder="Mật khẩu" value="" required="">
-                      <div class="valid-feedback">Vui lòng nhập mật khẩu</div>
+                      <div class="invalid-feedback">Vui lòng nhập mật khẩu</div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -130,7 +132,7 @@
                           <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-lock"></i></span>
                       </div>
                       <input type="password" class="form-control" id="password" name="password_confirmation" placeholder="Nhập lại mật khẩu" value="" required="">
-                      <div class="valid-feedback">Vui lòng xác nhận lại mật khẩu.</div>
+                      <div class="invalid-feedback">Vui lòng xác nhận lại mật khẩu.</div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -139,7 +141,7 @@
                           <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-user"></i></span>
                       </div>
                       <input type="text" class="form-control" id="name" name="name" placeholder="Họ và tên" value="{{$item->name}}" required="">
-                      <div class="valid-feedback">Vui lòng nhập họ và tên</div>
+                      <div class="invalid-feedback">Vui lòng nhập họ và tên</div>
                     </div>
                 </div>
                 

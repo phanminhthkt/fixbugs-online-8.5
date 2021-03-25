@@ -17,7 +17,7 @@
       @include('blocks.messages')
     </div>
  </div>
- <form role="form" method="POST" action="{{$pageIndex.'/update/'.$item->id}}" enctype="multipart/form-data" >
+ <form role="form" class='needs-validation' method="POST" action="{{$pageIndex.'/update/'.$item->id}}" enctype="multipart/form-data"  novalidate>
    @csrf
    {{ method_field('PUT') }}
   <div class="row d-flex flex-sm-row-reverse">
@@ -83,7 +83,7 @@
                   <label>Chức vụ</label>
                     <div class="input-group">
                       <input type="text" class="form-control" id="name" name="name" placeholder="Chức vụ" value="{{$item->name}}" required="">
-                      <div class="valid-feedback">Vui lòng nhập chức vụ</div>
+                      <div class="invalid-feedback">Vui lòng nhập chức vụ</div>
                     </div>
                 </div>
                 

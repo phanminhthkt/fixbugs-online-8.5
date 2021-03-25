@@ -39,7 +39,7 @@
                 <li class="{{ request()->routeIs('admin.status.*') ? 'mm-active' : '' }}">
                     <a href="javascript: void(0)" class="waves-effect">
                         <i class="fas fa-tasks"></i>
-                        <span>Quản lý tiến độ</span>
+                        <span>Quản lý trạng thái</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">

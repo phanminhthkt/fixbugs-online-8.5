@@ -12,6 +12,10 @@ class Project extends Model
     protected $table = 'projects';
     protected $fillable = [
         'name',
+        'contract_code',
+        'link_design',
+        'note',
+        'file',
         'is_status',
         'is_priority',
     ];

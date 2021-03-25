@@ -83,7 +83,7 @@
                   <label>Chức vụ</label>
                     <div class="input-group">
                       <input type="text" class="form-control" id="name" name="name" placeholder="Chức vụ" value="{{$item->name}}" required="">
-                      <div class="valid-feedback">Vui lòng nhập chức vụ</div>
+                      <div class="invalid-feedback">Vui lòng nhập chức vụ</div>
                     </div>
                 </div>
                 

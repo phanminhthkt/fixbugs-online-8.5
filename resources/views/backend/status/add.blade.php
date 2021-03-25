@@ -18,11 +18,13 @@
          @include('blocks.messages')
     </div>
   </div>
-    <form role="form" 
+    <form 
+    class='needs-validation'
+    role="form" 
     method="POST" 
     action="{{$pageIndex.'/store'.$path_type}}" 
     enctype="multipart/form-data" 
-    >
+    novalidate>
    @csrf
    <div class="row d-flex flex-sm-row-reverse">
     <div class="col-lg-4">
@@ -85,7 +87,7 @@
                   <label>Tình trạng</label>
                     <div class="input-group">
                       <input type="text" class="form-control" id="name" name="name" placeholder="Tình trạng" value="{{old('name')}}" required="">
-                      <div class="valid-feedback">Vui lòng nhập tình trạng</div>
+                      <div class="invalid-feedback">Vui lòng nhập tình trạng</div>
                     </div>
                 </div>
                 

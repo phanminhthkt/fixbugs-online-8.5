@@ -65,8 +65,27 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $this->_data['item'] = $this->_model->findOrFail($id);
-        return view('backend.project.edit',$this->_data);
+        $data = $request->except('_token');
+        if($request->hasFile('file')){
+            // $this->validate($request,[
+            //         'file' => 'mimes:doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS|max:2048',],          
+            //     [
+            //         'file.mimes' => 'Chỉ chấp nhận file đuôi doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS',
+            //         'file.max' => 'File giới hạn dung lượng không quá 2M',
+            //     ]
+            // );
+            $file = $request->file('file');
+            $nameFile =  time().'_'.$file->getClientOriginalName();
+            $file->move(public_path('uploads/files'),$nameFile);
+            $data['file'] =  $nameFile;
+            
+        }
+
+        if($this->_model->create($data)){
+            return redirect()->route('admin.project.index',['type' => $request->type])->with('success', 'Thêm dự án <b>'. $request->name .'</b> thành công');
+        }else{
+            return redirect()->route('admin.project.index',['type' => $request->type])->with('error', 'Thêm dự án <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+        }
     }
 
     /**

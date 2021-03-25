@@ -44,7 +44,7 @@
                 <div class="form-group">
                   <label for="namevi">Tiêu đề (vi)</label>
                   <input type="text" class="form-control" id="namevi" placeholder="Tiêu đề vi" value="" required="">
-                  <div class="valid-feedback">Vui lòng nhập tiêu đề</div>
+                  <div class="invalid-feedback">Vui lòng nhập tiêu đề</div>
               </div>
               <div class="form-group">
                   <label for="motavi">Mô tả (vi)</label>

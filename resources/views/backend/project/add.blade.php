@@ -17,7 +17,7 @@
        @include('blocks.messages')
     </div>
   </div>
-    <form role="form" method="POST" action="{{$pageIndex.'/store'}}" enctype="multipart/form-data" >
+    <form role="form" class='needs-validation' method="POST" action="{{$pageIndex.'/store'}}" enctype="multipart/form-data" novalidate>
    @csrf
    <div class="row d-flex flex-sm-row-reverse">
     <div class="col-lg-4">
@@ -27,7 +27,19 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-            <label id="code">Tải hình ảnh</label>
+            <div class="dropzone">
+              <div class="text-center">
+                  <label for="file-taptin">
+                    <p class="h1 text-muted"><i class="mdi mdi-cloud-upload"></i></p>
+                    <h5>Kéo file vào đây</h5>
+                    <div class="custom-file-dev fileupload">
+                        <input type="file" class="custom-file" name="file" class="upload" id="file-taptin">
+                    </div>
+                    <div class="change-file"><b class="text-sm text-split text-danger"></b></div>
+                  </label>
+                  
+                </div>
+            </div>
           </div>
         </div>
       </div>
@@ -41,8 +53,8 @@
             <div class="row">
                 <div class="col-sm-6 col-12">
                   <label>Sale phụ trách</label>
-                  <select class="selectpicker" name="is_sale">
-                      <option value="0" >Chọn saler</option>
+                  <select class="selectpicker" name="is_sale" required="">
+                      <option value="" >Chọn saler</option>
                         @foreach($sales as $v)
                         <option value="{{$v->id}}">
                         {{$v->name}}
@@ -52,8 +64,8 @@
                 </div>
                 <div class="col-sm-6 col-12">
                     <label>Dev phụ trách</label>
-                    <select class="selectpicker" name="is_dev">
-                      <option value="0" >Chọn dev</option>
+                    <select class="selectpicker" name="is_dev" required="">
+                      <option value="" >Chọn dev</option>
                         @foreach($devs as $v)
                         <option value="{{$v->id}}">
                         {{$v->name}}
@@ -67,8 +79,8 @@
               <div class="row">
                 <div class="col-sm-6 col-12">
                     <label>Tình trạng lập trình</label>
-                    <select class="selectpicker" name="is_status_code">
-                        <option value="0" >Chọn trạng thái</option>
+                    <select class="selectpicker" name="is_status_code" required="">
+                        <option value="" >Chọn trạng thái</option>
                           @foreach($status_codes as $v)
                           <option value="{{$v->id}}">
                           {{$v->name}}
@@ -78,8 +90,8 @@
                 </div>
                 <div class="col-sm-6 col-12">
                     <label>Tình trạng dự án</label>
-                    <select class="selectpicker" name="is_status_code">
-                        <option value="0" >Chọn trạng thái</option>
+                    <select class="selectpicker" name="is_status_code" required="">
+                        <option value="" >Chọn trạng thái</option>
                           @foreach($status_projects as $v)
                           <option value="{{$v->id}}">
                           {{$v->name}}
@@ -151,16 +163,17 @@
                 <label>Tên dự án</label>
                   <div class="input-group">
                     <input type="text" class="form-control" id="name" name="name" placeholder="Dự án" value="{{old('name')}}" required="">
-                    <div class="valid-feedback">Vui lòng nhập tên dự án</div>
+                    <div class="invalid-feedback">Vui lòng nhập tên dự án</div>
                   </div>
               </div>
               <div class="form-group">
                 <label id="contract_code">Mã hợp đồng</label>
-                <input type="text" class="form-control" id="contract_code" name="contract_code" placeholder="Mã hợp đồng" value="{{old('contract_code')}}">
+                <input type="text" class="form-control" id="contract_code" name="contract_code" placeholder="Mã hợp đồng" value="{{old('contract_code')}}" required="">
+                <div class="invalid-feedback">Vui lòng nhập mã hợp đồng</div>
               </div>
               <div class="form-group">
                 <label id="link_design">Link design</label>
-                <input type="text" class="form-control" id="link_design" name="link_design" placeholder="Mã hợp đồng" value="{{old('link_design')}}">
+                <input type="text" class="form-control" id="link_design" name="link_design" placeholder="Link design" value="{{old('link_design')}}">
               </div>
               <div class="form-group">
                 <label>Ghi chú</label>
