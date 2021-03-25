@@ -9,7 +9,7 @@
                     </a>
                 </li>
                 <li class="menu-title">Quản lý thành viên</li>
-                <li>
+                <li class="{{ request()->routeIs('admin.member.*') ? 'mm-active' : '' }}">
                     <a href="javascript: void(0)" class="waves-effect">
                         <i class="remixicon-stack-line"></i>
                         <span>Quản lý thành viên</span>
@@ -31,11 +31,28 @@
                     </a>
                 </li>
                 <li class="menu-title">Quản lý dự án</li>
-                <li>
+                <li >
                     <a href="{{Route('admin.project.index')}}" class="waves-effect">
                         <i class="remixicon-book-mark-line"></i>
                         <span>Quản lý dự án</span>
                     </a>
+                <li class="{{ request()->routeIs('admin.status.*') ? 'mm-active' : '' }}">
+                    <a href="javascript: void(0)" class="waves-effect">
+                        <i class="fas fa-tasks"></i>
+                        <span>Quản lý tiến độ</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li>
+                            <a 
+
+                            href="{{Route('admin.status.index',['type'=>'project'])}}">
+                            <i class="remixicon-movie-line"></i>Tiến độ dự án</a>
+                        </li>
+                        <li>
+                            <a href="{{Route('admin.status.index',['type'=>'code'])}}"> <i class="remixicon-movie-line"></i>Tiến độ lập trình</a>
+                        </li>
+                    </ul>
                 </li>
                 <!-- <li class="menu-title">Quản lý trang</li>
                 <li>
@@ -158,3 +175,8 @@
     <!-- Sidebar -left -->
 
 </div>
+<script type="text/javascript">
+    var URL = {
+        'type': '<?=isset($_GET['type']) ? $_GET['type'] :''?>',
+    };
+</script>

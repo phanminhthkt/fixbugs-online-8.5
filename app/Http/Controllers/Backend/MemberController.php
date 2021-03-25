@@ -36,13 +36,13 @@ class MemberController extends Controller
 
     public function index(Request $request)
     {
-        $member  = Member::with(['job'])->where('type',$request->type);
+        $sql  = Member::with(['job'])->where('type',$request->type);
         $this->_pathType = '?type='.$request->type;
         if($request->has('term')){
-            $member->where('name', 'Like', '%' . $request->term . '%');
+            $sql->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '&term='.$request->term;
         }
-        $this->_data['items'] = $member->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
+        $this->_data['items'] = $sql->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
         return view('backend.member.index', $this->_data);
     }
 

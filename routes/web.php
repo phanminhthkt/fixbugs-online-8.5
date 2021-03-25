@@ -41,6 +41,15 @@ use Illuminate\Support\Facades\Route;
 	Route::delete('/job/delete/{id}',['uses' => 'JobController@delete','as' => 'job.delete']);
 	Route::delete('/job/delete-multiple/{id}',['uses' => 'JobController@deleteMultiple']);
 
+	/*Job */
+	Route::get('/status',['uses' => 'StatusController@index','as' => 'status.index']);
+	Route::get('/status/add',['uses' => 'StatusController@create','as' => 'status.add']);
+	Route::post('/status/store',['uses' => 'StatusController@store','as' => 'status.store']);
+	Route::get('/status/edit/{id}',['uses' => 'StatusController@edit','as' => 'status.edit']);
+	Route::put('/status/update/{id}', ['uses' => 'StatusController@update','as' => 'status.update']);
+	Route::delete('/status/delete/{id}',['uses' => 'StatusController@delete','as' => 'status.delete']);
+	Route::delete('/status/delete-multiple/{id}',['uses' => 'StatusController@deleteMultiple']);
+
 	/*Project */
 	Route::get('/project',['uses' => 'ProjectController@index','as' => 'project.index']);
 	Route::get('/project/add',['uses' => 'ProjectController@create','as' => 'project.add']);

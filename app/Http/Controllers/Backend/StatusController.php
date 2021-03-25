@@ -1,50 +1,44 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Member;
-use App\Models\Job;
 use App\Models\Status;
-use App\Models\Project;
 
-class ProjectController extends Controller
+class StatusController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     private $_data;
     private $_pathType;
     private $_model;
 
-    public function __construct(Project $project)
+    public function __construct(Status $status,Request $request)
     {
-        $this->_model = $project;
+        $this->_model = $status;
         $this->_pathType = '';
-        $this->_data['pageIndex'] = route('admin.project.index');
-        $this->_data['table'] = 'projects';
-        $this->_data['jobs'] = Job::all();
-        $this->_data['devs'] = Member::where('type','=','dev')->get();
-        $this->_data['sales'] = Member::where('type','=','sale')->get();
-        $this->_data['status_codes'] = Status::where('type','=','code')->get();
-        $this->_data['status_projects'] = Status::where('type','=','project')->get();
-        $this->_data['title'] = 'Dự án';
+        $this->_data['pageIndex'] = route('admin.status.index');
+        $this->_data['table'] = 'status';
+        $this->_data['title'] = 'Tình trạng';
+        $this->_data['type'] = $request->type;
+
         $this->_data['path_type'] = isset($_GET['type']) ? '?type='.$_GET['type']:'';
     }
 
     public function index(Request $request)
     {
-        $sql  = $this->_model::where('id','<>', 0);
+        $sql  = $this->_model::where('id','<>', 0)->where('type',$request->type);
+        $this->_pathType = '?type='.$request->type;
         if($request->has('term')){
             $sql->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '?term='.$request->term;
         }
         $this->_data['items'] = $sql->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
-        return view('backend.project.index', $this->_data);
+        return view('backend.status.index', $this->_data);
     }
 
     /**
@@ -54,7 +48,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('backend.project.add',$this->_data);
+        return view('backend.status.add',$this->_data);
     }
 
     /**
@@ -65,8 +59,12 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $this->_data['item'] = $this->_model->findOrFail($id);
-        return view('backend.project.edit',$this->_data);
+        $data = $request->except('_token');
+        if($this->_model->create($data)){
+            return redirect()->route('admin.status.index',['type' => $request->type])->with('success', 'Thêm trạng thái <b>'. $request->name .'</b> thành công');
+        }else{
+            return redirect()->route('admin.status.index',['type' => $request->type])->with('error', 'Thêm trạng thái <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+        }
     }
 
     /**
@@ -88,7 +86,8 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this->_data['item'] = $this->_model->findOrFail($id);
+        return view('backend.status.edit',$this->_data);
     }
 
     /**
@@ -100,7 +99,13 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->_model->findOrFail($id);
+        $data = $request->except('_token','_method');//# request only
+        if($this->_model->where('id', $id)->update($data)){
+            return redirect()->route('admin.status.index',['type' => $request->type])->with('success', 'Chỉnh sửa chức vụ <b>'. $request->name .'</b> thành công');
+        }else{
+            return redirect()->route('admin.status.index',['type' => $request->type])->with('error', 'Chỉnh sửa chức vụ <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+        }
     }
 
     /**
@@ -113,17 +118,17 @@ class ProjectController extends Controller
     {
         $this->_model->findOrFail($id);
         if($this->_model->where('id', $id)->delete()){
-            return ['success' => true, 'message' => 'Xóa dự án thành công !!'];
+            return ['success' => true, 'message' => 'Xóa trạng thái thành công !!'];
         }else{
-            return ['error' => true, 'message' => 'Xóa dự án thất bại.Xin vui lòng thử lại !!'];
+            return ['error' => true, 'message' => 'Xóa trạng thái thất bại.Xin vui lòng thử lại !!'];
         }
     }
     public function deleteMultiple($listId)
     {
         if($this->_model->whereIn('id',explode(",",$listId))->delete()){
-            return ['success' => true, 'message' => 'Xóa dự án thành công !!'];
+            return ['success' => true, 'message' => 'Xóa trạng thái thành công !!'];
         }else{
-            return ['error' => true, 'message' => 'Xóa dự án thất bại.Xin vui lòng thử lại !!'];
+            return ['error' => true, 'message' => 'Xóa trạng thái thất bại.Xin vui lòng thử lại !!'];
         }
     }
 }

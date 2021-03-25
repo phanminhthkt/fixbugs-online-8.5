@@ -41,18 +41,24 @@
             <div class="row">
                 <div class="col-sm-6 col-12">
                   <label>Sale phụ trách</label>
-                  <select class="selectpicker">
-                      <option>Mustard</option>
-                      <option>Ketchup</option>
-                      <option>Relish</option>
-                  </select>
+                  <select class="selectpicker" name="is_sale">
+                      <option value="0" >Chọn saler</option>
+                        @foreach($sales as $v)
+                        <option value="{{$v->id}}">
+                        {{$v->name}}
+                        </option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-sm-6 col-12">
                     <label>Dev phụ trách</label>
-                    <select class="selectpicker">
-                        <option>Mustard</option>
-                        <option>Ketchup</option>
-                        <option>Relish</option>
+                    <select class="selectpicker" name="is_dev">
+                      <option value="0" >Chọn dev</option>
+                        @foreach($devs as $v)
+                        <option value="{{$v->id}}">
+                        {{$v->name}}
+                        </option>
+                        @endforeach
                     </select>
                 </div>
               </div>
@@ -61,18 +67,25 @@
               <div class="row">
                 <div class="col-sm-6 col-12">
                     <label>Tình trạng lập trình</label>
-                    <select class="selectpicker" name="is_status_build">
-                        <option value="0"> Chưa lập trình</option>
-                        <option value="1"> Đang lập trình </option>
-                        <option value="2"> Đã lập trình </option>
-                    </select>
+                    <select class="selectpicker" name="is_status_code">
+                        <option value="0" >Chọn trạng thái</option>
+                          @foreach($status_codes as $v)
+                          <option value="{{$v->id}}">
+                          {{$v->name}}
+                          </option>
+                          @endforeach
+                        </select>
                 </div>
                 <div class="col-sm-6 col-12">
                     <label>Tình trạng dự án</label>
-                    <select class="selectpicker" name="is_status_project">
-                        <option value="0"> Chưa bàn giao</option>
-                        <option value="2"> Đã bàn giao</option>
-                    </select>
+                    <select class="selectpicker" name="is_status_code">
+                        <option value="0" >Chọn trạng thái</option>
+                          @foreach($status_projects as $v)
+                          <option value="{{$v->id}}">
+                          {{$v->name}}
+                          </option>
+                          @endforeach
+                        </select>
                 </div>
               </div>
             </div>
