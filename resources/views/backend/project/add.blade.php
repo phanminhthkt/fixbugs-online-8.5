@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-sm-6 col-12">
                   <label>Sale phụ trách</label>
-                  <select class="selectpicker" name="is_sale" required="">
+                  <select class="selectpicker" name="id_sale">
                       <option value="" >Chọn saler</option>
                         @foreach($sales as $v)
                         <option value="{{$v->id}}">
@@ -64,7 +64,7 @@
                 </div>
                 <div class="col-sm-6 col-12">
                     <label>Dev phụ trách</label>
-                    <select class="selectpicker" name="is_dev" required="">
+                    <select class="selectpicker" name="id_dev">
                       <option value="" >Chọn dev</option>
                         @foreach($devs as $v)
                         <option value="{{$v->id}}">
@@ -79,7 +79,7 @@
               <div class="row">
                 <div class="col-sm-6 col-12">
                     <label>Tình trạng lập trình</label>
-                    <select class="selectpicker" name="is_status_code" required="">
+                    <select class="selectpicker" name="id_status_code">
                         <option value="" >Chọn trạng thái</option>
                           @foreach($status_codes as $v)
                           <option value="{{$v->id}}">
@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-sm-6 col-12">
                     <label>Tình trạng dự án</label>
-                    <select class="selectpicker" name="is_status_code" required="">
+                    <select class="selectpicker" name="id_status_project">
                         <option value="" >Chọn trạng thái</option>
                           @foreach($status_projects as $v)
                           <option value="{{$v->id}}">

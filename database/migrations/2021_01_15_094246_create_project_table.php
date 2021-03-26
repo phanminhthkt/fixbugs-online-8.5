@@ -22,8 +22,8 @@ class CreateProjectTable extends Migration
             $table->integer('is_priority')->default(0);
             $table->integer('is_status')->default(1);
             $table->integer('is_active')->default(0);
-            $table->integer('note')->nullable();
-            $table->integer('link_design')->nullable();
+            $table->string('note')->nullable();
+            $table->string('link_design')->nullable();
             $table->timestamps();
         });
     }

@@ -28,7 +28,7 @@ class CreateMembersTable extends Migration
             $table->integer('is_active')->default(0);
             $table->rememberToken();
             $table->integer('is_priority')->default(0);
-            $table->integer('is_job')->default(0);
+            $table->integer('is_job')->default(0)->nullable();
             $table->timestamps();
         });
     }
