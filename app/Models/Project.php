@@ -19,7 +19,16 @@ class Project extends Model
         'is_status',
         'is_priority',
     ];
-    public function getProjectDetail(){
-        return $this->belongsToMany(Role::class)->withPivot('active', 'created_by');
+    public function dev(){
+        return $this->belongsTo(Member::class, 'project_detail', 'id_dev', 'id_project');
+    }
+    public function sale(){
+        return $this->belongsTo(Member::class, 'project_detail', 'id_sale', 'id_project');
+    }
+    public function status_project(){
+        return $this->belongsTo(Status::class, 'project_detail', 'id_status_project', 'id_project');
+    }
+    public function status_code(){
+        return $this->belongsTo(Status::class, 'project_detail', 'id_status_code', 'id_project');
     }
 }

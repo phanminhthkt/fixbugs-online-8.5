@@ -50,4 +50,7 @@ class Member extends Authenticatable
     public function job(){
         return $this->belongsTo(Job::class,'is_job', 'id');
     }
+    public function project(){
+        return $this->belongsTo(Member::class, 'project_detail', 'id_dev', 'id_project');
+    }
 }

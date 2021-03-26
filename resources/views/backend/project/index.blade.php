@@ -67,7 +67,7 @@
                                 value="{{$item->is_priority}}" >
                               </td>
                               <td align="center"><a href="{{url()->current().'/edit/'.$item->id}}">{{$item->name}}</a></td>
-                              <td align="center"><a href="{{url()->current().'/edit/'.$item->id}}">{{$item->is_status}}</a></td>
+                              <td align="center"><a>{{$item->status_project}}</a></td>
                               <td align="center">{{$item->created_at}}</td>
 
                               <td align="center">

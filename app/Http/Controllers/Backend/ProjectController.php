@@ -41,7 +41,7 @@ class ProjectController extends Controller
 
     public function index(Request $request)
     {
-        $sql  = $this->_model::where('id','<>', 0);
+        $sql  = $this->_model::with(['dev','sale','status_project','status_code'])->where('id','<>', 0);
         if($request->has('term')){
             $sql->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '?term='.$request->term;
