@@ -8,27 +8,23 @@
                         <span> Trang điều khiển </span>
                     </a>
                 </li>
-                <li class="menu-title">Quản lý thành viên</li>
-                <li class="{{ request()->routeIs('admin.member.*') ? 'mm-active' : '' }}">
-                    <a href="javascript: void(0)" class="waves-effect">
-                        <i class="remixicon-stack-line"></i>
+                <li class="{{ request()->routeIs('admin.group_member.*') ? 'mm-active' : '' }}">
+                    <a href="#" class="waves-effect">
+                        <i class="remixicon-vip-crown-2-line"></i>
                         <span>Quản lý thành viên</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
                         <li>
-                            <a href="{{Route('admin.member.index',['type'=>'dev'])}}"><i class="remixicon-movie-line"></i>Kỹ thuật</a>
+                            <a href="{{Route('admin.group_member.index',['type'=>'dev'])}}"><i class="remixicon-movie-line"></i>Nhóm kỹ thuật</a>
                         </li>
                         <li>
-                            <a href="{{Route('admin.member.index',['type'=>'sale'])}}"> <i class="remixicon-movie-line"></i>Kinh doanh</a>
+                            <a href="{{Route('admin.group_member.index',['type'=>'sale'])}}"> <i class="remixicon-movie-line"></i>Nhóm kinh doanh</a>
+                        </li>
+                        <li>
+                            <a href="{{Route('admin.member.index')}}"> <i class="remixicon-movie-line"></i>Thành viên</a>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <a href="{{Route('admin.job.index')}}" class="waves-effect">
-                        <i class="remixicon-vip-crown-2-line"></i>
-                        <span>Quản lý chức vụ</span>
-                    </a>
                 </li>
                 <li class="menu-title">Quản lý dự án</li>
                 <li >

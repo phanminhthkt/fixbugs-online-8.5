@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Job extends Model
+class GroupMember extends Model
 {
     use HasFactory;
-    protected $table = 'jobs';
+    protected $table = 'group_members';
     protected $fillable = [
         'name',
         'is_status',
         'is_priority',
+        'type'
     ];
-    public function member(){
-    	return $this->hasMany(Member::class,'is_job','id');
+    public function members(){
+    	return $this->hasMany(Member::class,'group_id','id');
     }
 }

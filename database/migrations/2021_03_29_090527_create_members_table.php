@@ -20,7 +20,7 @@ class CreateMembersTable extends Migration
             $table->string('email', 255)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255);
-            $table->integer('id_parent')->default(0);
+            $table->integer('group_id')->default(0);
             $table->string('project', 50)->nullable();
             $table->string('type', 50)->nullable();
             $table->integer('role')->default(0);

@@ -32,15 +32,16 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-              <label>Chức vụ</label>
-              <select class="selectpicker" data-live-search="true" name="is_job" id="job" >
-              <option value="" >Chọn chức vụ</option>
-                @foreach($jobs as $job)
-                <option value="{{$job->id}}">
-                {{$job->name}}
+              <label>Nhóm</label>
+              <select class="selectpicker" data-live-search="true" name="group_id" id="group" required="">
+              <option value="" >Chọn nhóm</option>
+                @foreach($groups as $group)
+                <option value="{{$group->id}}">
+                {{$group->name}}
                 </option>
                 @endforeach
               </select>
+              <div class="invalid-feedback">Vui lòng chọn nhóm</div>
           </div>
           <div class="form-group">
             <div class="row">

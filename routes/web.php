@@ -33,13 +33,13 @@ use Illuminate\Support\Facades\Route;
 	Route::delete('/member/delete-multiple/{id}',['uses' => 'MemberController@deleteMultiple']);
 
 	/*Job */
-	Route::get('/job',['uses' => 'JobController@index','as' => 'job.index']);
-	Route::get('/job/add',['uses' => 'JobController@create','as' => 'job.add']);
-	Route::post('/job/store',['uses' => 'JobController@store','as' => 'job.store']);
-	Route::get('/job/edit/{id}',['uses' => 'JobController@edit','as' => 'job.edit']);
-	Route::put('/job/update/{id}', ['uses' => 'JobController@update','as' => 'job.update']);
-	Route::delete('/job/delete/{id}',['uses' => 'JobController@delete','as' => 'job.delete']);
-	Route::delete('/job/delete-multiple/{id}',['uses' => 'JobController@deleteMultiple']);
+	Route::get('/group_member',['uses' => 'GroupMemberController@index','as' => 'group_member.index']);
+	Route::get('/group_member/add',['uses' => 'GroupMemberController@create','as' => 'group_member.add']);
+	Route::post('/group_member/store',['uses' => 'GroupMemberController@store','as' => 'group_member.store']);
+	Route::get('/group_member/edit/{id}',['uses' => 'GroupMemberController@edit','as' => 'group_member.edit']);
+	Route::put('/group_member/update/{id}', ['uses' => 'GroupMemberController@update','as' => 'group_member.update']);
+	Route::delete('/group_member/delete/{id}',['uses' => 'GroupMemberController@delete','as' => 'group_member.delete']);
+	Route::delete('/group_member/delete-multiple/{id}',['uses' => 'GroupMemberController@deleteMultiple']);
 
 	/*Job */
 	Route::get('/status',['uses' => 'StatusController@index','as' => 'status.index']);

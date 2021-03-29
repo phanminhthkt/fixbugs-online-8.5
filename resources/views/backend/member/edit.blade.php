@@ -36,16 +36,17 @@
           <div class="form-group">
               <label>Chức vụ</label>
               <select class="selectpicker" data-live-search="true" name="is_job" id="job">
-              <option value="" >Chọn chức vụ</option>
-                @foreach($jobs as $job)
+              <option value="" >Chọn nhóm</option>
+                @foreach($groups as $group)
                 <option 
                   value="{{$job->id}}" 
-                  {{ $item->is_job == $job->id ? 'selected' : ''}}
+                  {{ $item->member_id == $group->id ? 'selected' : ''}}
                 >
-                {{$job->name}}
+                {{$group->name}}
                 </option>
                 @endforeach
               </select>
+              <div class="invalid-feedback">Vui lòng chọn nhóm</div>
           </div>
           <div class="form-group">
             <div class="row">

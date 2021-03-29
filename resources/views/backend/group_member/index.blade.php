@@ -65,7 +65,7 @@
                                 class="form-control input-mini input-priority p-0 text-center" 
                                 value="{{$item->is_priority}}" >
                               </td>
-                              <td align="center"><a href="{{url()->current().'/edit/'.$item->id}}">{{$item->name}}</a></td>
+                              <td align="center"><a href="{{url()->current().'/edit/'.$item->id.$path_type}}">{{$item->name}}</a></td>
                               <td align="center">{{$item->created_at}}</td>
 
                               <td align="center">
@@ -85,7 +85,7 @@
 
                               <td align="center">
                                 <div class="d-flex">
-                                  <a href="{{url()->current().'/edit/'.$item->id}}" 
+                                  <a href="{{url()->current().'/edit/'.$item->id.$path_type}}" 
                                     class="btn btn-icon waves-effect waves-light btn-info">
                                     <i class="mdi mdi-pencil"></i>
                                   </a>

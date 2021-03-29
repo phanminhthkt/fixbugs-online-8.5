@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateJobsTable extends Migration
+class CreateGroupStatusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('group_status', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255)->nullable();
-            $table->string('photo', 255)->nullable();
-            $table->string('thumb', 255)->nullable();
-            $table->integer('id_parent')->default(0);
-            $table->integer('is_status')->default(1);
+            $table->string('type', 50)->nullable();
+            $table->integer('is_active')->default(0);
+            $table->integer('is_status')->default(0);
             $table->integer('is_priority')->default(0);
             $table->timestamps();
         });
@@ -32,7 +31,6 @@ class CreateJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('group_status');
     }
 }
-

@@ -18,9 +18,11 @@
          @include('blocks.messages')
     </div>
   </div>
-    <form role="form" class='needs-validation'
+     <form 
+    class='needs-validation'
+    role="form" 
     method="POST" 
-    action="{{$pageIndex.'/store'}}" 
+    action="{{$pageIndex.'/store'.$path_type}}" 
     enctype="multipart/form-data" 
     novalidate>
    @csrf
