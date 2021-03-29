@@ -1,44 +1,44 @@
 <?php
 
-namespace App\Http\Controllers\backend;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Status;
 use App\Models\GroupStatus;
 
-class StatusController extends Controller
+class GroupStatusController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     private $_data;
     private $_pathType;
     private $_model;
 
-    public function __construct(Status $status,Request $request)
+    public function __construct(GroupStatus $groupStatus,Request $request)
     {
-        $this->_model = $status;
+        $this->_model = $groupStatus;
         $this->_pathType = '';
-        $this->_data['groups'] = GroupStatus::all();
-        $this->_data['pageIndex'] = route('admin.status.index');
-        $this->_data['table'] = 'status';
-        $this->_data['title'] = 'Tình trạng';
+        $this->_data['pageIndex'] = route('admin.group_status.index');
+        $this->_data['table'] = 'group_statuss';
+        $this->_data['title'] = 'Nhóm trạng thái';
         $this->_data['type'] = $request->type;
         $this->_data['path_type'] = isset($_GET['type']) ? '?type='.$_GET['type']:'';
     }
 
     public function index(Request $request)
     {
-        $sql  = $this->_model::where('id','<>', 0);
+        $sql  = $this->_model::where('id','<>', 0)->where('type',$request->type);
         if($request->has('term')){
             $sql->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '?term='.$request->term;
         }
         $this->_data['items'] = $sql->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
-        return view('backend.status.index', $this->_data);
+        return view('backend.group_status.index', $this->_data);
     }
 
     /**
@@ -48,7 +48,7 @@ class StatusController extends Controller
      */
     public function create()
     {
-        return view('backend.status.add',$this->_data);
+        return view('backend.group_status.add',$this->_data);
     }
 
     /**
@@ -61,9 +61,9 @@ class StatusController extends Controller
     {
         $data = $request->except('_token');
         if($this->_model->create($data)){
-            return redirect()->route('admin.status.index')->with('success', 'Thêm trạng thái <b>'. $request->name .'</b> thành công');
+            return redirect()->route('admin.group_status.index',['type' => $request->type])->with('success', 'Thêm nhóm trạng thái <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.status.index')->with('error', 'Thêm trạng thái <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.group_status.index',['type' => $request->type])->with('error', 'Thêm nhóm trạng thái <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 
@@ -75,7 +75,7 @@ class StatusController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -87,7 +87,7 @@ class StatusController extends Controller
     public function edit($id)
     {
         $this->_data['item'] = $this->_model->findOrFail($id);
-        return view('backend.status.edit',$this->_data);
+        return view('backend.group_status.edit',$this->_data);
     }
 
     /**
@@ -102,9 +102,9 @@ class StatusController extends Controller
         $this->_model->findOrFail($id);
         $data = $request->except('_token','_method');//# request only
         if($this->_model->where('id', $id)->update($data)){
-            return redirect()->route('admin.status.index')->with('success', 'Chỉnh sửa chức vụ <b>'. $request->name .'</b> thành công');
+            return redirect()->route('admin.group_status.index',['type' => $request->type])->with('success', 'Chỉnh sửa nhóm trạng thái <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.status.index')->with('error', 'Chỉnh sửa chức vụ <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.group_status.index',['type' => $request->type])->with('error', 'Chỉnh sửa nhóm trạng thái <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 
@@ -118,17 +118,17 @@ class StatusController extends Controller
     {
         $this->_model->findOrFail($id);
         if($this->_model->where('id', $id)->delete()){
-            return ['success' => true, 'message' => 'Xóa trạng thái thành công !!'];
+            return ['success' => true, 'message' => 'Xóa nhóm trạng thái thành công !!'];
         }else{
-            return ['error' => true, 'message' => 'Xóa trạng thái thất bại.Xin vui lòng thử lại !!'];
+            return ['error' => true, 'message' => 'Xóa nhóm trạng thái thất bại.Xin vui lòng thử lại !!'];
         }
     }
     public function deleteMultiple($listId)
     {
         if($this->_model->whereIn('id',explode(",",$listId))->delete()){
-            return ['success' => true, 'message' => 'Xóa trạng thái thành công !!'];
+            return ['success' => true, 'message' => 'Xóa nhóm trạng thái thành công !!'];
         }else{
-            return ['error' => true, 'message' => 'Xóa trạng thái thất bại.Xin vui lòng thử lại !!'];
+            return ['error' => true, 'message' => 'Xóa nhóm trạng thái thất bại.Xin vui lòng thử lại !!'];
         }
     }
 }

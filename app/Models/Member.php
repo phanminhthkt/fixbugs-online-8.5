@@ -22,7 +22,7 @@ class Member extends Authenticatable
         'password',
         'username',
         'type',
-        'is_job',
+        'group_id',
         'is_status',
         'is_priority',
         'remember_token'
@@ -48,7 +48,7 @@ class Member extends Authenticatable
     ];
 
     public function group(){
-        return $this->belongsTo(GroupMember::class,'group_id', 'id');
+        return $this->belongsTo(GroupMember::class,'group_id');
     }
     // public function project(){
     //     return $this->belongsTo(Member::class, 'project_detail', 'id_dev', 'id_project');

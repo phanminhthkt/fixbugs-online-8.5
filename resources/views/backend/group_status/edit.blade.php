@@ -8,26 +8,26 @@
             <ol class="breadcrumb m-0">
                <li class="breadcrumb-item"><a href="{{route('admin.index') }}"><i class="remixicon-home-8-line"></i></a></li>
                <li class="breadcrumb-item"><a href="{{$pageIndex}}">{{$title}}</a></li>
-               <li class="breadcrumb-item active">Thêm {{$title}}</li>
+               <li class="breadcrumb-item active">Sửa {{$title}}</li>
             </ol>
          </div>
       </div>
    </div>
-
-    <div class="col-12">
-         @include('blocks.messages')
+   <div class="col-12">
+      @include('blocks.messages')
     </div>
-  </div>
-     <form 
-    class='needs-validation'
-    role="form" 
-    method="POST" 
-    action="{{$pageIndex.'/store'.$path_type}}" 
-    enctype="multipart/form-data" 
-    novalidate>
+ </div>
+ <form 
+  class='needs-validation'
+  role="form" 
+  method="POST" 
+  action="{{$pageIndex.'/update/'.$item->id.$path_type}}" 
+  enctype="multipart/form-data" 
+  novalidate>
    @csrf
-   <div class="row d-flex flex-sm-row-reverse">
-    <div class="col-lg-4">
+   {{ method_field('PUT') }}
+  <div class="row d-flex flex-sm-row-reverse">
+   <div class="col-lg-4">
       <div class="card">
         <div class="card-header py-2">
             <h5 class="card-title mb-0">THÔNG TIN CHUNG</h5>
@@ -39,19 +39,21 @@
                 <div class="form-group">
                 <label>Tình trạng</label>
                 <select class="selectpicker" name="is_status">
-                    <option value="1"> Hiển thị</option>
-                    <option value="0"> Ẩn</option>
+                    <option value="1" {{ $item->is_status == 1 ? 'selected' : ''}}> Hiển thị</option>
+                    <option value="0" {{ $item->is_status == 0 ? 'selected' : ''}}> Ẩn</option>
                 </select>
               </div>
               </div>
               <div class="col-sm-6 col-12">
                 <div class="form-group">
                   <label id="priority">Thứ tự</label>
-                    <input type="text" class="form-control" id="priority" name='is_priority' placeholder="Thứ tự" value="1">
+                    <input type="text" class="form-control" id="priority" name='is_priority' placeholder="Thứ tự" value="{{$item->is_priority}}">
                 </div>
               </div>
             </div>
+              
           </div>
+
         </div>
       </div>
    </div>
@@ -84,10 +86,10 @@
           <div class="tab-content">
               <div class="tab-pane fade active show" id="vi">
                 <div class="form-group">
-                  <label>Nhóm</label>
+                  <label>Chức vụ</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="name" name="name" placeholder="Nhóm" value="{{old('name')}}" required="">
-                      <div class="invalid-feedback">Vui lòng nhập nhóm</div>
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Chức vụ" value="{{$item->name}}" required="">
+                      <div class="invalid-feedback">Vui lòng nhập tên nhóm</div>
                     </div>
                 </div>
                 
@@ -102,7 +104,6 @@
    </div>
    
 </div>
- </form>
-
+</form>
 
 @endsection

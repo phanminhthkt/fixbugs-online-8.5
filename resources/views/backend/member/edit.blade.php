@@ -34,13 +34,13 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-              <label>Chức vụ</label>
-              <select class="selectpicker" data-live-search="true" name="is_job" id="job">
+              <label>Nhóm</label>
+              <select class="selectpicker" data-live-search="true" name="group_id" id="group">
               <option value="" >Chọn nhóm</option>
                 @foreach($groups as $group)
                 <option 
-                  value="{{$job->id}}" 
-                  {{ $item->member_id == $group->id ? 'selected' : ''}}
+                  value="{{$group->id}}" 
+                  {{ $item->group_id == $group->id ? 'selected' : ''}}
                 >
                 {{$group->name}}
                 </option>

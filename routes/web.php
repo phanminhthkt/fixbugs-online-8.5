@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 	Route::delete('/member/delete/{id}',['uses' => 'MemberController@delete','as' => 'member.delete']);
 	Route::delete('/member/delete-multiple/{id}',['uses' => 'MemberController@deleteMultiple']);
 
-	/*Job */
+	/*Nhóm thành viên */
 	Route::get('/group_member',['uses' => 'GroupMemberController@index','as' => 'group_member.index']);
 	Route::get('/group_member/add',['uses' => 'GroupMemberController@create','as' => 'group_member.add']);
 	Route::post('/group_member/store',['uses' => 'GroupMemberController@store','as' => 'group_member.store']);
@@ -40,6 +40,15 @@ use Illuminate\Support\Facades\Route;
 	Route::put('/group_member/update/{id}', ['uses' => 'GroupMemberController@update','as' => 'group_member.update']);
 	Route::delete('/group_member/delete/{id}',['uses' => 'GroupMemberController@delete','as' => 'group_member.delete']);
 	Route::delete('/group_member/delete-multiple/{id}',['uses' => 'GroupMemberController@deleteMultiple']);
+
+	/*Nhóm thành viên */
+	Route::get('/group_status',['uses' => 'GroupStatusController@index','as' => 'group_status.index']);
+	Route::get('/group_status/add',['uses' => 'GroupStatusController@create','as' => 'group_status.add']);
+	Route::post('/group_status/store',['uses' => 'GroupStatusController@store','as' => 'group_status.store']);
+	Route::get('/group_status/edit/{id}',['uses' => 'GroupStatusController@edit','as' => 'group_status.edit']);
+	Route::put('/group_status/update/{id}', ['uses' => 'GroupStatusController@update','as' => 'group_status.update']);
+	Route::delete('/group_status/delete/{id}',['uses' => 'GroupStatusController@delete','as' => 'group_status.delete']);
+	Route::delete('/group_status/delete-multiple/{id}',['uses' => 'GroupStatusController@deleteMultiple']);
 
 	/*Job */
 	Route::get('/status',['uses' => 'StatusController@index','as' => 'status.index']);

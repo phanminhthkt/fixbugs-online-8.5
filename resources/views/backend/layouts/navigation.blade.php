@@ -16,10 +16,7 @@
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
                         <li>
-                            <a href="{{Route('admin.group_member.index',['type'=>'dev'])}}"><i class="remixicon-movie-line"></i>Nhóm kỹ thuật</a>
-                        </li>
-                        <li>
-                            <a href="{{Route('admin.group_member.index',['type'=>'sale'])}}"> <i class="remixicon-movie-line"></i>Nhóm kinh doanh</a>
+                            <a href="{{Route('admin.group_member.index')}}"><i class="remixicon-movie-line"></i>Nhóm thành viên</a>
                         </li>
                         <li>
                             <a href="{{Route('admin.member.index')}}"> <i class="remixicon-movie-line"></i>Thành viên</a>
@@ -42,11 +39,11 @@
                         <li>
                             <a 
 
-                            href="{{Route('admin.status.index',['type'=>'project'])}}">
-                            <i class="remixicon-movie-line"></i>Tiến độ dự án</a>
+                            href="{{Route('admin.group_status.index')}}">
+                            <i class="remixicon-movie-line"></i>Nhóm trạng thái</a>
                         </li>
                         <li>
-                            <a href="{{Route('admin.status.index',['type'=>'code'])}}"> <i class="remixicon-movie-line"></i>Tiến độ lập trình</a>
+                            <a href="{{Route('admin.status.index')}}"> <i class="remixicon-movie-line"></i>Trạng thái</a>
                         </li>
                     </ul>
                 </li>

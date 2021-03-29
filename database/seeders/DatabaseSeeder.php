@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -10,13 +9,12 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        $data = [
-            [
-                'email' => 'minhm@gmail.com',
-                'password' => bcrypt('123456'),
-            ],
-        ];
-        DB::table('members')->insert($data);
+    {   
+        $this->call([
+            GroupMemberSeeder::class,
+            GroupStatusSeeder::class,
+            MemberSeeder::class,
+            StatusSeeder::class,
+        ]);
     }
 }
