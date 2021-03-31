@@ -137,6 +137,7 @@ class MemberController extends Controller
     }
     public function deleteMultiple($listId)
     {
+        $data = $this->_model->whereIn('id',explode(",",$listId))->pluck('name');
         if($this->_model->whereIn('id',explode(",",$listId))->delete()){
             return ['success' => true, 'message' => 'Xóa thành viên thành công !!'];
         }else{

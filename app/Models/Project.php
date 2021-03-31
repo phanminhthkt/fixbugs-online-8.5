@@ -19,16 +19,16 @@ class Project extends Model
         'is_status',
         'is_priority',
     ];
-    public function dev(){
-        return $this->belongsTo(Member::class, 'project_detail', 'id_dev', 'id_project');
+    public function group_member(){
+        return $this->belongsToMany(Member::class, 'member_project', 'member_id', 'project_id');
     }
-    public function sale(){
-        return $this->belongsTo(Member::class, 'project_detail', 'id_sale', 'id_project');
+    public function group_status(){
+        return $this->belongsToMany(Status::class, 'project_status', 'status_id', 'project_id');
     }
-    public function status_project(){
-        return $this->belongsTo(Status::class, 'project_detail', 'id_status_project', 'id_project');
+    public function member(){
+        return $this->belongsTo(Member::class, 'member_project', 'member_id', 'project_id');
     }
-    public function status_code(){
-        return $this->belongsTo(Status::class, 'project_detail', 'id_status_code', 'id_project');
+    public function status(){
+        return $this->belongsTo(Status::class, 'project_status', 'status_id', 'project_id');
     }
 }

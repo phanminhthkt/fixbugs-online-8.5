@@ -48,12 +48,11 @@
             <h5 class="card-title mb-0">THÔNG TIN CHUNG</h5>
         </div>
         <div class="card-body">
-          
           <div class="form-group">
             <div class="row">
                 <div class="col-sm-6 col-12">
                   <label>Sale phụ trách</label>
-                  <select class="selectpicker" name="id_sale">
+                  <select class="selectpicker" data-live-search="true"  name="id_sale" required="">
                       <option value="" >Chọn saler</option>
                         @foreach($sales as $v)
                         <option value="{{$v->id}}">
@@ -64,7 +63,7 @@
                 </div>
                 <div class="col-sm-6 col-12">
                     <label>Dev phụ trách</label>
-                    <select class="selectpicker" name="id_dev">
+                    <select class="selectpicker" data-live-search="true" name="id_dev" required="">
                       <option value="" >Chọn dev</option>
                         @foreach($devs as $v)
                         <option value="{{$v->id}}">
@@ -79,25 +78,23 @@
               <div class="row">
                 <div class="col-sm-6 col-12">
                     <label>Tình trạng lập trình</label>
-                    <select class="selectpicker" name="id_status_code">
-                        <option value="" >Chọn trạng thái</option>
-                          @foreach($status_codes as $v)
-                          <option value="{{$v->id}}">
-                          {{$v->name}}
-                          </option>
-                          @endforeach
-                        </select>
+                    <select class="selectpicker" data-live-search="true" name="id_status_code" required="">
+                      @foreach($status_codes as $v)
+                      <option value="{{$v->id}}">
+                      {{$v->name}}
+                      </option>
+                      @endforeach
+                    </select>
                 </div>
                 <div class="col-sm-6 col-12">
                     <label>Tình trạng dự án</label>
-                    <select class="selectpicker" name="id_status_project">
-                        <option value="" >Chọn trạng thái</option>
-                          @foreach($status_projects as $v)
-                          <option value="{{$v->id}}">
-                          {{$v->name}}
-                          </option>
-                          @endforeach
-                        </select>
+                    <select class="selectpicker" data-live-search="true" name="id_status_project" required="">
+                      @foreach($status_projects as $v)
+                      <option value="{{$v->id}}">
+                      {{$v->name}}
+                      </option>
+                      @endforeach
+                    </select>
                 </div>
               </div>
             </div>

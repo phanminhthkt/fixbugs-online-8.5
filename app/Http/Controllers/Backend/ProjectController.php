@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
+use Illuminate\Support\Facades\File; 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Member;
-use App\Models\Job;
 use App\Models\Status;
 use App\Models\Project;
-use App\Models\Project_detail;
+use App\Models\GroupMember;
+use App\Models\GroupStatus;
 
 class ProjectController extends Controller
 {
@@ -21,27 +21,24 @@ class ProjectController extends Controller
     private $_data;
     private $_pathType;
     private $_model;
-    private $_model_detail;
 
-    public function __construct(Project $project,Project_detail $projectDetail)
+    public function __construct(Project $project)
     {
         $this->_model = $project;
-        $this->_model_detail = $projectDetail;
         $this->_pathType = '';
         $this->_data['pageIndex'] = route('admin.project.index');
         $this->_data['table'] = 'projects';
-        $this->_data['jobs'] = Job::all();
-        $this->_data['devs'] = Member::where('type','=','dev')->get();
-        $this->_data['sales'] = Member::where('type','=','sale')->get();
-        $this->_data['status_codes'] = Status::where('type','=','code')->get();
-        $this->_data['status_projects'] = Status::where('type','=','project')->get();
+        $this->_data['devs'] = Member::where('group_id','=', 1)->get();
+        $this->_data['sales'] = Member::where('group_id','=', 2)->get();
+        $this->_data['status_codes'] = Status::where('group_id','=', 1)->get();
+        $this->_data['status_projects'] = Status::where('group_id','=', 2)->get();
         $this->_data['title'] = 'Dự án';
         $this->_data['path_type'] = isset($_GET['type']) ? '?type='.$_GET['type']:'';
     }
 
     public function index(Request $request)
     {
-        $sql  = $this->_model::with(['dev','sale','status_project','status_code'])->where('id','<>', 0);
+        $sql  = $this->_model::with(['member','status'])->where('id','<>', 0);
         if($request->has('term')){
             $sql->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '?term='.$request->term;
@@ -81,13 +78,11 @@ class ProjectController extends Controller
             $nameFile =  time().'_'.$file->getClientOriginalName();
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
-            
         }
-
         if($id_project = $this->_model->create($data)->id){
-            $dataDetail = $request->only(['id_dev','id_sale','id_status_code','id_status_project']);
-            $dataDetail['id_project'] = $id_project;
-            $this->_model_detail->create($dataDetail);
+            // $dataDetail = $request->only(['id_dev','id_sale','id_status_code','id_status_project']);
+            // $dataDetail['id_project'] = $id_project;
+            // $this->_model_detail->create($dataDetail);
             return redirect()->route('admin.project.index',['type' => $request->type])->with('success', 'Thêm dự án <b>'. $request->name .'</b> thành công');
         }else{
             return redirect()->route('admin.project.index',['type' => $request->type])->with('error', 'Thêm dự án <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
@@ -137,7 +132,10 @@ class ProjectController extends Controller
      */
     public function delete($id)
     {
-        $this->_model->findOrFail($id);
+        $data = $this->_model->findOrFail($id);
+        if($data->file!=''){
+            File::delete(public_path('uploads/files/').$data->file);
+        }
         if($this->_model->where('id', $id)->delete()){
             return ['success' => true, 'message' => 'Xóa dự án thành công !!'];
         }else{
@@ -146,6 +144,10 @@ class ProjectController extends Controller
     }
     public function deleteMultiple($listId)
     {
+        $dataFile = $this->_model->whereIn('id',explode(",",$listId))->where('file','<>','')->pluck('file');
+        foreach($dataFile as $file){
+            File::delete(public_path('uploads/files/').$file);
+        }
         if($this->_model->whereIn('id',explode(",",$listId))->delete()){
             return ['success' => true, 'message' => 'Xóa dự án thành công !!'];
         }else{
