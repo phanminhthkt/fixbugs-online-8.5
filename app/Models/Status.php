@@ -18,4 +18,7 @@ class Status extends Model
     public function group(){
         return $this->belongsTo(GroupStatus::class,'group_id');
     }
+    public function projects(){
+        return $this->belongsToMany(Project::class);
+    }
 }

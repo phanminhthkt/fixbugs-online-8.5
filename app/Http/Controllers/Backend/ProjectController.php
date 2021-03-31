@@ -9,6 +9,8 @@ use App\Models\Status;
 use App\Models\Project;
 use App\Models\GroupMember;
 use App\Models\GroupStatus;
+use App\Models\ProjectStatus;
+use App\Models\MemberProject;
 
 class ProjectController extends Controller
 {
@@ -21,10 +23,14 @@ class ProjectController extends Controller
     private $_data;
     private $_pathType;
     private $_model;
+    private $_model_project_member;
+    private $_model_status_project;
 
-    public function __construct(Project $project)
+    public function __construct(Project $project,ProjectStatus $projectStatus,MemberProject $memberProject)
     {
         $this->_model = $project;
+        $this->_model_project_member = $memberProject;
+        $this->_model_status_project = $projectStatus;
         $this->_pathType = '';
         $this->_data['pageIndex'] = route('admin.project.index');
         $this->_data['table'] = 'projects';
@@ -38,7 +44,7 @@ class ProjectController extends Controller
 
     public function index(Request $request)
     {
-        $sql  = $this->_model::with(['member','status'])->where('id','<>', 0);
+        $sql  = $this->_model::with(['dev','saler','status_project','status_code'])->where('id','<>', 0);
         if($request->has('term')){
             $sql->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '?term='.$request->term;
@@ -79,10 +85,21 @@ class ProjectController extends Controller
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
-        if($id_project = $this->_model->create($data)->id){
-            // $dataDetail = $request->only(['id_dev','id_sale','id_status_code','id_status_project']);
-            // $dataDetail['id_project'] = $id_project;
-            // $this->_model_detail->create($dataDetail);
+        if($projectId = $this->_model->create($data)->id){
+            // add member_project -> detail
+            foreach($request->group_member as $memberId){
+                $dataMember = [];
+                $dataMember['member_id'] = $memberId;
+                $dataMember['project_id'] = $projectId;
+                $this->_model_project_member->create($dataMember);
+            }
+            // add project_status -> detail
+            foreach($request->group_status as $statusId){
+                $dataStatus = [];
+                $dataStatus['status_id'] = $statusId;
+                $dataStatus['project_id'] = $projectId;
+                $this->_model_status_project->create($dataStatus);
+            }
             return redirect()->route('admin.project.index',['type' => $request->type])->with('success', 'Thêm dự án <b>'. $request->name .'</b> thành công');
         }else{
             return redirect()->route('admin.project.index',['type' => $request->type])->with('error', 'Thêm dự án <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
@@ -137,6 +154,8 @@ class ProjectController extends Controller
             File::delete(public_path('uploads/files/').$data->file);
         }
         if($this->_model->where('id', $id)->delete()){
+            $this->_model_project_member->where('project_id', $id)->delete();
+            $this->_model_status_project->where('project_id', $id)->delete();
             return ['success' => true, 'message' => 'Xóa dự án thành công !!'];
         }else{
             return ['error' => true, 'message' => 'Xóa dự án thất bại.Xin vui lòng thử lại !!'];
@@ -149,6 +168,8 @@ class ProjectController extends Controller
             File::delete(public_path('uploads/files/').$file);
         }
         if($this->_model->whereIn('id',explode(",",$listId))->delete()){
+            $this->_model_project_member->whereIn('project_id',explode(",",$listId))->delete();
+            $this->_model_status_project->whereIn('project_id',explode(",",$listId))->delete();
             return ['success' => true, 'message' => 'Xóa dự án thành công !!'];
         }else{
             return ['error' => true, 'message' => 'Xóa dự án thất bại.Xin vui lòng thử lại !!'];

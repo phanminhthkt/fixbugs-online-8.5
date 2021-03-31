@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
-
     protected $table = 'projects';
     protected $fillable = [
         'name',
@@ -19,16 +18,22 @@ class Project extends Model
         'is_status',
         'is_priority',
     ];
-    public function group_member(){
-        return $this->belongsToMany(Member::class, 'member_project', 'member_id', 'project_id');
+    public function members(){
+        return $this->belongsToMany(Member::class);
     }
-    public function group_status(){
-        return $this->belongsToMany(Status::class, 'project_status', 'status_id', 'project_id');
+    public function dev(){
+        return $this->belongsToMany(Member::class)->where('group_id','=',1);
     }
-    public function member(){
-        return $this->belongsTo(Member::class, 'member_project', 'member_id', 'project_id');
+    public function saler(){
+        return $this->belongsToMany(Member::class)->where('group_id','=',2);
     }
     public function status(){
-        return $this->belongsTo(Status::class, 'project_status', 'status_id', 'project_id');
+        return $this->belongsToMany(Status::class);
+    }
+    public function status_project(){
+        return $this->belongsToMany(Status::class)->where('group_id','=',1);
+    }
+    public function status_code(){
+        return $this->belongsToMany(Status::class)->where('group_id','=',2);
     }
 }

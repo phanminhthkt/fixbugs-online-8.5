@@ -23,7 +23,9 @@
    <div class="col-12">
       <div class="card">
         <div class="card-header d-inline-flex justify-content-between py-1">
-            <h4 class="card-title d-inline-block mb-0 py-1">Danh sách {{$title}}</h4>
+            <h4 class="card-title d-inline-block mb-0 py-1">Danh sách {{$title}}
+              <span class="text-success fs-15 ml-1">(Note - TT: Tình trạng)</span>
+            </h4>
             @include('backend.modules.search')
         </div>
 
@@ -43,7 +45,10 @@
                               </th>
                               <th width="5%" class="text-center">Thứ tự</th>
                               <th class="text-center"width="20%">{{$title}}</th>
-                              <th width="10%" class="text-center">Tình trạng HĐ</th>
+                              <th width="10%" class="text-center">TT hợp đồng</th>
+                              <th width="10%" class="text-center">TT lập trình</th>
+                              <th width="10%" class="text-center">Dev</th>
+                              <th width="10%" class="text-center">Saler</th>
                               <th width="15%" class="text-center">Ngày tạo</th>
                               <th width="7%" class="text-center">Trạng thái</th>
                               <th width="10%">Hành động</th>
@@ -67,7 +72,22 @@
                                 value="{{$item->is_priority}}" >
                               </td>
                               <td align="center"><a href="{{url()->current().'/edit/'.$item->id}}">{{$item->name}}</a></td>
-                              <td align="center"><a>{{$item->status_project}}</a></td>
+                              <td align="center">
+                                <a>
+                                 {{$item->status_code[0]->name}}
+                                </a>
+                              </td>
+                              <td align="center">
+                                <a>
+                                  {{$item->status_project[0]->name}}
+                                </a>
+                              </td>
+                              <td align="center"><a>
+                                    {{$item->dev[0]->name}}
+                              </a></td>
+                              <td align="center"><a>
+                                {{$item->saler[0]->name}}
+                              </a></td>
                               <td align="center">{{$item->created_at}}</td>
 
                               <td align="center">

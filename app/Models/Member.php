@@ -50,7 +50,7 @@ class Member extends Authenticatable
     public function group(){
         return $this->belongsTo(GroupMember::class,'group_id');
     }
-    // public function project(){
-    //     return $this->belongsTo(Member::class, 'project_detail', 'id_dev', 'id_project');
+    // public function projects(){
+    //     return $this->belongsToMany(Project::class);
     // }
 }
