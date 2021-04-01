@@ -13,15 +13,59 @@
          </div>
       </div>
    </div>
-   <div class="col-12">
-      @include('blocks.messages')
+    <div class="col-12">
+       @include('blocks.messages')
     </div>
- </div>
- <form role="form" method="POST" action="{{$pageIndex.'/update/'.$item->id}}" enctype="multipart/form-data" >
+  </div>
+  <form 
+  class='needs-validation'
+  role="form" 
+  method="POST" 
+  action="{{$pageIndex.'/update/'.$item->id.$path_type}}" 
+  enctype="multipart/form-data" 
+  novalidate >
    @csrf
    {{ method_field('PUT') }}
-  <div class="row d-flex flex-sm-row-reverse">
-   <div class="col-lg-4">
+   <div class="row d-flex flex-sm-row-reverse">
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header py-2">
+            <h5 class="card-title mb-0">File đặc tả</h5>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <div class="dropzone">
+              <div class="text-center">
+                  <label for="file-taptin">
+                    <p class="h1 text-muted"><i class="mdi mdi-cloud-upload"></i></p>
+                    <h5>Kéo file vào đây</h5>
+                    <div class="custom-file-dev fileupload">
+                        <input type="file" class="custom-file" name="file" class="upload" id="file-taptin">
+                    </div>
+                    <div class="change-file">
+                      <b class="text-sm text-split text-danger">{{$item->file}}</b>
+                    </div>
+                  </label>
+
+                </div>
+            </div>
+          </div>
+          @if($item->file!='')
+          <div class="text-center">
+            <a 
+              href="{{public_path('uploads/files').$item->file}}" 
+              >
+            <b class="btn btn-outline-warning waves-effect waves-light d-inline-block"><i class="fa fa-download mr-1"></i>Tải file</b></a>
+            <a 
+              href="http://docs.google.com/gview?url={{public_path('uploads/files').$item->file}}&embedded=true"
+              target="_blank" 
+            >
+              <b class="btn btn-outline-success waves-effect waves-light d-inline-block"><i class="fa fa-eye mr-1"></i>Xem file</b>
+            </a>
+          </div>        
+          @endif
+        </div>
+      </div>
       <div class="card">
         <div class="card-header py-2">
             <h5 class="card-title mb-0">THÔNG TIN CHUNG</h5>
@@ -29,6 +73,72 @@
         <div class="card-body">
           <div class="form-group">
             <div class="row">
+                <div class="col-sm-6 col-12">
+                  <label>Sale phụ trách</label>
+                  <select class="selectpicker" data-live-search="true"  name="group_member[]" required="">
+                      <option value="" >Chọn saler</option>
+                        @foreach($sales as $v)
+                        <option 
+                        value="{{$v->id}}"
+                        {{ $item->saler->first()->id == $v->id ? 'selected' : ''}}
+                        >
+                        {{$v->name}}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-sm-6 col-12">
+                    <label>Dev phụ trách</label>
+                    <select class="selectpicker" data-live-search="true" name="group_member[]" required="">
+                      <option value="" >Chọn dev</option>
+                        @foreach($devs as $v)
+                        <option 
+                        value="{{$v->id}}"
+                        {{ $item->dev->first()->id == $v->id ? 'selected' : ''}}
+                        >
+                        {{$v->name}}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="row">
+                <div class="col-sm-6 col-12">
+
+                    <label>Tình trạng lập trình</label>
+                    <select class="selectpicker" data-live-search="true" name="group_status[]" required="">
+                      @foreach($status_codes as $v)
+                      <option 
+                      value="{{$v->id}}"
+                      {{ $item->status_code->first()->id == $v->id ? 'selected' : ''}}
+                      >
+                      {{$v->name}}
+                      </option>
+                      @endforeach
+                    </select>
+                </div>
+                <div class="col-sm-6 col-12">
+                    <label>Tình trạng dự án</label>
+                    <select class="selectpicker" data-live-search="true" name="group_status[]" required="">
+                      @foreach($status_projects as $v)
+                      <option 
+                      value="{{$v->id}}"
+                      {{ $item->status_project->first()->id == $v->id ? 'selected' : ''}}
+                      >
+                      {{$v->name}}
+                      </option>
+                      @endforeach
+                    </select>
+                </div>
+              </div>
+            </div>
+          
+          
+          <div class="form-group">
+            <div class="row">
+
               <div class="col-sm-6 col-12">
                 <div class="form-group">
                 <label>Tình trạng</label>
@@ -45,9 +155,12 @@
                 </div>
               </div>
             </div>
-              
+            
+            <div class="form-group">
+                
+            </div>
+            
           </div>
-
         </div>
       </div>
    </div>
@@ -78,15 +191,29 @@
             </li>
           </ul>
           <div class="tab-content">
-              <div class="tab-pane fade active show" id="vi">
-                <div class="form-group">
-                  <label>Chức vụ</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" id="name" name="name" placeholder="Chức vụ" value="{{$item->name}}" required="">
-                      <div class="invalid-feedback">Vui lòng nhập chức vụ</div>
-                    </div>
+            <div class="tab-pane fade active show" id="vi">
+              <div class="form-group">
+                <label>Tên dự án</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Dự án" value="{{$item->name}}" required="">
+                    <div class="invalid-feedback">Vui lòng nhập tên dự án</div>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label id="contract_code">Mã hợp đồng</label>
+                <input type="text" class="form-control" id="contract_code" name="contract_code" placeholder="Mã hợp đồng" value="{{$item->contract_code}}" required="">
+                <div class="invalid-feedback">Vui lòng nhập mã hợp đồng</div>
+              </div>
+              <div class="form-group">
+                <label id="link_design">Link design</label>
+                <input type="text" class="form-control" id="link_design" name="link_design" placeholder="Link design" value="{{$item->link_design}}">
+              </div>
+              <div class="form-group">
+                <label>Ghi chú</label>
+                <div class="input-group">
+                  <textarea rows="4" name="note" id="note" class="form-control">{{$item->note}}</textarea>
                 </div>
-                
+              </div>
             </div>
             <div class="tab-pane fade d-none" id="en">Anh</div>
             <div class="tab-pane fade d-none" id="kr">Hàn</div>
@@ -98,6 +225,7 @@
    </div>
    
 </div>
-</form>
+ </form>
+
 
 @endsection

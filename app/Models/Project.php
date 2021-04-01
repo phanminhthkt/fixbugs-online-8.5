@@ -19,7 +19,7 @@ class Project extends Model
         'is_priority',
     ];
     public function members(){
-        return $this->belongsToMany(Member::class);
+        return $this->belongsToMany(Member::class)->withTimestamps();
     }
     public function dev(){
         return $this->belongsToMany(Member::class)->where('group_id','=',1);
@@ -28,12 +28,12 @@ class Project extends Model
         return $this->belongsToMany(Member::class)->where('group_id','=',2);
     }
     public function status(){
-        return $this->belongsToMany(Status::class);
-    }
-    public function status_project(){
-        return $this->belongsToMany(Status::class)->where('group_id','=',1);
+        return $this->belongsToMany(Status::class)->withTimestamps();
     }
     public function status_code(){
+        return $this->belongsToMany(Status::class)->where('group_id','=',1);
+    }
+    public function status_project(){
         return $this->belongsToMany(Status::class)->where('group_id','=',2);
     }
 }

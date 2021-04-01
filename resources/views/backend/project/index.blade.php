@@ -43,13 +43,13 @@
                                     <label class="custom-control-label" for="selectall-checkbox"></label>
                                   </div>
                               </th>
-                              <th width="5%" class="text-center">Thứ tự</th>
+                              <th width="3%" class="text-center">Thứ tự</th>
                               <th class="text-center"width="20%">{{$title}}</th>
-                              <th width="10%" class="text-center">TT hợp đồng</th>
-                              <th width="10%" class="text-center">TT lập trình</th>
+                              <th width="15%" class="text-center">TT hợp đồng</th>
+                              <th width="15%" class="text-center">TT lập trình</th>
                               <th width="10%" class="text-center">Dev</th>
                               <th width="10%" class="text-center">Saler</th>
-                              <th width="15%" class="text-center">Ngày tạo</th>
+                              <!-- <th width="15%" class="text-center">Ngày tạo</th> -->
                               <th width="7%" class="text-center">Trạng thái</th>
                               <th width="10%">Hành động</th>
                            </tr>
@@ -74,21 +74,21 @@
                               <td align="center"><a href="{{url()->current().'/edit/'.$item->id}}">{{$item->name}}</a></td>
                               <td align="center">
                                 <a>
-                                 {{$item->status_code[0]->name}}
+                                 {{$item->status_code->first()->name}}
                                 </a>
                               </td>
                               <td align="center">
                                 <a>
-                                  {{$item->status_project[0]->name}}
+                                  {{$item->status_project->first()->name}}
                                 </a>
                               </td>
                               <td align="center"><a>
-                                    {{$item->dev[0]->name}}
+                                    {{$item->dev->first()->name}}
                               </a></td>
                               <td align="center"><a>
-                                {{$item->saler[0]->name}}
+                                {{$item->saler->first()->name}}
                               </a></td>
-                              <td align="center">{{$item->created_at}}</td>
+                              <!-- <td align="center">{{$item->created_at}}</td> -->
 
                               <td align="center">
                                 <div class="custom-control custom-checkbox text-center">
