@@ -131,6 +131,95 @@
    <div class="col-lg-8">
       <div class="card">
         <div class="card-header py-2 text-white">
+            <h5 class="card-title mb-0">TIẾN ĐỘ LẬP TRÌNH</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+             <div class="col-sm-6 col-12">
+                <div class="form-group">
+                  <label id="received_at">Ngày nhận</label>
+                  <div class="input-group">
+                    <input 
+                      type="text" 
+                      name="received_at" 
+                      class="form-control flatpickr-input" 
+                      id="received_at" 
+                      value="" 
+                      readonly="readonly"
+                      placeholder="Ngày nhận"
+                      >
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="ti-calendar"></i></span>
+                    </div>
+                  </div>
+                  <div class="invalid-feedback">Vui lòng chọn ngày giao</div>
+                </div>
+             </div>
+             <div class="col-sm-6 col-12">
+                <div class="form-group">
+                  <label id="begin_at">Ngày lập trình</label>
+                  <div class="input-group">
+                    <input 
+                      type="text" 
+                      name="begin_at" 
+                      class="form-control flatpickr-input" 
+                      id="begin_at" 
+                      value="" 
+                      readonly="readonly"
+                      placeholder="Ngày lập trình"
+                      >
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="ti-calendar"></i></span>
+                    </div>
+                  </div>
+                  <div class="invalid-feedback">Vui lòng chọn ngày lập trình</div>
+                </div>
+             </div>
+             <div class="col-sm-6 col-12">
+                <div class="form-group">
+                  <label id="estimated_at">Ngày dự kiến hoàn thành</label>
+                  <div class="input-group">
+                    <input 
+                      type="text" 
+                      name="estimated_at" 
+                      class="form-control flatpickr-input" 
+                      id="estimated_at" 
+                      value="" 
+                      readonly="readonly"
+                      placeholder="Ngày dự kiến hoàn thành"
+                      >
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="ti-calendar"></i></span>
+                    </div>
+                  </div>
+                  <div class="invalid-feedback">Vui lòng chọn dự kiến</div>
+                </div>
+             </div>
+             <div class="col-sm-6 col-12">
+                <div class="form-group">
+                  <label id="ended_at">Ngày hoàn thành</label>
+                  <div class="input-group">
+                      <input 
+                      type="text" 
+                      name="ended_at" 
+                      class="form-control flatpickr-input" 
+                      id="ended_at" 
+                      value="" 
+                      readonly="readonly"
+                      placeholder="Ngày hoàn thành"
+                      >
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="ti-calendar"></i></span>
+                    </div>
+                  <div class="invalid-feedback">Vui lòng chọn ngày giao</div>
+                </div>
+             </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header py-2 text-white">
             <h5 class="card-title mb-0">THÔNG TIN CHI TIẾT</h5>
         </div>
         <div class="card-body">
@@ -157,10 +246,10 @@
           <div class="tab-content">
             <div class="tab-pane fade active show" id="vi">
               <div class="form-group">
-                <label>Tên dự án</label>
+                <label>Tên hợp đồng</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Dự án" value="{{old('name')}}" required="">
-                    <div class="invalid-feedback">Vui lòng nhập tên dự án</div>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Hợp đồng" value="{{old('name')}}" required="">
+                    <div class="invalid-feedback">Vui lòng nhập tên hợp đồng</div>
                   </div>
               </div>
               <div class="form-group">

@@ -10,6 +10,7 @@ use App\Models\Project;
 use App\Models\GroupMember;
 use App\Models\GroupStatus;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ProjectController extends Controller
 {
@@ -80,6 +81,10 @@ class ProjectController extends Controller
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
+        $data['ended_at'] = Carbon::parse($request->ended_at)->format('Y-m-d H:i:s');
+        $data['estimated_at'] = Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s');
+        $data['begin_at'] = Carbon::parse($request->begin_at)->format('Y-m-d H:i:s');
+        $data['received_at'] = Carbon::parse($request->received_at)->format('Y-m-d H:i:s');
         if($projectId = $this->_model->create($data)->id){
             $project = $this->_model::find($projectId);
             $project->members()->attach($request->group_member); 
@@ -140,6 +145,10 @@ class ProjectController extends Controller
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
+        $data['ended_at'] = Carbon::parse($request->ended_at)->format('Y-m-d H:i:s');
+        $data['estimated_at'] = Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s');
+        $data['begin_at'] = Carbon::parse($request->begin_at)->format('Y-m-d H:i:s');
+        $data['received_at'] = Carbon::parse($request->received_at)->format('Y-m-d H:i:s');
         if($project->where('id', $id)->update($data)){
             $project->members()->sync($request->group_member); 
             $project->status()->sync($request->group_status); 

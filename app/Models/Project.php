@@ -17,6 +17,10 @@ class Project extends Model
         'file',
         'is_status',
         'is_priority',
+        'received_at',
+        'begin_at',
+        'estimated_at',
+        'ended_at'
     ];
     public function members(){
         return $this->belongsToMany(Member::class)->withTimestamps();

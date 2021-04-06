@@ -235,3 +235,14 @@ $('body').on('change','.custom-file-dev input[type=file]', function(){
 	$(this).parents("div.form-group  label").children(".change-file").find("b.text-sm").html(fileName);
 });
 // End change file
+
+// datepicker
+// $(document).ready(function(){
+// 	$('.datepicker').datepicker();
+// })
+$(document).ready(function(){
+	$(".flatpickr-input").flatpickr({
+		enableTime:true,
+		dateFormat: 'd-m-Y H:i',
+	})
+})

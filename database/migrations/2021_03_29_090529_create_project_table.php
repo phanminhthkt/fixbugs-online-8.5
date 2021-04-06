@@ -24,6 +24,10 @@ class CreateProjectTable extends Migration
             $table->integer('is_active')->default(0);
             $table->string('note')->nullable();
             $table->string('link_design')->nullable();
+            $table->timestamp('received_at')->nullable();
+            $table->timestamp('begin_at')->nullable();
+            $table->timestamp('estimated_at')->nullable();
+            $table->timestamp('ended_at')->nullable();
             $table->timestamps();
         });
     }

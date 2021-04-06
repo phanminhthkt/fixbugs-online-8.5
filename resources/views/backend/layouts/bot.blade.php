@@ -17,6 +17,7 @@
 <script src="{{asset('public/backend')}}\js\pages\dashboard-1.init.js"></script>
 <script src="{{asset('public/backend')}}\js\pages\form-advanced.init.js"></script>
 <script src="{{asset('public/backend')}}\libs\sweetalert2\sweetalert2.js"></script>
+<script src="{{asset('public/backend')}}\libs\flatpickr/flatpickr.min.js"></script>
 <!-- App js -->
 <script src="{{asset('public/backend')}}\js\app.min.js"></script>
 <script src="{{asset('public/backend')}}\js\app.dev.js"></script>
