@@ -26,9 +26,11 @@
 .custom-file-dev input{width: 100%;height: 100%;opacity: 0;cursor: pointer;}
 .dropzone{cursor: pointer;}
 .fs-15{font-size: 12px;}
+.content-page{padding: 0 0px 65px 0px;}
 @media (max-width: 569px){
-.form-search {
-    width: 100%;
-    margin-left: 0px!important;
-    margin-top: 0.75rem!important;
+	.form-search {
+	    width: 100%;
+	    margin-left: 0px!important;
+	    margin-top: 0.75rem!important;
+	}
 }

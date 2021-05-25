@@ -23,6 +23,17 @@ use Illuminate\Support\Facades\Route;
 	// Route::resource('member', 'MemberController');
 	Route::get('',['uses' => 'IndexController@index','as'=>'index']);
 	
+	
+	/*User */
+	// Route::get('user/login',['uses' => '/UserController@index','as'=>'user.index']);
+	Route::get('/user',['uses' => 'UserController@index','as' => 'user.index']);
+	Route::get('/user/add',['uses' => 'UserController@create','as' => 'user.add']);
+	Route::post('/user/store',['uses' => 'UserController@store','as' => 'user.store']);
+	Route::get('/user/edit/{id}',['uses' => 'UserController@edit','as' => 'user.edit']);
+	Route::put('/user/update/{id}', ['uses' => 'UserController@update','as' => 'user.update']);
+	Route::delete('/user/delete/{id}',['uses' => 'UserController@delete','as' => 'user.delete']);
+	Route::delete('/user/delete-multiple/{id}',['uses' => 'UserController@deleteMultiple']);
+
 	/*Member */
 	Route::get('/member',['uses' => 'MemberController@index','as' => 'member.index']);
 	Route::get('/member/add',['uses' => 'MemberController@create','as' => 'member.add']);

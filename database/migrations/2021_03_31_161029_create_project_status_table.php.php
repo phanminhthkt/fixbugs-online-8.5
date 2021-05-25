@@ -28,6 +28,6 @@ class CreateProjectStatusTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('project_status');
     }
 }

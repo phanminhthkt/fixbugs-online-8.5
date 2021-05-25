@@ -29,6 +29,8 @@
                         <i class="remixicon-book-mark-line"></i>
                         <span>Quản lý dự án</span>
                     </a>
+                </li>
+                
                 <li class="{{ request()->routeIs('admin.status.*') ? 'mm-active' : '' }}">
                     <a href="javascript: void(0)" class="waves-effect">
                         <i class="fas fa-tasks"></i>
@@ -47,6 +49,15 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="menu-title">Quản lý người dùng</li>
+                <li >
+                    <a href="{{Route('admin.user.index')}}" class="waves-effect">
+                        <i class="fe-users"></i>
+                        <span>Quản lý người dùng</span>
+                    </a>
+                </li>
+                
                 <!-- <li class="menu-title">Quản lý trang</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
