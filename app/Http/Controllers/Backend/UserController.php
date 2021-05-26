@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Auth;
 use App\Models\User;
 
 class UserController extends Controller
@@ -140,6 +141,23 @@ class UserController extends Controller
             return ['success' => true, 'message' => 'Xóa người dùng thành công !!'];
         }else{
             return ['error' => true, 'message' => 'Xóa người dùng thất bại.Xin vui lòng thử lại !!'];
+        }
+    }
+
+    public function getLogin()
+    {
+        return view('backend.user.login');
+    }
+    public function postLogin(Request $request)
+    {
+        $credentials = $request->only('username', 'password');
+        if (Auth::guard('web')->attempt($credentials)){
+            $request->session()->regenerate();
+            $noti = ['status' => 'true','msg' => 'Đăng nhập thành công']; 
+            return response()->json($noti);
+        }else{
+            $noti = ['status' => 'false','msg' => 'Thông tin đăng nhập sai']; 
+            return response()->json($noti);
         }
     }
 }

@@ -15,9 +15,12 @@ use Illuminate\Support\Facades\Route;
 // Route::group(['as'=>'', 'namespace'=>'App\Http\Controllers\Frontend'], function(){
 	// Auth::routes();
 // });
- Route::group(['as' => 'admin.','namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'], function()
-{	
+ Route::group(['as' => 'admin.','namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'], function(){	
 
+ 	Route::get('user/login',['uses' => 'UserController@getLogin','as'=>'user.login']);
+ 	Route::post('user/login',['uses' => 'UserController@postLogin']);
+
+	// Route::group(['middleware' => 'auth'], function(){	
 	Route::put('/ajax/status/{id}', ['uses' => 'AjaxController@updateStatus']);
 	Route::put('/ajax/priority/{id}', ['uses' => 'AjaxController@updatePriority']);
 	// Route::resource('member', 'MemberController');
@@ -25,7 +28,8 @@ use Illuminate\Support\Facades\Route;
 	
 	
 	/*User */
-	// Route::get('user/login',['uses' => '/UserController@index','as'=>'user.index']);
+	
+	// Route::post('user/login',['uses' => '/UserController@postLogin','as'=>'user.login']);
 	Route::get('/user',['uses' => 'UserController@index','as' => 'user.index']);
 	Route::get('/user/add',['uses' => 'UserController@create','as' => 'user.add']);
 	Route::post('/user/store',['uses' => 'UserController@store','as' => 'user.store']);
@@ -78,6 +82,7 @@ use Illuminate\Support\Facades\Route;
 	Route::put('/project/update/{id}', ['uses' => 'ProjectController@update','as' => 'project.update']);
 	Route::delete('/project/delete/{id}',['uses' => 'ProjectController@delete','as' => 'project.delete']);
 	Route::delete('/project/delete-multiple/{id}',['uses' => 'ProjectController@deleteMultiple']);
+	// });
 });
 
 

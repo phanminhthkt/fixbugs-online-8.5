@@ -27,6 +27,7 @@
 .dropzone{cursor: pointer;}
 .fs-15{font-size: 12px;}
 .content-page{padding: 0 0px 65px 0px;}
+.account-pages{position: absolute;top:0;left: 0;right:0;bottom:0;display: flex;align-items: center;justify-content: center}
 @media (max-width: 569px){
 	.form-search {
 	    width: 100%;

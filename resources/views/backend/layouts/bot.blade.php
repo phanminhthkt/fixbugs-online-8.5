@@ -20,4 +20,5 @@
 <script src="{{asset('public/backend')}}\libs\flatpickr/flatpickr.min.js"></script>
 <!-- App js -->
 <script src="{{asset('public/backend')}}\js\app.min.js"></script>
+<script src="{{asset('public/backend')}}\js\functions.js"></script>
 <script src="{{asset('public/backend')}}\js\app.dev.js"></script>
