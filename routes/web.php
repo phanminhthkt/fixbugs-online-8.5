@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
  	Route::get('user/login',['uses' => 'UserController@getLogin','as'=>'user.login']);
  	Route::post('user/login',['uses' => 'UserController@postLogin']);
 
-	// Route::group(['middleware' => 'auth'], function(){	
+	Route::group(['middleware' => 'auth'], function(){	
 	Route::put('/ajax/status/{id}', ['uses' => 'AjaxController@updateStatus']);
 	Route::put('/ajax/priority/{id}', ['uses' => 'AjaxController@updatePriority']);
 	// Route::resource('member', 'MemberController');
@@ -82,7 +82,7 @@ use Illuminate\Support\Facades\Route;
 	Route::put('/project/update/{id}', ['uses' => 'ProjectController@update','as' => 'project.update']);
 	Route::delete('/project/delete/{id}',['uses' => 'ProjectController@delete','as' => 'project.delete']);
 	Route::delete('/project/delete-multiple/{id}',['uses' => 'ProjectController@deleteMultiple']);
-	// });
+	});
 });
 
 

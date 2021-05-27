@@ -149,14 +149,16 @@ class UserController extends Controller
         return view('backend.user.login');
     }
     public function postLogin(Request $request)
-    {
+    {   
+        session()->regenerate();
+        $token = csrf_token();
         $credentials = $request->only('username', 'password');
         if (Auth::guard('web')->attempt($credentials)){
             $request->session()->regenerate();
-            $noti = ['status' => 'true','msg' => 'Đăng nhập thành công']; 
+            $noti = ['status' => 'true','msg' => 'Đăng nhập thành công','token' =>$token]; 
             return response()->json($noti);
         }else{
-            $noti = ['status' => 'false','msg' => 'Thông tin đăng nhập sai']; 
+            $noti = ['status' => 'false','msg' => 'Thông tin đăng nhập sai','token' =>$token]; 
             return response()->json($noti);
         }
     }

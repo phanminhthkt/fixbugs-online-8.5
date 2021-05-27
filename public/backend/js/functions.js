@@ -151,11 +151,18 @@ function login(id)
 		url: 'login',
 		type: 'post',
 		data:$(id).serialize(),
+		dataType: 'json',
 		error:function(x,e) {
 		    backErrorAjax(x,e);
 		},
 	    success: function(result){
 	    	console.log(result);
+	    	$('meta[name="csrf-token"]').attr('content',result.token);
+	    	$.ajaxSetup({
+			    headers: {
+			        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			    }
+			});
 	    }
 	});
 }
