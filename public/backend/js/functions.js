@@ -156,13 +156,19 @@ function login(id)
 		    backErrorAjax(x,e);
 		},
 	    success: function(result){
-	    	console.log(result);
 	    	$('meta[name="csrf-token"]').attr('content',result.token);
 	    	$.ajaxSetup({
 			    headers: {
 			        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			    }
 			});
+			if(result.status=='true'){
+				$(".text-response").html('<span class="d-block alert alert-success mt-2"></span>');
+				window.location = result.url_intended;
+			}else{
+				$(".text-response").html('<span class="d-block alert alert-danger mt-2"></span>');
+			}
+			$(".text-response span").text(result.msg);
 	    }
 	});
 }

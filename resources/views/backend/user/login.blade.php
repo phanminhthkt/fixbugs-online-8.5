@@ -56,6 +56,7 @@
                                     <div class="form-group mb-0 text-center">
                                         <button type="submit" class="btn btn-bordered-success waves-effect waves-light btn-block"><i class="fa fa-sign-in"></i>Đăng nhập</button>
                                     </div>
+                                    <p class="text-response text-center"></p>
                                 </form>
                             </div> <!-- end card-body -->
                         </div>
