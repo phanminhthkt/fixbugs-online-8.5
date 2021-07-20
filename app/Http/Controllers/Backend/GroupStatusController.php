@@ -24,7 +24,7 @@ class GroupStatusController extends Controller
         $this->_model = $groupStatus;
         $this->_pathType = '';
         $this->_data['pageIndex'] = route('admin.group_status.index');
-        $this->_data['table'] = 'group_statuss';
+        $this->_data['table'] = 'group_status';
         $this->_data['title'] = 'Nhóm trạng thái';
         $this->_data['type'] = $request->type;
         $this->_data['path_type'] = isset($_GET['type']) ? '?type='.$_GET['type']:'';

@@ -16,7 +16,7 @@ class CreateStatusTable extends Migration
         Schema::create('status', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255)->nullable();
-            $table->integer('group_id')->default(0);
+            $table->foreignId('group_id')->constrained("group_status")->onDelete('cascade');
             $table->integer('is_priority')->default(0);
             $table->integer('is_status')->default(1);
             $table->timestamps();

@@ -41,12 +41,11 @@
                                     <label class="custom-control-label" for="selectall-checkbox"></label>
                                   </div>
                               </th>
-                              <th width="5%" class="text-center">Thứ tự</th>
-                              <th class="text-center"width="20%">{{$title}}</th>
-                              <th class="text-center"width="20%">Nhóm</th>
-                              <th width="15%" class="text-center">Ngày tạo</th>
+                              <th width="6%" class="text-center">Thứ tự</th>
+                              <th class="text-center" width="25%">{{$title}}</th>
+                              <th class="text-center" width="25%">Nhóm</th>
                               <th width="7%" class="text-center">Trạng thái</th>
-                              <th width="10%">Hành động</th>
+                              <th width="6%">Hành động</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -68,7 +67,6 @@
                               </td>
                               <td align="center"><a href="{{url()->current().'/edit/'.$item->id.$path_type}}">{{$item->name}}</a></td>
                               <td align="center">{{$item->group ? $item->group->name :''}}</td>
-                              <td align="center">{{$item->created_at}}</td>
 
                               <td align="center">
                                 <div class="custom-control custom-checkbox text-center">

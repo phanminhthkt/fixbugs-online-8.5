@@ -45,7 +45,6 @@
                               <th class="text-center"width="20%">{{$title}}</th>
                               <th width="15%" class="text-center">Nhóm</th>
                               <th width="15%" class="text-center">Ngày tạo</th>
-                              <th width="7%" class="text-center">Trạng thái</th>
                               <th width="10%">Hành động</th>
                            </tr>
                         </thead>
@@ -68,7 +67,6 @@
                               </td>
                               <td align="center"><a href="{{url()->current().'/edit/'.$item->id.$path_type}}">{{$item->name}}</a></td>
                               <td align="center">{{$item->group ? $item->group->name :''}}</td>
-                              <td align="center">{{$item->created_at}}</td>
 
                               <td align="center">
                                 <div class="custom-control custom-checkbox text-center">

@@ -15,8 +15,9 @@ class CreateProjectStatusTable extends Migration
     {
         Schema::create('project_status', function (Blueprint $table) {
             $table->id();
-            $table->integer('status_id')->default(0);
-            $table->integer('project_id')->default(0);
+            $table->foreignId('status_id')->constrained("status")->onDelete('cascade');
+            $table->foreignId('project_id')->constrained("projects")->onDelete('cascade');
+
             $table->timestamps();
         });
     }

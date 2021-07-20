@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             GroupStatusSeeder::class,
             MemberSeeder::class,
             StatusSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

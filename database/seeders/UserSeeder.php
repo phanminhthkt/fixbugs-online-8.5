@@ -1,9 +1,9 @@
 <?php
-
 namespace Database\Seeders;
-use App\Models\User;
-
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -12,16 +12,17 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    protected $_data = [
-        [
-            'username' => 'admin',
-            'password' => Hash::make('123456'),
-        ]
-    ];
     public function run()
     {
-        foreach($this->_data as $data) {
-            User::create($data);
+        $data = [
+            [
+            'username' => 'admin',
+            'email' => 'phanminh@gmail.com',
+            'password' => Hash::make('123456'),
+        ]
+        ];
+        foreach($data as $v) {
+            User::create($v);
         }
     }
 }
