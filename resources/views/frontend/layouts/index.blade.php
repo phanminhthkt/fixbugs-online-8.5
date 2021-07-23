@@ -5,16 +5,13 @@
     </head>
     <body>
         <div id="wrapper">
-            @include('frontend.layouts.header')
-            <div class="left-side-menu">
-            @include('frontend.layouts.menu')
-            </div>
-            <div class="content-page">
+            @include('frontend.layouts.header') 
                 <div class="content">
-                    @yield('content')
+                    <div class="container-fluid">
+                        @yield('content')
+                    </div>
                 </div>
                 <!-- end Footer -->
-            </div>
             @include('frontend.layouts.footer')
         </div>
         <!-- Right bar overlay-->

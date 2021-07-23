@@ -63,7 +63,7 @@ class GroupStatusController extends Controller
         if($this->_model->create($data)){
             return redirect()->route('admin.group_status.index',['type' => $request->type])->with('success', 'Thêm nhóm trạng thái <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.group_status.index',['type' => $request->type])->with('error', 'Thêm nhóm trạng thái <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.group_status.index',['type' => $request->type])->with('danger', 'Thêm nhóm trạng thái <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 
@@ -104,7 +104,7 @@ class GroupStatusController extends Controller
         if($this->_model->where('id', $id)->update($data)){
             return redirect()->route('admin.group_status.index',['type' => $request->type])->with('success', 'Chỉnh sửa nhóm trạng thái <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.group_status.index',['type' => $request->type])->with('error', 'Chỉnh sửa nhóm trạng thái <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.group_status.index',['type' => $request->type])->with('danger', 'Chỉnh sửa nhóm trạng thái <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 

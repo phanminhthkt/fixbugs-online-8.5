@@ -71,7 +71,7 @@ class MemberController extends Controller
         if($this->_model->create($data)){
             return redirect()->route('admin.member.index')->with('success', 'Thêm thành viên <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.member.index')->with('error', 'Thêm thành viên <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.member.index')->with('danger', 'Thêm thành viên <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 
@@ -116,7 +116,7 @@ class MemberController extends Controller
         if($this->_model->where('id', $id)->update($data)){
             return redirect()->route('admin.member.index')->with('success', 'Chỉnh sửa thành viên <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.member.index')->with('error', 'Chỉnh sửa thành viên <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.member.index')->with('danger', 'Chỉnh sửa thành viên <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 

@@ -346,3 +346,6 @@ ul {
     background: #f2f2f2;
     padding: 10px;
 }
+.container-fluid{padding-left: 0px !important;padding-right: 0px !important;}
+
+#alert-container ul{margin-bottom: 0px;}

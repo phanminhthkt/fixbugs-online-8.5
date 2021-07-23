@@ -63,7 +63,7 @@ class StatusController extends Controller
         if($this->_model->create($data)){
             return redirect()->route('admin.status.index')->with('success', 'Thêm trạng thái <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.status.index')->with('error', 'Thêm trạng thái <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.status.index')->with('danger', 'Thêm trạng thái <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 
@@ -104,7 +104,7 @@ class StatusController extends Controller
         if($this->_model->where('id', $id)->update($data)){
             return redirect()->route('admin.status.index')->with('success', 'Chỉnh sửa chức vụ <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.status.index')->with('error', 'Chỉnh sửa chức vụ <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.status.index')->with('danger', 'Chỉnh sửa chức vụ <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 

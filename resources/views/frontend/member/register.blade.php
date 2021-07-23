@@ -2,15 +2,10 @@
 @section('content')
 <div class="login-4">
 	<div class="form-section">
-	    <!-- <div class="logo-2">
-	        <a href="#">
-	            <img src="assets/img/logos/logo-2.png" alt="logo">
-	        </a>
-	    </div> -->
 	    @include('blocks.messages')
 	    <h3>TẠO TÀI KHOẢN</h3>
-	    <form action="{{ route('frontend.post.register') }}" method="POST" class="needs-validation" novalidate>
-	    	
+	    <form action="{{ route('client.post.register') }}" method="POST" class="needs-validation" novalidate >
+	    @csrf	
 	        <div class="form-group form-box">
 	            <input type="text" name="username" value="{{old('username')}}" class="input-text form-control" placeholder="Tên đăng nhập" required>
 	            <div class="invalid-feedback mt-1">
@@ -41,12 +36,19 @@
 	                Vui lòng nhập địa chỉ email.
 	            </div>
 	        </div>
+	        <div class="form-group form-box">
+	        	@foreach($groups as $k => $group)
+                <div class="custom-control custom-radio d-inline-block mr-2">
+                    <input type="radio" id="customRadio{{$group->id}}" value="{{$group->id}}" name="group_id" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadio{{$group->id}}">{{$group->name}}</label>
+                </div>
+                @endforeach
+	        </div>
 	        <div class="form-group clearfix text-center">
 	            <button type="submit" class="btn-md btn-theme float-left">Đăng ký</button>
 	        </div>
-	        {{ csrf_field() }}
 	    </form>
-	    <p>Bạn đã là thành viên ? <a href="{{route('frontend.show.login')}}" class="thembo"> Đăng nhập</a></p>
+	    <p>Bạn đã là thành viên ? <a href="{{route('client.member.login')}}" class="thembo"> Đăng nhập</a></p>
 	</div>
 </div>
 @endsection

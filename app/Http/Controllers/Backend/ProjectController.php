@@ -91,7 +91,7 @@ class ProjectController extends Controller
             $project->status()->attach($request->group_status); 
             return redirect()->route('admin.project.index',['type' => $request->type])->with('success', 'Thêm dự án <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.project.index',['type' => $request->type])->with('error', 'Thêm dự án <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.project.index',['type' => $request->type])->with('danger', 'Thêm dự án <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 
@@ -154,7 +154,7 @@ class ProjectController extends Controller
             $project->status()->sync($request->group_status); 
             return redirect()->route('admin.project.index',['type' => $request->type])->with('success', 'Sửa dự án <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.project.index',['type' => $request->type])->with('error', 'Sửa dự án <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.project.index',['type' => $request->type])->with('danger', 'Sửa dự án <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 
@@ -171,8 +171,8 @@ class ProjectController extends Controller
             File::delete(public_path('uploads/files/').$data->file);
         }
         if($this->_model->where('id', $id)->delete()){
-            $data->members()->detach();
-            $data->status()->detach();
+            // $data->members()->detach();//Có thể ko cần xài nếu đã build cascade on delete
+            // $data->status()->detach();
             return ['success' => true, 'message' => 'Xóa dự án thành công !!'];
         }else{
             return ['error' => true, 'message' => 'Xóa dự án thất bại.Xin vui lòng thử lại !!'];
@@ -181,13 +181,14 @@ class ProjectController extends Controller
     public function deleteMultiple($listId)
     {
         $dataFile = $this->_model->whereIn('id',explode(",",$listId))->where('file','<>','')->pluck('file');
-        $arrId = explode(",",$listId);
         foreach($dataFile as $file){
-            File::delete(public_path('uploads/files/').$file);
+            if(File::exists(public_path('uploads/files/').$file)) {
+                File::delete(public_path('uploads/files/').$file);
+            }
         } 
         if($this->_model->whereIn('id',explode(",",$listId))->delete()){
-            DB::table('member_project')->whereIn('project_id',explode(",",$listId))->delete();
-            DB::table('project_status')->whereIn('project_id',explode(",",$listId))->delete();
+            // DB::table('member_project')->whereIn('project_id',explode(",",$listId))->delete();
+            // DB::table('project_status')->whereIn('project_id',explode(",",$listId))->delete();
             return ['success' => true, 'message' => 'Xóa dự án thành công !!'];
         }else{
             return ['error' => true, 'message' => 'Xóa dự án thất bại.Xin vui lòng thử lại !!'];

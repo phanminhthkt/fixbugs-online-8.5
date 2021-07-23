@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
  	Route::get('user/login',['uses' => 'UserController@getLogin','as'=>'user.login']);
  	Route::post('user/login',['uses' => 'UserController@postLogin']);
+ 	
 
 	Route::group(['middleware' => 'auth'], function(){	
 		Route::put('/ajax/status/{id}', ['uses' => 'AjaxController@updateStatus']);
@@ -37,7 +38,7 @@ use Illuminate\Support\Facades\Route;
 		Route::put('/user/update/{id}', ['uses' => 'UserController@update','as' => 'user.update']);
 		Route::delete('/user/delete/{id}',['uses' => 'UserController@delete','as' => 'user.delete']);
 		Route::delete('/user/delete-multiple/{id}',['uses' => 'UserController@deleteMultiple']);
-
+		Route::get('user/logout',['uses' => 'UserController@logout','as'=>'user.logout']);
 		/*Member */
 		Route::get('/member',['uses' => 'MemberController@index','as' => 'member.index']);
 		Route::get('/member/add',['uses' => 'MemberController@create','as' => 'member.add']);
@@ -87,18 +88,17 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group(['as'=>'frontend.', 'namespace'=>'App\Http\Controllers\Frontend'], function(){
+Route::group(['as'=>'client.', 'namespace'=>'App\Http\Controllers\Frontend'], function(){
 		// Member
-	route::get('/member', [App\Http\Controllers\Frontend\MemberController::class, 'index'])->name('member.index');
-	route::get('/', [App\Http\Controllers\Frontend\MemberController::class, 'getLogin'])->name('show.login');
-	route::get('/login', [App\Http\Controllers\Frontend\MemberController::class, 'getLogin'])->name('show.login');
-	route::post('/login', [App\Http\Controllers\Frontend\MemberController::class, 'postLogin'])->name('post.login');
+	Route::get('/login',['uses' => 'MemberController@getLogin','as'=>'member.login']);
+	Route::post('/login',['uses' => 'MemberController@postLogin','as'=>'post.login']);
+	Route::get('/register',['uses' => 'MemberController@getRegister','as'=>'member.register']);
+	Route::post('/register', ['uses' => 'MemberController@postRegister','as'=>'post.register']);
 
-	route::get('/register', [App\Http\Controllers\Frontend\MemberController::class, 'getRegister'])->name('show.register');
-	route::post('/register', [App\Http\Controllers\Frontend\MemberController::class, 'postRegister'])->name('post.register');
-
-	route::get('/job', [App\Http\Controllers\Frontend\MemberController::class, 'getJob'])->name('show.job');
-	route::put('/member/{id}', [App\Http\Controllers\Frontend\MemberController::class, 'updateMember'])->name('put.member');
+	Route::group(['middleware' => 'auth:members'], function(){
+		Route::get('/',['uses' => 'IndexController@index','as'=>'index']);
+		Route::get('/logout',['uses' => 'MemberController@logout','as'=>'member.logout']);
+	});
 		// End Member
 });
 

@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Auth;
 use App\Models\User;
+use Session;
 
 class UserController extends Controller
 {
@@ -71,7 +72,7 @@ class UserController extends Controller
         if($this->_model->create($data)){
             return redirect()->route('admin.user.index')->with('success', 'Thêm người dùng <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.user.index')->with('error', 'Thêm người dùng <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.user.index')->with('danger', 'Thêm người dùng <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 
@@ -116,7 +117,7 @@ class UserController extends Controller
         if($this->_model->where('id', $id)->update($data)){
             return redirect()->route('admin.user.index')->with('success', 'Chỉnh sửa người dùng <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.user.index')->with('error', 'Chỉnh sửa người dùng <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.user.index')->with('danger', 'Chỉnh sửa người dùng <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 
@@ -147,8 +148,11 @@ class UserController extends Controller
 
     public function getLogin()
     {
-        $this->middleware('guest')->except('logout');
+
         session(['url.intended' => url()->previous()]);
+        if(Auth::guard('web')->check() == true){
+            return redirect()->intended(Session::get('url.intended'));
+        }
         return view('backend.user.login');
     }
     public function postLogin(Request $request)
@@ -158,6 +162,17 @@ class UserController extends Controller
 
         $credentials = $request->only('username', 'password');
         if (Auth::guard('web')->attempt($credentials)){
+            // set session
+            $user = Auth::guard('web')->user();
+            session::put('loginAdmin',
+                (object)[
+                'id' => $user->id,
+                'username' => $user->username,
+                'email' => $user->email,
+                'name' => $user->name,
+                'is_login' => true,
+                ]
+            );
             //Check previout url
             $url_intended = (!session()->has('url.intended') || session('url.intended')===route('admin.user.login'))  ? route('admin.index') : session('url.intended');
             $noti = ['status' => 'true','msg' => 'Đăng nhập thành công','token' =>$token,'url_intended' => $url_intended]; 
@@ -167,5 +182,9 @@ class UserController extends Controller
             return response()->json($noti);
         }
     }
-    
+    public function logout(Request $request){
+        Auth::guard('web')->logout();
+        $request->session()->forget('loginAdmin');
+        return redirect()->route('admin.user.login');
+    }
 }
