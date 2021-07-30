@@ -67,8 +67,9 @@
 
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="{{asset('public/backend')}}\images\users\avatar-1.jpg" alt="user-image" class="rounded-circle">
+                <img src="{{asset('frontend/')}}\images\users\avatar-1.jpg" alt="user-image" class="rounded-circle">
                 <span class="pro-user-name ml-1">
+
                     @if(Session::has('loginMember'))
                         {{ Session::get('loginMember')->username }}
                     @endif 
@@ -77,7 +78,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="{{Route('client.member.edit',Session::get('loginMember')->id)}}" class="dropdown-item notify-item">
                     <i class="remixicon-account-circle-line"></i>
                     <span>Thông tin cá nhân</span>
                 </a>
@@ -100,12 +101,12 @@
     <div class="logo-box">
         <a href="index.html" class="logo text-center">
             <span class="logo-lg">
-                <img src="{{asset('public/backend')}}\images\logo-light.png" alt="" height="20">
+                <img src="{{asset('backend/')}}\images\logo-light.png" alt="" height="20">
                 <!-- <span class="logo-lg-text-light">Xeria</span> -->
             </span>
             <span class="logo-sm">
                 <!-- <span class="logo-sm-text-dark">X</span> -->
-                <img src="{{asset('public/backend')}}\images\logo-sm.png" alt="" height="24">
+                <img src="{{asset('backend/')}}\images\logo-sm.png" alt="" height="24">
             </span>
         </a>
     </div>

@@ -1,5 +1,9 @@
-@extends('frontend.layouts.index')
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        @include('frontend.layouts.top')
+    </head>
+    <body>
 <div class="login-4">
 	<div class="form-section">
 	    @include('blocks.messages')
@@ -51,4 +55,6 @@
 	    <p>Bạn đã là thành viên ? <a href="{{route('client.member.login')}}" class="thembo"> Đăng nhập</a></p>
 	</div>
 </div>
-@endsection
+@include('frontend.layouts.bot')
+    </body>
+</html>

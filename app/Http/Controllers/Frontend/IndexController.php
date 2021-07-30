@@ -22,6 +22,7 @@ class IndexController extends Controller
     public function index()
     {
         return view('frontend.index.index');
+        // return view('welcome');
     }
 
     /**

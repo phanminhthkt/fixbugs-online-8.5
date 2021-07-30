@@ -14,17 +14,91 @@ use Session;
 class MemberController extends Controller
 {
     private $_data;
+    private $_pathType;
     private $_model;
 
-    public function __construct(Member $member)
+    public function __construct(Member $member,Request $request)
     {
         $this->_model = $member;
+        $this->_pathType = '';
+        $this->_data['pageIndex'] = route('client.member.index');
+        $this->_data['table'] = 'members';
+        $this->_data['groups'] = GroupMember::all();
+        $this->_data['title'] = 'thông tin';
+        $this->_data['type'] = $request->type;
+        $this->_data['path_type'] = isset($_GET['type']) ? '?type='.$_GET['type']:'';
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('frontend.member.index');//return ra trang login để đăng nhập
+
+        $sql  = Member::with(['group'])->where('type',$request->type);
+        $this->_pathType = '?type='.$request->type;
+        if($request->has('term')){
+            $sql->where('name', 'Like', '%' . $request->term . '%');
+            $this->_pathType .= '&term='.$request->term;
+        }
+        $this->_data['items'] = $sql->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
+        return view('frontend.member.index', $this->_data);
     }
+
+    public function create()
+    {
+        return view('frontend.member.add',$this->_data);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $this->_data['item'] = $this->_model->findOrFail($id);
+        return view('frontend.member.edit',$this->_data);
+        
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(SignupRequest $request, $id)
+    {
+        $this->_model->findOrFail($id);
+        
+        $data = $request->except('_token','_method','password_confirmation');//# request only
+        $data['password'] = Hash::make($request->password);
+        $data['remember_token'] = $request->_token;
+        if($this->_model->where('id', $id)->update($data)){
+            return redirect()->route('client.member.edit',$id)->with('success', 'Chỉnh sửa thành viên <b>'. $request->name .'</b> thành công');
+        }else{
+            return redirect()->route('client.member.edit',$id)->with('danger', 'Chỉnh sửa thành viên <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+        }
+    }
+
     public function getLogin()
     {
         session(['url.intended' => url()->previous()]);

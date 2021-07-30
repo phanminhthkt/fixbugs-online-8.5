@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
  	Route::post('user/login',['uses' => 'UserController@postLogin']);
  	
 
-	Route::group(['middleware' => 'auth'], function(){	
+	Route::group(['middleware' => 'auth:web'], function(){	
 		Route::put('/ajax/status/{id}', ['uses' => 'AjaxController@updateStatus']);
 		Route::put('/ajax/priority/{id}', ['uses' => 'AjaxController@updatePriority']);
 		// Route::resource('member', 'MemberController');
@@ -96,8 +96,13 @@ Route::group(['as'=>'client.', 'namespace'=>'App\Http\Controllers\Frontend'], fu
 	Route::post('/register', ['uses' => 'MemberController@postRegister','as'=>'post.register']);
 
 	Route::group(['middleware' => 'auth:members'], function(){
+		Route::get('/welcome',['uses' => 'IndexController@index','as'=>'index']);
 		Route::get('/',['uses' => 'IndexController@index','as'=>'index']);
 		Route::get('/logout',['uses' => 'MemberController@logout','as'=>'member.logout']);
+
+		Route::get('/member',['uses' => 'MemberController@index','as' => 'member.index']);
+		Route::get('/member/edit/{id}',['uses' => 'MemberController@edit','as' => 'member.edit']);
+		Route::put('/member/update/{id}', ['uses' => 'MemberController@update','as' => 'member.update']);
 	});
 		// End Member
 });

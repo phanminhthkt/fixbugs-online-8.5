@@ -9,14 +9,14 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{asset('public/backend')}}\\images\favicon.ico">
+        <link rel="shortcut icon" href="{{asset('backend')}}\\images\favicon.ico">
 
         <!-- App css -->
-        <link href="{{asset('public/backend')}}\\css\bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="{{asset('public/backend')}}\\css\icons.min.css" rel="stylesheet" type="text/css">
-        <link href="{{asset('public/backend')}}\libs\sweetalert2\sweetalert2.css" rel="stylesheet" type="text/css">
-        <link href="{{asset('public/backend')}}\\css\app.min.css" rel="stylesheet" type="text/css">
-        <link href="{{asset('public/backend')}}\\css\app.dev.css" rel="stylesheet" type="text/css">
+        <link href="{{asset('backend')}}\\css\bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="{{asset('backend')}}\\css\icons.min.css" rel="stylesheet" type="text/css">
+        <link href="{{asset('backend')}}\libs\sweetalert2\sweetalert2.css" rel="stylesheet" type="text/css">
+        <link href="{{asset('backend')}}\\css\app.min.css" rel="stylesheet" type="text/css">
+        <link href="{{asset('backend')}}\\css\app.dev.css" rel="stylesheet" type="text/css">
 
     </head>
 
@@ -73,11 +73,11 @@
         </footer>
         <!-- Vendor js -->
     </body>
-<script src="{{asset('public/backend')}}\js\vendor.min.js"></script>
-<script src="{{asset('public/backend')}}\libs\flatpickr/flatpickr.min.js"></script>
-<script src="{{asset('public/backend')}}\libs\sweetalert2\sweetalert2.js"></script>
-<script src="{{asset('public/backend')}}\js\app.min.js"></script>
-<script src="{{asset('public/backend')}}\js\functions.js"></script>
-<script src="{{asset('public/backend')}}\js\app.dev.js"></script>
+<script src="{{asset('backend')}}\js\vendor.min.js"></script>
+<script src="{{asset('backend')}}\libs\flatpickr/flatpickr.min.js"></script>
+<script src="{{asset('backend')}}\libs\sweetalert2\sweetalert2.js"></script>
+<script src="{{asset('backend')}}\js\app.min.js"></script>
+<script src="{{asset('backend')}}\js\functions.js"></script>
+<script src="{{asset('backend')}}\js\app.dev.js"></script>
 </html>
 

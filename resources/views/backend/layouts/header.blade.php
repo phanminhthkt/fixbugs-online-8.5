@@ -33,7 +33,7 @@
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="notify-icon">
-                            <img src="{{asset('public/backend')}}\images\users\avatar-2.jpg" class="img-fluid rounded-circle" alt=""> </div>
+                            <img src="{{asset('backend/')}}\images\users\avatar-2.jpg" class="img-fluid rounded-circle" alt=""> </div>
                         <p class="notify-details">Mario Drummond</p>
                         <p class="text-muted mb-0 user-msg">
                             <small>Hi, How are you? What about our next meeting</small>
@@ -43,7 +43,7 @@
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="notify-icon">
-                            <img src="{{asset('public/backend')}}\images\users\avatar-4.jpg" class="img-fluid rounded-circle" alt=""> </div>
+                            <img src="{{asset('backend/')}}\images\users\avatar-4.jpg" class="img-fluid rounded-circle" alt=""> </div>
                         <p class="notify-details">Karen Robinson</p>
                         <p class="text-muted mb-0 user-msg">
                             <small>Wow ! this admin looks good and awesome design</small>
@@ -93,7 +93,7 @@
 
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="{{asset('public/backend')}}\images\users\avatar-1.jpg" alt="user-image" class="rounded-circle">
+                <img src="{{asset('backend/')}}\images\users\avatar-1.jpg" alt="user-image" class="rounded-circle">
                 <span class="pro-user-name ml-1">
                     @if(Session::has('loginAdmin'))
                         {{ Session::get('loginAdmin')->username }}
@@ -121,12 +121,12 @@
     <div class="logo-box">
         <a href="index.html" class="logo text-center">
             <span class="logo-lg">
-                <img src="{{asset('public/backend')}}\images\logo-light.png" alt="" height="20">
+                <img src="{{asset('backend/')}}\images\logo-light.png" alt="" height="20">
                 <!-- <span class="logo-lg-text-light">Xeria</span> -->
             </span>
             <span class="logo-sm">
                 <!-- <span class="logo-sm-text-dark">X</span> -->
-                <img src="{{asset('public/backend')}}\images\logo-sm.png" alt="" height="24">
+                <img src="{{asset('backend/')}}\images\logo-sm.png" alt="" height="24">
             </span>
         </a>
     </div>

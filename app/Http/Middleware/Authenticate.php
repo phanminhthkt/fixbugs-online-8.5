@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Auth;
+use Closure;
 class Authenticate extends Middleware
 {
     /**
@@ -12,15 +13,26 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
-    protected function redirectTo($request)
+    public function handle($request, Closure $next, $guard = null)
     {
-        if(Auth::guard('web')->check() == false){
-            return route('admin.user.login');
-        }else if(Auth::guard('members')->check() == false){
-            return route('frontend.member.login');
+        if($guard == "web" && Auth::guard($guard)->check() == false){
+            return redirect()->route('admin.user.login');
         }
+        if($guard == "members" && Auth::guard($guard)->check() == false){
+            return redirect()->route('client.member.login');
+        }
+        return $next($request);
+    }
+    // protected function redirectTo($request, Closure $next, $guard = null)
+    // {
+        // if($guard == "web" && Auth::guard($guard)->check() == false){
+            // return route('admin.user.login');
+        // }
+        // if($guard == "members" && Auth::guard($guard)->check() == false){
+            // return route('client.member.login');
+        // }
         // if (! $request->expectsJson()) {
         //     return route('admin.user.login');
         // }
-    }
+    // }
 }

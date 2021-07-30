@@ -3,10 +3,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Example Component</div>
+                    <div class="card-header">Example Component 123311</div>
 
                     <div class="card-body">
-                        I'm an example component.
+                        {{message}}
                     </div>
                 </div>
             </div>
@@ -18,6 +18,12 @@
     export default {
         mounted() {
             console.log('Component mounted.')
+        },
+        data() {
+              return {
+                  message:'minh nè'
+              }
         }
+
     }
 </script>

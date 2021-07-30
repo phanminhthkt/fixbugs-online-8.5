@@ -15,10 +15,3 @@
       }, false)
     })
 })()
-
-$(document).ready(function(){
-  $('.item-job').click(function(){
-    $('.item-job').removeClass('active');
-    $(this).addClass('active');
-  })
-})
