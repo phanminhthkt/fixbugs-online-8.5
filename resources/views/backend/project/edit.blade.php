@@ -80,7 +80,7 @@
                         @foreach($sales as $v)
                         <option 
                         value="{{$v->id}}"
-                        {{ $item->saler->first()->id == $v->id ? 'selected' : ''}}
+                        {{ @$item->saler->first()->id == $v->id ? 'selected' : ''}}
                         >
                         {{$v->name}}
                         </option>
@@ -94,7 +94,7 @@
                         @foreach($devs as $v)
                         <option 
                         value="{{$v->id}}"
-                        {{ $item->dev->first()->id == $v->id ? 'selected' : ''}}
+                        {{ @$item->dev->first()->id == $v->id ? 'selected' : ''}}
                         >
                         {{$v->name}}
                         </option>
@@ -112,7 +112,7 @@
                       @foreach($status_codes as $v)
                       <option 
                       value="{{$v->id}}"
-                      {{ $item->status_code->first()->id == $v->id ? 'selected' : ''}}
+                      {{ @$item->status_code->first()->id == $v->id ? 'selected' : ''}}
                       >
                       {{$v->name}}
                       </option>
@@ -125,7 +125,7 @@
                       @foreach($status_projects as $v)
                       <option 
                       value="{{$v->id}}"
-                      {{ $item->status_project->first()->id == $v->id ? 'selected' : ''}}
+                      {{ @$item->status_project->first()->id == $v->id ? 'selected' : ''}}
                       >
                       {{$v->name}}
                       </option>

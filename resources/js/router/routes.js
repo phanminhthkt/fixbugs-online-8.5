@@ -1,19 +1,29 @@
 const routes = [
-    // {
-    //     path: '/',
-    //     redirect: '/dashboard'
-    // },
-    
+    {
+        path: '',
+        name: 'index',
+        component: require('../views/index/Index.vue').default,
+    },
+    {
+        path: '/project',
+        name: 'project.index',
+        component: require('../views/project/Index.vue').default,
+    },
+    {
+        path: '/project/add',
+        name: 'project.add',
+        component: require('../views/project/Add.vue').default,
+    },
     {
         path: '/member/edit/:id',
         name: 'member.edit',
-        component: require('../views/members/Edit.vue'),
+        component: require('../views/members/Edit.vue').default,
         props: true
     },
     {
         path: '*',
         name: '404',
-        component: require('../views/errors/Error404.vue')
+        component: require('../views/errors/Error404.vue').default
     }
 ];
 

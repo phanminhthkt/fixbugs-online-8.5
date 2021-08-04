@@ -45,7 +45,6 @@
 		                            <small class="text-muted">1 min ago</small>
 		                        </p>
 		                    </a>
-
 		                    <!-- item-->
 		                    <a href="javascript:void(0);" class="dropdown-item notify-item">
 		                        <div class="notify-icon bg-secondary">
@@ -66,37 +65,28 @@
 
 		            </div>
 		        </li>
-
 		        <li class="dropdown notification-list">
 		            <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
 		                <img src="frontend\images\users\avatar-1.jpg" alt="user-image" class="rounded-circle">
 		                <span class="pro-user-name ml-1">
-
-		                   
+		                	{{userObject.username}}
 		                    <i class="mdi mdi-chevron-down"></i> 
 		                </span>
 		            </a>
 		            <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
 		                <!-- item-->
-		                <a href="" class="dropdown-item notify-item">
+		                <router-link to="/project" class="dropdown-item notify-item">
 		                    <i class="remixicon-account-circle-line"></i>
 		                    <span>Thông tin cá nhân</span>
-		                </a>
-		                <a href="" class="dropdown-item notify-item">
+		                </router-link>	
+		                <a href="/logout" class="dropdown-item notify-item">
 		                    <i class="remixicon-logout-box-line"></i>
 		                    <span>Đăng xuất</span>
 		                </a>
 
 		            </div>
 		        </li>
-
-
-		        
-
-
 		    </ul>
-
-		    
 		    <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
 		        <li>
 		            <button class="button-menu-mobile waves-effect waves-light">
@@ -105,21 +95,23 @@
 		        </li>
 
 		        <li class="dropdown d-none d-lg-block">
-		            <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+		            <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" >
 		                Quản lí dự án
 		                <i class="mdi mdi-chevron-down"></i> 
 		            </a>
-		            <div class="dropdown-menu">
+		            <div class="dropdown-menu"
+		            	>
 		                <!-- item-->
-		                <a href="javascript:void(0);" class="dropdown-item">
+
+		                <router-link :to="{ name: 'project.add'}"  class="dropdown-item">	
 		                    <i class="fe-briefcase mr-1"></i>
 		                    <span>Khởi tạo dự án</span>
-		                </a>
+		                </router-link>
 		                <!-- item-->
-		                <a href="javascript:void(0);" class="dropdown-item">
+		                <router-link :to="{ name: 'project.index'}" class="dropdown-item">
 		                    <i class="fe-list mr-1"></i>
 		                    <span>Danh sách dự án</span>
-		                </a>
+		                </router-link>
 		                <!-- item-->
 		                <a href="javascript:void(0);" class="dropdown-item">
 		                    <i class="fe-bar-chart-line- mr-1"></i>
@@ -134,7 +126,12 @@
 
 <script>
     export default {
-    	
+    	props:['user'],
+        data() {
+            return{
+                userObject:JSON.parse(this.$props.user)
+            }
+        },
     }
 </script>
 

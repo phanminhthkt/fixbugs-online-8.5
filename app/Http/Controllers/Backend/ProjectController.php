@@ -81,6 +81,7 @@ class ProjectController extends Controller
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
+
         $data['ended_at'] = Carbon::parse($request->ended_at)->format('Y-m-d H:i:s');
         $data['estimated_at'] = Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s');
         $data['begin_at'] = Carbon::parse($request->begin_at)->format('Y-m-d H:i:s');

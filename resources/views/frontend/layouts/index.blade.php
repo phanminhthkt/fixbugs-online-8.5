@@ -6,7 +6,10 @@
     <body>
         <div id="wrapper">
             <div id="app">
-                <header-component></header-component>
+                <message-component></message-component>
+                <template-component 
+                    user="{{json_encode(session('loginMember'),true)}}">
+                </template-component>
             </div>
         </div>
         <!-- Right bar overlay-->

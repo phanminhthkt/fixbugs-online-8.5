@@ -74,19 +74,19 @@
                               <td align="center"><a href="{{url()->current().'/edit/'.$item->id}}">{{$item->name}}</a></td>
                               <td align="center">
                                 <a>
-                                 {{$item->status_code->first()->name}}
+                                 {{@$item->status_code->first()->name}}
                                 </a>
                               </td>
                               <td align="center">
                                 <a>
-                                  {{$item->status_project->first()->name}}
+                                  {{@$item->status_project->first()->name}}
                                 </a>
                               </td>
                               <td align="center"><a>
-                                    {{$item->dev->first()->name}}
+                                    {{@$item->dev->first()->name}}
                               </a></td>
                               <td align="center"><a>
-                                {{$item->saler->first()->name}}
+                                {{@$item->saler->first()->name}}
                               </a></td>
                               <!-- <td align="center">{{$item->created_at}}</td> -->
 

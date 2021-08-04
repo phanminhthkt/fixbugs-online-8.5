@@ -15,6 +15,36 @@ use Illuminate\Support\Facades\Route;
 // Route::group(['as'=>'', 'namespace'=>'App\Http\Controllers\Frontend'], function(){
 	// Auth::routes();
 // });
+Route::group(['as' => 'api.','namespace' => 'App\Http\Controllers\Api', 'prefix' => 'api'], function(){	
+
+ 	Route::get('user/login',['uses' => 'UserController@getLogin','as'=>'user.login']);
+ 	Route::post('user/login',['uses' => 'UserController@postLogin']);
+ 	
+
+	// Route::group(['middleware' => 'auth:web'], function(){	
+		Route::put('/ajax/status/{id}', ['uses' => 'AjaxController@updateStatus']);
+		Route::put('/ajax/priority/{id}', ['uses' => 'AjaxController@updatePriority']);
+		// Route::resource('member', 'MemberController');
+		Route::get('',['uses' => 'IndexController@index','as'=>'index']);
+		
+		/*Member */
+		Route::get('/member',['uses' => 'MemberController@index','as' => 'member.index']);
+		Route::get('/member/add',['uses' => 'MemberController@create','as' => 'member.add']);
+		Route::post('/member/store',['uses' => 'MemberController@store','as' => 'member.store']);
+		Route::get('/member/edit/{id}',['uses' => 'MemberController@edit','as' => 'member.edit']);
+		Route::put('/member/update/{id}', ['uses' => 'MemberController@update','as' => 'member.update']);
+
+		/*Project */
+		Route::get('/project',['uses' => 'ProjectController@index','as' => 'project.index']);
+		Route::get('/project/add',['uses' => 'ProjectController@create','as' => 'project.add']);
+		Route::post('/project/store',['uses' => 'ProjectController@store','as' => 'project.store']);
+		Route::get('/project/edit/{id}',['uses' => 'ProjectController@edit','as' => 'project.edit']);
+		Route::put('/project/update/{id}', ['uses' => 'ProjectController@update','as' => 'project.update']);
+	// });
+});
+
+
+
  Route::group(['as' => 'admin.','namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'], function(){	
 
  	Route::get('user/login',['uses' => 'UserController@getLogin','as'=>'user.login']);
@@ -96,15 +126,13 @@ Route::group(['as'=>'client.', 'namespace'=>'App\Http\Controllers\Frontend'], fu
 	Route::post('/register', ['uses' => 'MemberController@postRegister','as'=>'post.register']);
 
 	Route::group(['middleware' => 'auth:members'], function(){
-		Route::get('/welcome',['uses' => 'IndexController@index','as'=>'index']);
 		Route::get('/',['uses' => 'IndexController@index','as'=>'index']);
 		Route::get('/logout',['uses' => 'MemberController@logout','as'=>'member.logout']);
 
 		Route::get('/member',['uses' => 'MemberController@index','as' => 'member.index']);
-		Route::get('/member/edit/{id}',['uses' => 'MemberController@edit','as' => 'member.edit']);
-		Route::put('/member/update/{id}', ['uses' => 'MemberController@update','as' => 'member.update']);
+		// Route::get('/member/edit/{id}',['uses' => 'MemberController@edit','as' => 'member.edit']);
+		// Route::put('/member/update/{id}', ['uses' => 'MemberController@update','as' => 'member.update']);
 	});
 		// End Member
 });
-
 

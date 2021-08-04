@@ -6,9 +6,10 @@
           <div class="page-title-box">
              <div class="page-title-left">
                 <ol class="breadcrumb m-0">
-                   <li class="breadcrumb-item"><a href=""><i class="remixicon-home-8-line"></i></a></li>
-                   <li class="breadcrumb-item"><a href=""></a></li>
-                   <li class="breadcrumb-item active">Sửa </li>
+                   <li class="breadcrumb-item">
+                    <route-link><i class="remixicon-home-8-line"></i></route-link>
+                    </li>
+                   <li class="breadcrumb-item active">Sửa thông tin</li>
                 </ol>
              </div>
           </div>
