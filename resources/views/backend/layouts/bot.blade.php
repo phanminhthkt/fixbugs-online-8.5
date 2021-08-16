@@ -10,11 +10,13 @@
 <script  src="{{asset('backend')}}\libs\bootstrap-select\bootstrap-select.min.js"></script>
 <script  src="{{asset('backend')}}\libs\jquery-knob\jquery.knob.min.js"></script>
 <script  src="{{asset('backend')}}\libs\peity\jquery.peity.min.js"></script>
+<script  src="{{asset('backend')}}\libs\switchery\switchery.min.js"></script>
 <!-- Sparkline charts -->
 <script  src="{{asset('backend')}}\libs\jquery-sparkline\jquery.sparkline.min.js"></script>
 
 <!-- init js -->
 <script  src="{{asset('backend')}}\js\pages\dashboard-1.init.js"></script>
+<script  src="{{asset('backend')}}\libs\bootstrap-touchspin\jquery.bootstrap-touchspin.min.js"></script>
 <script  src="{{asset('backend')}}\js\pages\form-advanced.init.js"></script>
 <script  src="{{asset('backend')}}\libs\sweetalert2\sweetalert2.js"></script>
 <script  src="{{asset('backend')}}\libs\flatpickr/flatpickr.min.js"></script>

@@ -124,12 +124,26 @@ class MemberController extends Controller
                 Auth::guard('members')->logout();
                 return redirect()->route('client.member.login')->with('danger', 'Tài khoản chưa kích hoạt');
             }
+            $group = GroupMember::find($user->group_id);
+
+            //Pusu perission to array
+            $groupPermission = [];
+            foreach($group->roles as $role){
+                foreach($role->permissions as $k => $permission){
+                    $groupPermission[$k] = (object)[
+                        'module' => $permission->module,
+                        'action' => $permission->action
+                    ];
+                }
+            }
             session::put('loginMember',(object)[
                 'id' => $user->id,
                 'username' => $user->username,
                 'email' => $user->email,
                 'name' => $user->name,
                 'is_login' => true,
+                'role' => $group->roles[0]->slug,
+                'permission' => $groupPermission,
             ]);
             return redirect()->route('client.index');
         }else{

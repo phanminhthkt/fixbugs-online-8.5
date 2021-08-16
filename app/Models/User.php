@@ -42,4 +42,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function isSuperAdmin()
+    {   
+         foreach($this->roles as $v){
+            if($v->slug == 'admin'){
+                return true;
+            }else{
+                return false;
+            }
+         }
+    }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+    public function hasPermission(Permission $permission){
+        foreach($this->roles as $v){
+            if($v->permissions->contains($permission)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        // return !! optional(optional($this->roles->first())->permissions)->contains($permission);
+    }   
+    // !! ép kiểu true false
 }

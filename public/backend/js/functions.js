@@ -89,6 +89,7 @@ function confirmDialog(action,text,value)
 		{
 			if(action == "delete-item") deleteItem(value);
 			if(action == "delete-all") deleteAll(value);
+			if(action == "send-mail-item") sendMail(value);
 		}
 	})
 }
@@ -108,6 +109,37 @@ function backErrorAjax(x,e){
     } else {
         notifyError('Unknow Error.\n'+x.responseText);
     }
+}
+/* Delete */
+function sendMail(data)
+{
+    $.ajax({
+    	url:data.url,
+    	type: 'GET',
+    	headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+    	data: { id: data.id },
+	    beforeSend: function() {
+	        // setting a timeout
+	        $('.send-mail-item-'+data.id).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+	    },
+    	error:function(x,e) {
+		    $('.send-mail-item-'+data.id).html('<i class="mdi mdi-cancel"></i>');
+		},
+	    success: function(result){
+	    	$('meta[name="csrf-token"]').attr('content',result.token);
+	    	$.ajaxSetup({
+			    headers: {
+			        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			    }
+			});
+			if(result.status == "true"){
+				$('.send-mail-item-'+data.id).html('<i class="mdi mdi-check-circle-outline"></i>');
+			}
+			else{
+				$('.send-mail-item-'+data.id).html('<i class="mdi mdi-cancel"></i>');
+			}
+	    }
+	});
 }
 
 /* Delete */

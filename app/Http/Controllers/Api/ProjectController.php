@@ -11,6 +11,8 @@ use App\Models\GroupMember;
 use App\Models\GroupStatus;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMember;
 
 class ProjectController extends Controller
 {
@@ -77,13 +79,16 @@ class ProjectController extends Controller
             [
                 'name' => 'required',
                 'contract_code' => 'required',
+                'function' => 'required',
                 'link_design' => 'required',
-                'file' => 'mimes:doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS|max:2048'
+                'file' => 'required|mimes:doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS|max:2048'
             ],          
             [
                 'name.required' => 'Vui lòng nhập tên dự án',
                 'contract_code.required' => 'Vui lòng nhập mã hợp đồng',
+                'function.required' => 'Vui lòng nhập chức năng',
                 'link_design.required' => 'Vui lòng nhập link design',
+                'file.required' => 'Vui lòng tải tải lên file đặc tả',
                 'file.mimes' => 'Chỉ chấp nhận file đuôi doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS',
                 'file.max' => 'File giới hạn dung lượng không quá 2M',
             ]
@@ -95,23 +100,22 @@ class ProjectController extends Controller
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
-        $data['ended_at'] = Carbon::parse($request->ended_at)->format('Y-m-d H:i:s');
-        $data['estimated_at'] = Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s');
-        $data['begin_at'] = Carbon::parse($request->begin_at)->format('Y-m-d H:i:s');
-        $data['received_at'] = Carbon::parse($request->received_at)->format('Y-m-d H:i:s');
+        $data['ended_at'] =($request->has('ended_at') && $request->ended_at!='') ? Carbon::parse($request->ended_at)->format('Y-m-d H:i:s') :'' ;
+        $data['estimated_at'] = ($request->has('estimated_at') && $request->estimated_at!='') ? Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s') :'';
+        $data['begin_at'] = ($request->has('begin_at') && $request->begin_at!='') ? Carbon::parse($request->begin_at)->format('Y-m-d H:i:s') :'';
+        $data['received_at'] = ($request->has('received_at') && $request->received_at!='') ? Carbon::parse($request->received_at)->format('Y-m-d H:i:s') :'';
         if($projectId = $this->_model->create($data)->id){
             $project = $this->_model::find($projectId);
-            $project->members()->attach($request->group_member); 
-            $project->status()->attach($request->group_status); 
+            $project->status()->attach([1,4]);
             return response()->json(
                 [
-                    'success' => 'Thêm dự án <b>'. $request->name .'</b> thành công'
+                    'success' => 'Thêm dự án '. $request->name .' thành công'
                 ],200
             );
         }else{
             return response()->json(
                 [
-                    'danger' => 'Thêm dự án <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại'
+                    'danger' => 'Thêm dự án '. $request->name .' thất bại.Xin vui lòng thử lại'
                 ],500
             );
         }
@@ -136,8 +140,14 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        $this->_data['item'] = $this->_model->findOrFail($id);
-        return view('backend.project.edit',$this->_data);
+        $this->_data['item'] = $this->_model::with(['dev','saler','status_project','status_code'])->findOrFail($id);
+        $this->_data['item']->begin_at = $this->_data['item']->begin_at != '' ? Carbon::parse($this->_data['item']->begin_at)->format('Y-m-d\TH:i') : '';
+        $this->_data['item']->estimated_at = $this->_data['item']->estimated_at != '' ? Carbon::parse($this->_data['item']->estimated_at)->format('Y-m-d\TH:i') : '';
+        $this->_data['item']->ended_at =$this->_data['item']->ended_at != '' ?  Carbon::parse($this->_data['item']->ended_at)->format('Y-m-d\TH:i') : '';
+        return response([
+            $this->_data['item']
+            // $this->_data
+        ], 200);
     }
 
     /**
@@ -150,11 +160,29 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         $project = $this->_model->findOrFail($id);
-        $data = $request->except('_token','_method','group_member','group_status');
+        $data = $request->except('_token','_method');
 
+        if ($request->has(['name', 'contract_code', 'function', 'link_design'])) {    
+            $this->validate($request,
+                [
+                    'name' => 'required',
+                    'contract_code' => 'required',
+                    'function' => 'required',
+                    'link_design' => 'required',
+                ],          
+                [
+                    'name.required' => 'Vui lòng nhập tên dự án',
+                    'contract_code.required' => 'Vui lòng nhập mã hợp đồng',
+                    'function.required' => 'Vui lòng nhập chức năng',
+                    'link_design.required' => 'Vui lòng nhập link design',
+                ]
+            );
+        }
         if($request->hasFile('file')){
-            $this->validate($request,[
-                    'file' => 'mimes:doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS|max:2048',],          
+            $this->validate($request,
+                [
+                    'file' => 'required|mimes:doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS|max:2048'
+                ],          
                 [
                     'file.mimes' => 'Chỉ chấp nhận file đuôi doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS',
                     'file.max' => 'File giới hạn dung lượng không quá 2M',
@@ -168,16 +196,27 @@ class ProjectController extends Controller
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
-        $data['ended_at'] = Carbon::parse($request->ended_at)->format('Y-m-d H:i:s');
-        $data['estimated_at'] = Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s');
-        $data['begin_at'] = Carbon::parse($request->begin_at)->format('Y-m-d H:i:s');
-        $data['received_at'] = Carbon::parse($request->received_at)->format('Y-m-d H:i:s');
+        $data['ended_at'] =($request->has('ended_at') && $request->ended_at!='') ? Carbon::parse($request->ended_at)->format('Y-m-d H:i:s') :'' ;
+        $data['estimated_at'] = ($request->has('estimated_at') && $request->estimated_at!='') ? Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s') :'';
+        $data['begin_at'] = ($request->has('begin_at') && $request->begin_at!='') ? Carbon::parse($request->begin_at)->format('Y-m-d H:i:s') :'';
+        $data['received_at'] = ($request->has('received_at') && $request->received_at!='') ? Carbon::parse($request->received_at)->format('Y-m-d H:i:s') :'';
+
         if($project->where('id', $id)->update($data)){
-            $project->members()->sync($request->group_member); 
-            $project->status()->sync($request->group_status); 
-            return redirect()->route('admin.project.index',['type' => $request->type])->with('success', 'Sửa dự án <b>'. $request->name .'</b> thành công');
+            if($request->progress == 100) $project->status()->sync([3,4]);
+            if($request->progress > 0 && $request->progress < 100) $project->status()->sync([2,4]);
+            if($request->progress == 0) $project->status()->sync([1,4]);
+            // $project->status()->sync([1,4]);
+            return response()->json(
+                [
+                    'success' => 'Sửa dự án <strong>'. $request->name .'</strong> thành công'
+                ],200
+            ); 
         }else{
-            return redirect()->route('admin.project.index',['type' => $request->type])->with('danger', 'Sửa dự án <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return response()->json(
+                [
+                    'danger' => 'Sửa dự án <strong>'. $request->name .'</strong> thất bại.Xin vui lòng thử lại'
+                ],200
+            ); 
         }
     }
 
@@ -215,6 +254,25 @@ class ProjectController extends Controller
             return ['success' => true, 'message' => 'Xóa dự án thành công !!'];
         }else{
             return ['error' => true, 'message' => 'Xóa dự án thất bại.Xin vui lòng thử lại !!'];
+        }
+    }
+
+    public function sendMailMember(Request $request,$id)
+    {
+        $project = $this->_model->findOrFail($id);
+        Mail::to([$project->dev->first()->email,$project->saler->first()->email])->send(new SendMember($project));
+        if (Mail::failures()) {
+            return response()->json(
+                [
+                    'error' => 'Gửi mail không thành công'
+                ],200
+            );
+        }else{
+            return response()->json(
+                [
+                    'success' => 'Thông tin đã được gửi mail'
+                ],200
+            ); 
         }
     }
 }

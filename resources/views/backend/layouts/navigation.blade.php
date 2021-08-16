@@ -8,21 +8,31 @@
                         <span> Trang điều khiển </span>
                     </a>
                 </li>
-                <li class="{{ request()->routeIs('admin.group_member.*') ? 'mm-active' : '' }}">
+                @if(Auth::user()->can('view-group_member') || Auth::user()->can('view-member'))
+                <li 
+                class="{{ 
+                request()->routeIs('admin.group_member.*') || request()->routeIs('admin.member.*') ? 'mm-active' : '' }}">
                     <a href="#" class="waves-effect">
-                        <i class="remixicon-vip-crown-2-line"></i>
+                        <i class="fas fa-users"></i>
                         <span>Quản lý thành viên</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
-                        <li>
+                        @can('view-group_member')
+                        <li >
                             <a href="{{Route('admin.group_member.index')}}"><i class="remixicon-movie-line"></i>Nhóm thành viên</a>
                         </li>
-                        <li>
+                        @endcan
+                        @can('view-member')
+                        <li >
                             <a href="{{Route('admin.member.index')}}"> <i class="remixicon-movie-line"></i>Thành viên</a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+                @endcan
+
+                @can('view-project')
                 <li class="menu-title">Quản lý dự án</li>
                 <li >
                     <a href="{{Route('admin.project.index')}}" class="waves-effect">
@@ -30,7 +40,9 @@
                         <span>Quản lý dự án</span>
                     </a>
                 </li>
-                
+                @endcan
+               
+                @if(Auth::user()->can('view-status') || Auth::user()->can('view-group_status'))
                 <li class="{{ request()->routeIs('admin.status.*') ? 'mm-active' : '' }}">
                     <a href="javascript: void(0)" class="waves-effect">
                         <i class="fas fa-tasks"></i>
@@ -38,26 +50,56 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
+                        @can('view-group_status')
                         <li>
                             <a 
 
                             href="{{Route('admin.group_status.index')}}">
                             <i class="remixicon-movie-line"></i>Nhóm trạng thái</a>
                         </li>
+                        @endcan
+                        @can('view-status')
                         <li>
                             <a href="{{Route('admin.status.index')}}"> <i class="remixicon-movie-line"></i>Trạng thái</a>
                         </li>
+                        @endcan
+                    </ul>
+                </li>               
+                @endif
+                
+                @if(Auth::user()->can('view-permission') || Auth::user()->can('view-role'))
+                <li class="menu-title">Quản lý phân quyền</li>
+                <li 
+                class="{{ request()->routeIs('admin.role.*') || request()->routeIs('admin.permission.*') ? 'mm-active' : '' }}">
+                    <a href="#" class="waves-effect">
+                        <i class="remixicon-vip-crown-2-line"></i>
+                        <span>Quản lý phân quyền</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        @can('view-role')
+                        <li >
+                            <a href="{{Route('admin.role.index')}}"> <i class="remixicon-movie-line"></i>Vai trò</a>
+                        </li>
+                        @endcan
+                        @can('view-permission')
+                        <li> 
+                            <a href="{{Route('admin.permission.index')}}"> <i class="remixicon-movie-line"></i>Phân quyền</a>
+                        </li>
+                        @endcan
                     </ul>
                 </li>
+                @endif
 
+                @can('view-user')
                 <li class="menu-title">Quản lý người dùng</li>
                 <li >
                     <a href="{{Route('admin.user.index')}}" class="waves-effect">
-                        <i class="fe-users"></i>
+                        <i class="fas fa-users-cog"></i>
                         <span>Quản lý người dùng</span>
                     </a>
                 </li>
-                
+                @endcan
                 <!-- <li class="menu-title">Quản lý trang</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
@@ -182,5 +224,6 @@
 <script type="text/javascript">
     var URL = {
         'type': '<?=isset($_GET['type']) ? $_GET['type'] :''?>',
+        'current': '<?=url()->current()?>',
     };
 </script>

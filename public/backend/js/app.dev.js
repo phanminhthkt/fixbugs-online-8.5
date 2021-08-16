@@ -21,6 +21,12 @@ $('body').on('click','.delete-item', function(){
 		data.id = $(this).data("id");
 	confirmDialog("delete-item","Bạn có chắc muốn xóa mục này ?",data);
 });
+$('body').on('click','.send-mail-item', function(){
+	var data = data || {};
+		data.url = $(this).data("url");
+		data.id = $(this).data("id");
+	confirmDialog("send-mail-item","Bạn có chắc muốn gửi mail thông tin này ?",data);
+});
 
 
 
@@ -87,6 +93,14 @@ if(URL.type!=''){
 	    }
 	})
 }
+if(URL.current!=''){
+	$('.mm-active ul li a').each(function(i,v){
+	    if(URL.current.indexOf($(this).attr('href')) == 0){
+	        $(this).addClass('waves-effect active');
+	    }
+	})
+}
+
 // End active menu third
 // Change file
 $('body').on('change','.custom-file-dev input[type=file]', function(){
@@ -107,4 +121,20 @@ $(document).ready(function(){
 		enableTime:true,
 		dateFormat: 'd-m-Y H:i',
 	})
+
+	
+	
+	$(".dropdown-custom .dropdown-toggle-custom").click(function(){
+		if($('.dropdown-custom .dropdown-menu-custom').is(":hidden")){
+			$('.dropdown-custom .dropdown-menu-custom').addClass("show");
+		}else{
+			$('.dropdown-custom .dropdown-menu-custom').removeClass("show");
+		}
+	})
+
 })
+$(document).on('click', function (e) {
+    if ($(e.target).parents(".dropdown-custom").length === 0) {
+        $(".dropdown-menu-custom").removeClass('show');
+    }
+});

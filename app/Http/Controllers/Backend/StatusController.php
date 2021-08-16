@@ -102,9 +102,9 @@ class StatusController extends Controller
         $this->_model->findOrFail($id);
         $data = $request->except('_token','_method');//# request only
         if($this->_model->where('id', $id)->update($data)){
-            return redirect()->route('admin.status.index')->with('success', 'Chỉnh sửa chức vụ <b>'. $request->name .'</b> thành công');
+            return redirect()->route('admin.status.index')->with('success', 'Chỉnh sửa trạng thái <b>'. $request->name .'</b> thành công');
         }else{
-            return redirect()->route('admin.status.index')->with('danger', 'Chỉnh sửa chức vụ <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
+            return redirect()->route('admin.status.index')->with('danger', 'Chỉnh sửa trạng thái <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
         }
     }
 

@@ -13,6 +13,25 @@ const routes = [
         path: '/project/add',
         name: 'project.add',
         component: require('../views/project/Add.vue').default,
+        meta: {
+            requiredRole: ['nhom-kinh-doanh']
+        }
+    },
+    {
+        path: '/project/edit-dev/:id',
+        name: 'project.edit.dev',
+        component: require('../views/project/EditDev.vue').default,
+        
+        props: true
+    },
+    {
+        path: '/project/edit-sale/:id',
+        name: 'project.edit.sale',
+        component: require('../views/project/EditSale.vue').default,
+        meta: {
+            requiredRole: ['nhom-kinh-doanh']
+        },
+        props: true
     },
     {
         path: '/member/edit/:id',

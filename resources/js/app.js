@@ -29,10 +29,43 @@ Vue.component('template-component', require('./components/DashboardComponent.vue
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+
+
 const router = new VueRouter({
-    // mode: 'history',
+    mode: 'history',
     routes,
 });
 const app = new Vue({
+	data: {
+	    user: window.__user__,
+	    permission: window.__user__.permission,
+	},
   router
 }).$mount('#app')
+
+router.beforeEach((to, from, next) => {
+    let user = window.__user__
+    if (to.meta.requiredRole.includes(user.role)) {
+        next();
+    }else{
+        // EventBus.$emit('flash-message', 'Bạn không được quyền thực hiện việc này.')
+        // $bus.emit()
+        alert('Bạn không được quyền thực hiện việc này.')
+        next({path: '/project'})
+    }
+})
+Vue.directive('check', {
+    inserted(el, binding, vnode) {
+        let action = binding.value.action;
+        let component = binding.value.component;
+        let permission = window.__user__.permission;
+        let bool = false;
+        for(let value in permission) {
+		  if(permission[value].action === action && permission[value].module === component){
+            bool = true;
+		  }
+		}
+        if(bool == false){vnode.elm.parentElement.removeChild(vnode.elm);}
+    }
+});

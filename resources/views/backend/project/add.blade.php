@@ -20,7 +20,8 @@
     <form role="form" class='needs-validation' method="POST" action="{{$pageIndex.'/store'}}" enctype="multipart/form-data" novalidate>
    @csrf
    <div class="row d-flex flex-sm-row-reverse">
-    <div class="col-lg-4">
+    <div class="col-lg-4 ">
+      <div class="sticky-top-70">
       <div class="card">
         <div class="card-header py-2">
             <h5 class="card-title mb-0">File đặc tả</h5>
@@ -48,7 +49,6 @@
             <h5 class="card-title mb-0">THÔNG TIN CHUNG</h5>
         </div>
         <div class="card-body">
-          <div class="form-group">
             <div class="row">
                 <div class="col-sm-6 col-12">
                   <label>Sale phụ trách</label>
@@ -73,8 +73,6 @@
                     </select>
                 </div>
               </div>
-          </div>
-          <div class="form-group">
               <div class="row">
                 <div class="col-sm-6 col-12">
                     <label>Tình trạng lập trình</label>
@@ -97,10 +95,8 @@
                     </select>
                 </div>
               </div>
-            </div>
           
           
-          <div class="form-group">
             <div class="row">
 
               <div class="col-sm-6 col-12">
@@ -120,18 +116,51 @@
               </div>
             </div>
             
-            <div class="form-group">
-                
-            </div>
             
-          </div>
+            
         </div>
+      </div>
       </div>
    </div>
    <div class="col-lg-8">
       <div class="card">
         <div class="card-header py-2 text-white">
-            <h5 class="card-title mb-0">TIẾN ĐỘ LẬP TRÌNH</h5>
+            <h5 class="card-title mb-0">THÔNG TIN HỢP ĐỒNG</h5>
+        </div>
+        <div class="card-body">
+            <div class="tab-pane fade active show" id="vi">
+              <div class="form-group">
+                <label>Tên hợp đồng</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Hợp đồng" value="{{old('name')}}" required="">
+                    <div class="invalid-feedback">Vui lòng nhập tên hợp đồng</div>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label id="contract_code">Mã hợp đồng</label>
+                <input type="text" class="form-control" id="contract_code" name="contract_code" placeholder="Mã hợp đồng" value="{{old('contract_code')}}" required="">
+                <div class="invalid-feedback">Vui lòng nhập mã hợp đồng</div>
+              </div>
+              <div class="form-group">
+                <label id="link_design">Link design</label>
+                <input type="text" class="form-control" id="link_design" name="link_design" placeholder="Link design" value="{{old('link_design')}}">
+              </div>
+              <div class="form-group">
+                <label id="link_design">Chức năng</label>
+                <input type="text" class="form-control" id="function" name="function" placeholder="Mô tả chức năng" value="{{old('function')}}" required="">
+              </div>
+              <div class="form-group">
+                <label>Ghi chú</label>
+                <div class="input-group">
+                  <textarea rows="4" name="note" id="note" class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header py-2 text-white">
+            <h5 class="card-title mb-0">THÔNG TIN LẬP TRÌNH</h5>
         </div>
         <div class="card-body">
           <div class="row">
@@ -215,64 +244,59 @@
                 </div>
              </div>
           </div>
-        </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header py-2 text-white">
-            <h5 class="card-title mb-0">THÔNG TIN CHI TIẾT</h5>
-        </div>
-        <div class="card-body">
-          <ul class="nav nav-tabs nav-bordered">
-            <li class="nav-item">
-                <a href="#vi" data-toggle="tab" aria-expanded="false" class="nav-link active">
-                    <span class="d-inline-block d-sm-none"><i class="fas fa-home"></i></span>
-                    <span class="d-none d-sm-inline-block">Tiếng Việt</span> 
-                </a>
-            </li>
-            <li class="nav-item d-none">
-                <a href="#en" data-toggle="tab" aria-expanded="true" class="nav-link">
-                    <span class="d-inline-block d-sm-none"><i class="far fa-user"></i></span>
-                    <span class="d-none d-sm-inline-block">Tiếng Anh</span> 
-                </a>
-            </li>
-            <li class="nav-item d-none">
-                <a href="#kr" data-toggle="tab" aria-expanded="false" class="nav-link">
-                    <span class="d-inline-block d-sm-none"><i class="far fa-envelope"></i></span>
-                    <span class="d-none d-sm-inline-block">Tiếng Hàn</span>  
-                </a>
-            </li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade active show" id="vi">
-              <div class="form-group">
-                <label>Tên hợp đồng</label>
+           <div class="col-sm-12 col-12">
+            <div class="form-group">
+                <label>Tiến độ</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Hợp đồng" value="{{old('name')}}" required="">
-                    <div class="invalid-feedback">Vui lòng nhập tên hợp đồng</div>
+                    <input type="number" class="form-control" id="progress" name="progress" placeholder="Tiến độ công việc" value="{{old('progress')}}">
                   </div>
               </div>
-              <div class="form-group">
-                <label id="contract_code">Mã hợp đồng</label>
-                <input type="text" class="form-control" id="contract_code" name="contract_code" placeholder="Mã hợp đồng" value="{{old('contract_code')}}" required="">
-                <div class="invalid-feedback">Vui lòng nhập mã hợp đồng</div>
-              </div>
-              <div class="form-group">
-                <label id="link_design">Link design</label>
-                <input type="text" class="form-control" id="link_design" name="link_design" placeholder="Link design" value="{{old('link_design')}}">
-              </div>
-              <div class="form-group">
-                <label>Ghi chú</label>
-                <div class="input-group">
-                  <textarea rows="4" name="note" id="note" class="form-control"></textarea>
-                </div>
+            </div>
+            <div class="col-sm-12 col-12">
+            <div class="form-group">
+                <label>Link hoàn thành</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="link_end" name="link_end" placeholder="Link hoàn thành" value="{{old('link_end')}}">
+                  </div>
               </div>
             </div>
-            <div class="tab-pane fade d-none" id="en">Anh</div>
-            <div class="tab-pane fade d-none" id="kr">Hàn</div>
-          </div>
+            <div class="col-sm-12 col-12">
+              <div class="form-group">
+                <label id="username">Tên đăng nhập</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Tên đăng nhập" value="{{old('username')}}">
+              </div>
+            </div>
+            <div class="col-sm-12 col-12">
+              <div class="form-group">
+                <label id="password">Mật khẩu</label>
+                <input type="text" class="form-control" id="password" name="password" placeholder="Mật khẩu" value="{{old('password')}}">
+              </div>
+            </div>
+            <div class="col-sm-12 col-12">
+              <div class="form-group">
+                <label>Ghi chú hoàn thành</label>
+                  <div class="input-group">
+                    <textarea rows="4" name="note_end" id="note_end" class="form-control">{{old('note_end')}}</textarea>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-12">
+              <div class="form-group">
+                <label id="link_host">Link up host</label>
+                <input type="text" class="form-control" id="link_host" name="link_host" placeholder="Link up host" value="{{old('link_host')}}">
+              </div>
+            </div>
+            <div class="col-sm-12 col-12">
+              <div class="form-group">
+                <label id="note_host">Ghi chú up host</label>
+                <div class="input-group">
+                    <textarea rows="4" name="note_host" id="note_host" class="form-control">{{old('note_host')}}</textarea>
+                  </div>
+              </div>
+            </div>
         </div>
-      </div>
+        </div>
+      </div>      
       <button type="submit" class="btn btn-success waves-effect waves-light"><i class="far fa-plus-square mr-1"></i>Submit</button>
       <button type="reset" class="btn btn-secondary waves-effect waves-light"><i class="fa fas fa-redo mr-1"></i>Reset</button>
    </div>

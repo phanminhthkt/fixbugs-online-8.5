@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Permission;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,6 +15,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        // 'App\Models\Member' => 'App\Policies\MemberPolicy',
+        // 'App\Models\Project' => 'App\Policies\ProjectPolicy',
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
@@ -25,6 +29,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+
+        Gate::before(function ($user, $ability) {//Check Full permission
+            if($user->isSuperAdmin()) {
+                return true;
+            }
+        });
+        foreach(Permission::all() as $permission){//Check per permission
+            Gate::define($permission->slug,function($user) use ($permission){
+                return $user->hasPermission($permission);
+            });
+        }
     }
 }

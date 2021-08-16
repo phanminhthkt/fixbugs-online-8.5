@@ -11,6 +11,11 @@ use App\Models\GroupMember;
 use App\Models\GroupStatus;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Gate;
+use Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMember;
 
 class ProjectController extends Controller
 {
@@ -41,9 +46,37 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         $sql  = $this->_model::with(['dev','saler','status_project','status_code'])->where('id','<>', 0);
-        if($request->has('term')){
+        if($request->has('term') && $request->term!=''){
             $sql->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '?term='.$request->term;
+        }
+        if($request->has('dev') && $request->dev!=''){
+            $dev = $request->dev;
+            $sql->whereHas('members', function ($query) use ($dev) {
+                return $query->where([['members.id', '=', $dev],['members.group_id','=',1]]);
+            });
+            $this->_pathType .= '?dev='.$request->dev;
+        }
+        if($request->has('saler') && $request->saler!=''){
+            $saler = $request->saler;
+            $sql->whereHas('members', function ($query) use ($saler) {
+                $query->where('members.id', $saler)->where('members.group_id',2);
+            });
+            $this->_pathType .= '?dev='.$request->dev;
+        }
+        if($request->has('status_code') && $request->status_code!=''){
+            $status_code = $request->status_code;
+            $sql->whereHas('status', function ($query) use ($status_code) {
+                $query->where('status.id', $status_code)->where('status.group_id',1);
+            });
+            $this->_pathType .= '?status_code='.$status_code;
+        }
+        if($request->has('status_project') && $request->status_project!=''){
+            $status_project = $request->status_project;
+            $sql->whereHas('status', function ($query) use ($status_project) {
+                $query->where('status.id', $status_project)->where('status.group_id',2);
+            });
+            $this->_pathType .= '?status_project='.$request->status_project;
         }
         $this->_data['items'] = $sql->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
         return view('backend.project.index', $this->_data);
@@ -82,10 +115,10 @@ class ProjectController extends Controller
             $data['file'] =  $nameFile;
         }
 
-        $data['ended_at'] = Carbon::parse($request->ended_at)->format('Y-m-d H:i:s');
-        $data['estimated_at'] = Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s');
-        $data['begin_at'] = Carbon::parse($request->begin_at)->format('Y-m-d H:i:s');
-        $data['received_at'] = Carbon::parse($request->received_at)->format('Y-m-d H:i:s');
+        $data['ended_at'] =$request->ended_at!='' ? Carbon::parse($request->ended_at)->format('Y-m-d H:i:s') :'' ;
+        $data['estimated_at'] = $request->estimated_at!='' ? Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s')  :'';
+        $data['begin_at'] = $request->begin_at!='' ? Carbon::parse($request->begin_at)->format('Y-m-d H:i:s') :'';
+        $data['received_at'] = $request->received_at!='' ? Carbon::parse($request->received_at)->format('Y-m-d H:i:s')  :'';
         if($projectId = $this->_model->create($data)->id){
             $project = $this->_model::find($projectId);
             $project->members()->attach($request->group_member); 
@@ -146,10 +179,10 @@ class ProjectController extends Controller
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
-        $data['ended_at'] = Carbon::parse($request->ended_at)->format('Y-m-d H:i:s');
-        $data['estimated_at'] = Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s');
-        $data['begin_at'] = Carbon::parse($request->begin_at)->format('Y-m-d H:i:s');
-        $data['received_at'] = Carbon::parse($request->received_at)->format('Y-m-d H:i:s');
+        $data['ended_at'] =$request->ended_at!='' ? Carbon::parse($request->ended_at)->format('Y-m-d H:i:s') :'' ;
+        $data['estimated_at'] = $request->estimated_at!='' ? Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s') :'';
+        $data['begin_at'] = $request->begin_at!='' ? Carbon::parse($request->begin_at)->format('Y-m-d H:i:s') :'';
+        $data['received_at'] = $request->received_at!='' ? Carbon::parse($request->received_at)->format('Y-m-d H:i:s') :'';
         if($project->where('id', $id)->update($data)){
             $project->members()->sync($request->group_member); 
             $project->status()->sync($request->group_status); 
@@ -193,6 +226,20 @@ class ProjectController extends Controller
             return ['success' => true, 'message' => 'Xóa dự án thành công !!'];
         }else{
             return ['error' => true, 'message' => 'Xóa dự án thất bại.Xin vui lòng thử lại !!'];
+        }
+    }
+    public function sendMailMember(Request $request,$id)
+    {
+        $token = csrf_token();
+        
+        $project = $this->_model->findOrFail($id);
+        Mail::to([$project->dev->first()->email,$project->saler->first()->email])->send(new SendMember($project));
+        if (Mail::failures()) {
+            $noti = ['status' => 'false','msg' => 'Gửi mail thất bại','token' =>$token];
+            return response()->json($noti);
+        }else{
+            $noti = ['status' => 'true','msg' => 'Gửi mail thành công','token' =>$token];
+            return response()->json($noti);
         }
     }
 }

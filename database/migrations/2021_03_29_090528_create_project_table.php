@@ -22,12 +22,22 @@ class CreateProjectTable extends Migration
             $table->integer('is_priority')->default(0);
             $table->integer('is_status')->default(1);
             $table->integer('is_active')->default(0);
+            $table->integer('progress')->default(0);
             $table->string('note')->nullable();
             $table->string('link_design')->nullable();
-            $table->timestamp('received_at')->nullable();
-            $table->timestamp('begin_at')->nullable();
-            $table->timestamp('estimated_at')->nullable();
-            $table->timestamp('ended_at')->nullable();
+
+            $table->string('function')->nullable();
+            $table->string('link_end')->nullable();
+            $table->string('note_end')->nullable();
+            $table->string('link_host')->nullable();
+            $table->string('note_host')->nullable();
+            $table->string('username')->nullable();
+            $table->string('password')->nullable();
+
+            $table->string('received_at')->nullable();
+            $table->string('begin_at')->nullable();
+            $table->string('estimated_at')->nullable();
+            $table->string('ended_at')->nullable();
             $table->timestamps();
         });
     }

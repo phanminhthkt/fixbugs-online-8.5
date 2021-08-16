@@ -26,14 +26,46 @@
 .custom-file-dev input{width: 100%;height: 100%;opacity: 0;cursor: pointer;}
 .dropzone{cursor: pointer;}
 .fs-15{font-size: 12px;}
-.content-page{padding: 0 0px 65px 0px;}
+.content-page{padding: 0 0px 65px 0px;overflow: unset;}
 .account-pages{position: absolute;top:0;left: 0;right:0;bottom:0;display: flex;align-items: center;justify-content: center}
-@media (max-width: 569px){
-	.form-search {
-	    width: 100%;
-	    margin-left: 0px!important;
-	    margin-top: 0.75rem!important;
-	}
+#alert-container ul{
+    margin-bottom: 0px;
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
 }
-
-#alert-container ul{margin-bottom: 0px;}
+.switchery-small {
+    border-radius: 20px;
+    height: 13px;
+    width: 25px;
+}
+.switchery-small>small {
+    height: 13px;
+    width: 13px;
+}
+.spinner-border-sm{min-width: 15px;min-height: 15px;}
+.sticky-top-70{position: sticky;top:70px;}
+.dropdown-custom{position: relative;}
+.dropdown-menu-custom {
+    -webkit-box-shadow: 0 0 8px 0 rgb(154 161 171 / 30%);
+    box-shadow: 0 0 8px 0 rgb(154 161 171 / 30%);
+    -webkit-animation-name: DropDownSlide;
+    animation-name: DropDownSlide;
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    margin: 0;
+    border: none;
+    font-size: .9rem;
+    position: absolute;
+    z-index: 1000;
+    width: 320px;
+    background: #fff;
+    display: none;
+}
+.dropdown-menu-custom.show {
+    top: 100%!important;
+    display: block;
+}
+.card .card-header{}

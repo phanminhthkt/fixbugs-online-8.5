@@ -18,4 +18,8 @@ class GroupMember extends Model
     public function members(){
     	return $this->hasMany(Member::class,'group_id','id');
     }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
 }

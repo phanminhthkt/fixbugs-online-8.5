@@ -35,6 +35,16 @@
         <div class="card-body">
           <div class="form-group">
             <div class="row">
+              <div class="col-sm-12 col-12">
+                <div class="form-group">
+                  <label>Vai trò</label>
+                  <select class="selectpicker"  data-selected-text-format="count > 3" name="role[]" data-style="btn-light">
+                      @foreach($roles as $v)
+                      <option value="{{$v->id}}">{{$v->name}}</option>
+                      @endforeach
+                  </select>
+                </div>
+              </div>
               <div class="col-sm-6 col-12">
                 <div class="form-group">
                 <label>Tình trạng</label>

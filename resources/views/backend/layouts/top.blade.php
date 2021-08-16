@@ -10,6 +10,7 @@
 <!-- App css -->
 <link href="{{asset('backend')}}\css\bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="{{asset('backend')}}\css\icons.min.css" rel="stylesheet" type="text/css">
+<link href="{{asset('backend')}}\libs\switchery\switchery.min.css" rel="stylesheet" type="text/css">
 <link href="{{asset('backend')}}\libs\dropzone\dropzone.min.css" rel="stylesheet" type="text/css">
 <link href="{{asset('backend')}}\libs\multiselect\multi-select.css" rel="stylesheet" type="text/css">
 <link href="{{asset('backend')}}\libs\bootstrap-select\bootstrap-select.min.css" rel="stylesheet" type="text/css">

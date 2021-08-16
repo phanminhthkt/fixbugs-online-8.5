@@ -69,7 +69,7 @@
 		            <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
 		                <img src="frontend\images\users\avatar-1.jpg" alt="user-image" class="rounded-circle">
 		                <span class="pro-user-name ml-1">
-		                	{{userObject.username}}
+		                	{{$root.user.username}}
 		                    <i class="mdi mdi-chevron-down"></i> 
 		                </span>
 		            </a>
@@ -108,7 +108,9 @@
 		                    <span>Khởi tạo dự án</span>
 		                </router-link>
 		                <!-- item-->
-		                <router-link :to="{ name: 'project.index'}" class="dropdown-item">
+		                <router-link 
+		                	
+		                	:to="{ name: 'project.index'}" class="dropdown-item">
 		                    <i class="fe-list mr-1"></i>
 		                    <span>Danh sách dự án</span>
 		                </router-link>
@@ -126,10 +128,10 @@
 
 <script>
     export default {
-    	props:['user'],
+    	// props:['user'],
         data() {
             return{
-                userObject:JSON.parse(this.$props.user)
+                // userObject:JSON.parse(this.$props.user)
             }
         },
     }

@@ -31,22 +31,18 @@
             <h5 class="card-title mb-0">THÔNG TIN CHUNG</h5>
         </div>
         <div class="card-body">
-          <?php /* ?>
-          <div class="form-group">
-              <label>Nhóm</label>
-              <select class="selectpicker" data-live-search="true" name="group_id" id="group" required="">
-              <option value="" >Chọn nhóm</option>
-                @foreach($groups as $group)
-                <option value="{{$group->id}}">
-                {{$group->name}}
-                </option>
-                @endforeach
-              </select>
-              <div class="invalid-feedback">Vui lòng chọn nhóm</div>
-          </div>
-          <?php */ ?>
           <div class="form-group">
             <div class="row">
+              <div class="col-sm-12 col-12">
+                <div class="form-group">
+                  <label>Vai trò</label>
+                  <select class="selectpicker"  data-selected-text-format="count > 3" name="role[]" data-style="btn-light">
+                      @foreach($roles as $v)
+                      <option value="{{$v->id}}">{{$v->name}}</option>
+                      @endforeach
+                  </select>
+                </div>
+              </div>
               <div class="col-sm-6 col-12">
                 <div class="form-group">
                 <label>Tình trạng</label>

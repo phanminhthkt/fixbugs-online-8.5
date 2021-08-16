@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GroupMember;
+use App\Models\Role;
 
 class GroupMemberController extends Controller
 {
@@ -23,6 +24,7 @@ class GroupMemberController extends Controller
         $this->_model = $groupMember;
         $this->_pathType = '';
         $this->_data['pageIndex'] = route('admin.group_member.index');
+        $this->_data['roles'] = Role::all();
         $this->_data['table'] = 'group_members';
         $this->_data['title'] = 'Nhóm thành viên';
         $this->_data['type'] = $request->type;
@@ -58,8 +60,11 @@ class GroupMemberController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except('_token');
-        if($this->_model->create($data)){
+        $data = $request->except('_token','role');
+        if($groupId = $this->_model->create($data)->id){
+            $group = $this->_model::find($groupId);
+            $group->roles()->attach($request->role);
+
             return redirect()->route('admin.group_member.index',['type' => $request->type])->with('success', 'Thêm nhóm <b>'. $request->name .'</b> thành công');
         }else{
             return redirect()->route('admin.group_member.index',['type' => $request->type])->with('danger', 'Thêm nhóm <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
@@ -86,6 +91,8 @@ class GroupMemberController extends Controller
     public function edit($id)
     {
         $this->_data['item'] = $this->_model->findOrFail($id);
+        $this->_data['role_array'] = [];
+        foreach($this->_data['item']->roles as $v){array_push($this->_data['role_array'],$v['id']);}
         return view('backend.group_member.edit',$this->_data);
     }
 
@@ -98,9 +105,10 @@ class GroupMemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->_model->findOrFail($id);
-        $data = $request->except('_token','_method');//# request only
-        if($this->_model->where('id', $id)->update($data)){
+        $group =$this->_model->findOrFail($id);
+        $data = $request->except('_token','_method','role');//# request only
+        if($group->where('id', $id)->update($data)){
+            $group->roles()->sync($request->role);
             return redirect()->route('admin.group_member.index',['type' => $request->type])->with('success', 'Chỉnh sửa nhóm <b>'. $request->name .'</b> thành công');
         }else{
             return redirect()->route('admin.group_member.index',['type' => $request->type])->with('danger', 'Chỉnh sửa nhóm <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');

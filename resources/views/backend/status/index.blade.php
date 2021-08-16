@@ -22,7 +22,7 @@
 <div class="row">
    <div class="col-12">
       <div class="card">
-        <div class="card-header d-inline-flex justify-content-between py-1">
+        <div class="card-header flex-wrap d-inline-flex justify-content-between py-1">
             <h4 class="card-title d-inline-block mb-0 py-1">Danh sách {{$title}}</h4>
             @include('backend.modules.search')
         </div>
@@ -44,7 +44,7 @@
                               <th width="5%" class="text-center">Thứ tự</th>
                               <th class="text-center"width="20%">{{$title}}</th>
                               <th width="15%" class="text-center">Nhóm</th>
-                              <th width="15%" class="text-center">Ngày tạo</th>
+                              <th width="15%" class="text-center">Trạng thái</th>
                               <th width="10%">Hành động</th>
                            </tr>
                         </thead>

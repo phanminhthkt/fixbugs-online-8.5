@@ -44,6 +44,7 @@
                             name="file"
                             ref="fileInput" 
                             id="file"
+                            v-on:change="handleFileUpload()"
                           >
                         </div>
                         <div class="change-file"><b class="text-sm text-split text-danger"></b></div>
@@ -84,6 +85,19 @@
                     value="" 
                     required="">
                     <div class="invalid-feedback">Vui lòng nhập mã hợp đồng</div>
+                  </div>
+                  <div class="form-group">
+                    <label id="function">Chức năng</label>
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    id="function" 
+                    v-model="dataPost.function"
+                    placeholder="Mô tả chức năng" 
+                    value=""
+                    required="" 
+                    >
+                    <div class="invalid-feedback">Vui lòng nhập chức năng</div>
                   </div>
                   <div class="form-group">
                     <label id="link_design">Link design</label>
@@ -129,11 +143,11 @@
               dataPost :{
                 name:'',
                 contract_code:'',
+                function:'',
                 link_design:'',
                 note:'',
                 file: ''
               },
-              error:null
           }
       },
       mounted(){
@@ -146,15 +160,17 @@
         });
       },
       methods: {
+        handleFileUpload(){
+            this.file = this.$refs.fileInput.files[0]
+        },
         async create() {
              try {
-              this.error = null
               var data = new FormData()
-              var file = this.$refs.fileInput.files[0]
-              data.append('file', file)
+              this.file !=null ? data.append('file', this.file) : ''
               data.append('name', this.dataPost.name)
               data.append('contract_code', this.dataPost.contract_code)
               data.append('link_design', this.dataPost.link_design)
+              data.append('function', this.dataPost.function)
               data.append('note', this.dataPost.note)
               const response = await axios.post('/api/project/store',data)
 

@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Auth;
 use App\Models\User;
+use App\Models\Role;
 use Session;
 
 class UserController extends Controller
@@ -23,13 +24,14 @@ class UserController extends Controller
     private $_pathType;
     private $_model;
 
-    public function __construct(User $user,Request $request)
+    public function __construct(User $user,Role $role,Request $request)
     {
 
         $this->_model = $user;
         $this->_pathType = '';
         $this->_data['pageIndex'] = route('admin.user.index');
         $this->_data['table'] = 'users';
+        $this->_data['roles'] = Role::all();
         $this->_data['title'] = 'Người dùng';
         $this->_data['type'] = $request->type;
         $this->_data['path_type'] = isset($_GET['type']) ? '?type='.$_GET['type']:'';
@@ -65,11 +67,13 @@ class UserController extends Controller
      */
     public function store(SignupRequestUser $request)
     {       
-        $data = $request->except('_token','password_confirmation');
+        $data = $request->except('_token','password_confirmation','role');
         $data['password'] = Hash::make($request->password);
         $data['remember_token'] = $request->_token;
 
-        if($this->_model->create($data)){
+        if($userId = $this->_model->create($data)->id){
+            $user = $this->_model::find($userId);
+            $user->roles()->attach($request->role);
             return redirect()->route('admin.user.index')->with('success', 'Thêm người dùng <b>'. $request->name .'</b> thành công');
         }else{
             return redirect()->route('admin.user.index')->with('danger', 'Thêm người dùng <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
@@ -96,6 +100,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $this->_data['item'] = $this->_model->findOrFail($id);
+        $this->_data['role_array'] = [];
+        foreach($this->_data['item']->roles as $v){array_push($this->_data['role_array'],$v['id']);}
         return view('backend.user.edit',$this->_data);
         
     }
@@ -109,12 +115,13 @@ class UserController extends Controller
      */
     public function update(SignupRequestUser $request, $id)
     {
-        $this->_model->findOrFail($id);
+        $user = $this->_model->findOrFail($id);
         
-        $data = $request->except('_token','_method','password_confirmation');//# request only
+        $data = $request->except('_token','_method','password_confirmation','role');//# request only
         $data['password'] = Hash::make($request->password);
         $data['remember_token'] = $request->_token;
-        if($this->_model->where('id', $id)->update($data)){
+        if($user->where('id', $id)->update($data)){
+            $user->roles()->sync($request->role);
             return redirect()->route('admin.user.index')->with('success', 'Chỉnh sửa người dùng <b>'. $request->name .'</b> thành công');
         }else{
             return redirect()->route('admin.user.index')->with('danger', 'Chỉnh sửa người dùng <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');

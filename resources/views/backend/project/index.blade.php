@@ -22,9 +22,9 @@
 <div class="row">
    <div class="col-12">
       <div class="card">
-        <div class="card-header d-inline-flex justify-content-between py-1">
+        <div class="card-header flex-wrap d-inline-flex justify-content-between py-1">
             <h4 class="card-title d-inline-block mb-0 py-1">Danh sách {{$title}}
-              <span class="text-success fs-15 ml-1">(Note - TT: Tình trạng)</span>
+              <span class="text-danger fs-15 ml-1">(Note - HĐ: Hợp đồng,LT: Lập trình)</span>
             </h4>
             @include('backend.modules.search')
         </div>
@@ -43,15 +43,13 @@
                                     <label class="custom-control-label" for="selectall-checkbox"></label>
                                   </div>
                               </th>
-                              <th width="3%" class="text-center">Thứ tự</th>
+                              <th width="5%" class="text-center">STT</th>
                               <th class="text-center"width="20%">{{$title}}</th>
-                              <th width="15%" class="text-center">TT hợp đồng</th>
-                              <th width="15%" class="text-center">TT lập trình</th>
-                              <th width="10%" class="text-center">Dev</th>
-                              <th width="10%" class="text-center">Saler</th>
-                              <!-- <th width="15%" class="text-center">Ngày tạo</th> -->
-                              <th width="7%" class="text-center">Trạng thái</th>
-                              <th width="10%">Hành động</th>
+                              <th width="13%" class="text-center">Tình trạng</th>
+                              <th width="15%" class="text-center">Phụ trách</th>
+                              <th width="15%" class="text-center">Ngày tạo</th>
+                              <th width="9%" class="text-center">Trạng thái</th>
+                              <th width="6%" class="text-center">Hành động</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -71,24 +69,30 @@
                                 class="form-control input-mini input-priority p-0 text-center" 
                                 value="{{$item->is_priority}}" >
                               </td>
-                              <td align="center"><a href="{{url()->current().'/edit/'.$item->id}}">{{$item->name}}</a></td>
-                              <td align="center">
-                                <a>
-                                 {{@$item->status_code->first()->name}}
-                                </a>
+                              <td align=""><a href="{{url()->current().'/edit/'.$item->id}}">{{$item->name}}</a></td>
+                              <td >
+                                <div 
+                                  class=" @if($item->status_project->first()->id == 4) badge badge-purple
+                                  @elseif($item->status_project->first()->id == 5) badge badge-danger
+                                  @elseif($item->status_project->first()->id == 6) badge badge-dark
+                                  @endif
+                                  " 
+                                >
+
+                                  LT: {{@$item->status_project->first()->name}}</div>
+                                <div class=" @if($item->status_code->first()->id == 1) badge badge-warning
+                                  @elseif($item->status_code->first()->id == 2) badge badge-info
+                                  @elseif($item->status_code->first()->id == 3) badge badge-primary
+                                  @endif
+                                  " >HĐ: {{@$item->status_code->first()->name}}</div>
                               </td>
-                              <td align="center">
-                                <a>
-                                  {{@$item->status_project->first()->name}}
-                                </a>
-                              </td>
-                              <td align="center"><a>
-                                    {{@$item->dev->first()->name}}
+                              
+                              <td align=""><a>
+                                  <div>Dev:   &nbsp;{{@$item->dev->first()->name}}</div>
+                                  <div>Saler: {{@$item->saler->first()->name}}</div>  
                               </a></td>
-                              <td align="center"><a>
-                                {{@$item->saler->first()->name}}
-                              </a></td>
-                              <!-- <td align="center">{{$item->created_at}}</td> -->
+                              
+                              <td align="center">{{$item->created_at}}</td>
 
                               <td align="center">
                                 <div class="custom-control custom-checkbox text-center">
@@ -117,6 +121,13 @@
                                     class="delete-item btn btn-icon waves-effect waves-light btn-danger ml-1" 
                                     >
                                     <i class="mdi mdi-close"></i>
+                                  </a>
+                                  <a href="#" 
+                                    data-url="{{url()->current().'/send-mail/'.$item->id}}"
+                                    data-id="{{$item->id}}"
+                                    class="send-mail-item send-mail-item-{{$item->id}} btn btn-icon waves-effect waves-light btn-secondary ml-1" 
+                                    >
+                                    <i class="mdi mdi-send-circle"></i>
                                   </a>
                                 </div>
                               </td>
