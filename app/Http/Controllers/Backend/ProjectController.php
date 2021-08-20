@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 use Illuminate\Support\Facades\File; 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\helpers;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\Status;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Gate;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMember;
+
 
 class ProjectController extends Controller
 {
@@ -115,10 +117,13 @@ class ProjectController extends Controller
             $data['file'] =  $nameFile;
         }
 
-        $data['ended_at'] =$request->ended_at!='' ? Carbon::parse($request->ended_at)->format('Y-m-d H:i:s') :'' ;
-        $data['estimated_at'] = $request->estimated_at!='' ? Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s')  :'';
-        $data['begin_at'] = $request->begin_at!='' ? Carbon::parse($request->begin_at)->format('Y-m-d H:i:s') :'';
-        $data['received_at'] = $request->received_at!='' ? Carbon::parse($request->received_at)->format('Y-m-d H:i:s')  :'';
+        $data['begin_at'] = helpers::formatDate($request->begin_at,'Y-m-d H:i:s');
+        $data['ended_at'] = helpers::formatDate($request->ended_at,'Y-m-d H:i:s');
+        $data['estimated_at'] = helpers::formatDate($request->estimated_at,'Y-m-d H:i:s');
+        $data['received_at'] = helpers::formatDate($request->received_at,'Y-m-d H:i:s');
+        $request->group_member = helpers::rejectNullArray($request->group_member);
+        $request->group_status = helpers::rejectNullArray($request->group_status);
+
         if($projectId = $this->_model->create($data)->id){
             $project = $this->_model::find($projectId);
             $project->members()->attach($request->group_member); 
@@ -179,10 +184,14 @@ class ProjectController extends Controller
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
-        $data['ended_at'] =$request->ended_at!='' ? Carbon::parse($request->ended_at)->format('Y-m-d H:i:s') :'' ;
-        $data['estimated_at'] = $request->estimated_at!='' ? Carbon::parse($request->estimated_at)->format('Y-m-d H:i:s') :'';
-        $data['begin_at'] = $request->begin_at!='' ? Carbon::parse($request->begin_at)->format('Y-m-d H:i:s') :'';
-        $data['received_at'] = $request->received_at!='' ? Carbon::parse($request->received_at)->format('Y-m-d H:i:s') :'';
+
+        $data['begin_at'] = helpers::formatDate($request->begin_at,'Y-m-d H:i:s');
+        $data['ended_at'] = helpers::formatDate($request->ended_at,'Y-m-d H:i:s');
+        $data['estimated_at'] = helpers::formatDate($request->estimated_at,'Y-m-d H:i:s');
+        $data['received_at'] = helpers::formatDate($request->received_at,'Y-m-d H:i:s');
+        $request->group_member = helpers::rejectNullArray($request->group_member);
+        $request->group_status = helpers::rejectNullArray($request->group_status);
+
         if($project->where('id', $id)->update($data)){
             $project->members()->sync($request->group_member); 
             $project->status()->sync($request->group_status); 

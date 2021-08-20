@@ -33,6 +33,18 @@ class PermissionSeeder extends Seeder
 		            'action' => 'update',
 		            'type' => null,
 		        ],[
+		            'name' => 'Sửa dự án dev',
+		            'module' => 'project',
+		            'slug' => 'update-dev-project',
+		            'action' => 'update-dev',
+		            'type' => null,
+		        ],[
+		            'name' => 'Sửa dự án sale',
+		            'module' => 'project',
+		            'slug' => 'update-sale-project',
+		            'action' => 'update-sale',
+		            'type' => null,
+		        ],[
 		            'name' => 'Xoá dự án',
 		            'module' => 'project',
 		            'slug' => 'delete-project',

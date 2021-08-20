@@ -399,3 +399,6 @@ li{
 .alert-custom.alert-danger{color:#e62743;}
 .modal-header{padding:0.5rem 1rem;}
 .p-alert.alert{padding: .47rem 1.25rem;}
+@media (max-width: 767px){ 
+    .w-sm-100{width: 100%}
+}

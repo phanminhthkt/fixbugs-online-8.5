@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\backend;
+namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -32,13 +32,16 @@ class StatusController extends Controller
 
     public function index(Request $request)
     {
-        $sql  = $this->_model::where('id','<>', 0);
+        $sql  = $this->_model::select("id","name")->where('id','<>', 0);
         if($request->has('term')){
             $sql->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '?term='.$request->term;
         }
-        $this->_data['items'] = $sql->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
-        return view('backend.status.index', $this->_data);
+        $this->_data['items'] = $sql->orderBy('id','desc')->get();
+        return response([
+            $this->_data['items']
+            // $this->_data
+        ], 200);
     }
 
     /**

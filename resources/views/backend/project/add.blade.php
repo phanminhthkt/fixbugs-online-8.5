@@ -52,7 +52,7 @@
             <div class="row">
                 <div class="col-sm-6 col-12">
                   <label>Sale phụ trách</label>
-                  <select class="selectpicker" data-live-search="true"  name="group_member[]" required="">
+                  <select class="selectpicker" data-live-search="true"  name="group_member[]" >
                       <option value="" >Chọn saler</option>
                         @foreach($sales as $v)
                         <option value="{{$v->id}}">
@@ -63,7 +63,7 @@
                 </div>
                 <div class="col-sm-6 col-12">
                     <label>Dev phụ trách</label>
-                    <select class="selectpicker" data-live-search="true" name="group_member[]" required="">
+                    <select class="selectpicker" data-live-search="true" name="group_member[]" >
                       <option value="" >Chọn dev</option>
                         @foreach($devs as $v)
                         <option value="{{$v->id}}">

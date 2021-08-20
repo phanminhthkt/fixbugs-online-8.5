@@ -50,6 +50,17 @@ class Member extends Authenticatable
     public function group(){
         return $this->belongsTo(GroupMember::class,'group_id');
     }
+    public function isSuperAdmin()
+    {   
+         foreach($this->group->roles as $v){
+            if($v->slug == 'admin'){
+                return true;
+            }else{
+                return false;
+            }
+         }
+    }
+    
     // public function projects(){
     //     return $this->belongsToMany(Project::class);
     // }

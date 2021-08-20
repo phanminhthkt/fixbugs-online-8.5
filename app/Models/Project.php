@@ -13,6 +13,7 @@ class Project extends Model
         'name',
         'contract_code',
         'link_design',
+        'function',
         'note',
         'file',
         'is_status',

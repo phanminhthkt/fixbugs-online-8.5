@@ -95,16 +95,13 @@
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <img src="{{asset('backend/')}}\images\users\avatar-1.jpg" alt="user-image" class="rounded-circle">
                 <span class="pro-user-name ml-1">
-                    @if(Session::has('loginAdmin'))
-                        {{ Session::get('loginAdmin')->username }}
-                    @endif
-
+                    {{ Auth::user()->username }}
                     <i class="mdi mdi-chevron-down"></i> 
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                 <!-- item-->
-                <a href="{{Route('admin.user.edit',Session::get('loginAdmin')->id)}}" class="dropdown-item notify-item">
+                <a href="{{Route('admin.user.edit',Auth::user()->id)}}" class="dropdown-item notify-item">
                     <i class="remixicon-account-circle-line"></i>
                     <span>Tài khoản</span>
                 </a>

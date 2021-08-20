@@ -21,7 +21,7 @@ class MemberController extends Controller
     {
         $this->_model = $member;
         $this->_pathType = '';
-        $this->_data['pageIndex'] = route('client.member.index');
+        $this->_data['pageIndex'] = route('client.member.login');
         $this->_data['table'] = 'members';
         $this->_data['groups'] = GroupMember::all();
         $this->_data['title'] = 'thông tin';

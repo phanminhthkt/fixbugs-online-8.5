@@ -36,7 +36,7 @@ class PermissionController extends Controller
             $sql->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '?term='.$request->term;
         }
-        $this->_data['items'] = $sql->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
+        $this->_data['items'] = $sql->orderBy('module','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
         return view('backend.permission.index', $this->_data);
     }
 

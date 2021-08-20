@@ -1,6 +1,6 @@
 <?php 
 namespace App\Http\Helpers;
-
+use Carbon\Carbon;
 class helpers {
 	public static function reOrderPermission($arr){
         $newArr=[];
@@ -17,5 +17,15 @@ class helpers {
         }
         ksort($newArr);
         return $newArr;
+    }
+    public static function rejectNullArray($array){
+        $array = array_filter($array,function($v){
+            return $v!='';
+        });
+        return $array;
+    }
+    public static function formatDate($value,$format){
+        $value = $value!= '' ? Carbon::parse($value)->format($format) : '';
+        return $value;
     }
 }

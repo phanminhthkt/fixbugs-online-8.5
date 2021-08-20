@@ -169,17 +169,6 @@ class UserController extends Controller
 
         $credentials = $request->only('username', 'password');
         if (Auth::guard('web')->attempt($credentials)){
-            // set session
-            $user = Auth::guard('web')->user();
-            session::put('loginAdmin',
-                (object)[
-                'id' => $user->id,
-                'username' => $user->username,
-                'email' => $user->email,
-                'name' => $user->name,
-                'is_login' => true,
-                ]
-            );
             //Check previout url
             $url_intended = (!session()->has('url.intended') || session('url.intended')===route('admin.user.login'))  ? route('admin.index') : session('url.intended');
             $noti = ['status' => 'true','msg' => 'Đăng nhập thành công','token' =>$token,'url_intended' => $url_intended]; 

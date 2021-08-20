@@ -6,7 +6,6 @@
     <body>
         <div id="wrapper">
             <div id="app">
-                <message-component></message-component>
                 <!-- user="{{json_encode(session('loginMember'),true)}}" -->
                 <template-component></template-component>
             </div>

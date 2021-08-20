@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<header class="header">
 		<div class="navbar-custom">
 		    <ul class="list-unstyled topnav-menu float-right mb-0">
 		        <li class="d-none d-sm-block">
@@ -123,7 +123,7 @@
 		        </li>
 		    </ul>
 		</div>
-	</div>
+	</header>
 </template>
 
 <script>

@@ -22,7 +22,6 @@ Vue.use(bus)
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-Vue.component('message-component', require('./components/MessagesComponent.vue').default);
 Vue.component('template-component', require('./components/DashboardComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -44,17 +43,17 @@ const app = new Vue({
   router
 }).$mount('#app')
 
-router.beforeEach((to, from, next) => {
-    let user = window.__user__
-    if (to.meta.requiredRole.includes(user.role)) {
-        next();
-    }else{
-        // EventBus.$emit('flash-message', 'Bạn không được quyền thực hiện việc này.')
-        // $bus.emit()
-        alert('Bạn không được quyền thực hiện việc này.')
-        next({path: '/project'})
-    }
-})
+// router.beforeEach((to, from, next) => {
+//     let user = window.__user__
+//     if (to.meta.requiredRole.includes(user.role)) {
+//         next();
+//     }else{
+//         // EventBus.$emit('flash-message', 'Bạn không được quyền thực hiện việc này.')
+//         // $bus.emit()
+//         alert('Bạn không được quyền thực hiện việc này.')
+//         next({path: '/'})
+//     }
+// })
 Vue.directive('check', {
     inserted(el, binding, vnode) {
         let action = binding.value.action;

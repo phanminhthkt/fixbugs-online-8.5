@@ -171,6 +171,7 @@
               data.append('contract_code', this.dataPost.contract_code)
               data.append('link_design', this.dataPost.link_design)
               data.append('function', this.dataPost.function)
+              data.append('id', window.__user__.id)
               data.append('note', this.dataPost.note)
               const response = await axios.post('/api/project/store',data)
 

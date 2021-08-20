@@ -171,7 +171,7 @@
           },
            async getItemProjects() {
               try {
-                 const response = await axios.get('/api/project/edit/'+this.$route.params.id)
+                 const response = await axios.get('/api/project/edit-sale/'+this.$route.params.id)
                  this.dataPost = response.data[0]
               }catch (error) {
                  this.error = error.response.data
@@ -183,10 +183,11 @@
               this.file !=null ? data.append('file', this.file) : ''
               data.append('name', this.dataPost.name)
               data.append('contract_code', this.dataPost.contract_code)
+              data.append('function', this.dataPost.function)
               data.append('link_design', this.dataPost.link_design)
               data.append('note', this.dataPost.note)
               data.append('_method', 'PUT')
-              const response = await axios.post('/api/project/update/'+this.$route.params.id,data)
+              const response = await axios.post('/api/project/update-sale/'+this.$route.params.id,data)
 
               this.message.type="success"
               this.message.text=response.data.success

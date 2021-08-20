@@ -91,37 +91,28 @@
                     </div>
                 </div>
                 <!-- Add Permission -->
-               <div class="table-responsive">
-                     <table id="basic-datatable" class="table dt-responsive nowrap dataTable no-footer dtr-inline  " role="grid" aria-describedby="basic-datatable_info" >
-                  <thead>
-                  <tr>
-                      <th width="60%">Chọn quyền</th>
-                      <th><span class="text-center d-block">Xem</span></th>
-                      <th><span class="text-center d-block">Thêm</span></th>
-                      <th><span class="text-center d-block">Sửa</span></th>
-                      <th><span class="text-center d-block">Xoá</span></th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($permissions as $vArr) <!-- vArray contains permision action -->
-                    <tr>
-                      <td>{{ucwords(substr($vArr[0]->name,'4'))}}</td>
-                       @foreach(App\Http\Helpers\helpers::reOrderPermission($vArr) as $k => $v)
-                        <td align="center">
-                          <input 
-                            type="checkbox" data-plugin="switchery" data-color="#7266ba" data-size="small"
-                            value="{{$v->id}}" 
-                            id="permission{{$v->id}}"
-                            name="permission[]"
-                          >
+                <div class="group-permission">
+                  <h5 class="font-weight-medium">Chọn quyền</h5>
+                  <div class="line"></div>
+                  @foreach($permissions as $vArr)
+                      <h3 class="header-title text-success mb-2">{{$namePer = ucwords(substr($vArr[0]->name,'4'))}}</h4>
+                      <div class="row">
+                      @foreach($vArr as $k => $v)
+                      <div class="col-lg-4 mb-2 d-flex align-content-center justify-content-between">
+                        <label class="d-block mb-0 font-weight-normal" for="permission{{$v->id}}">
+                          {{$v->name}}</label>
+                        <input 
+                          type="checkbox" data-plugin="switchery" data-color="#7266ba" data-size="small" class="mt-1"
+                          value="{{$v->id}}" 
+                          id="permission{{$v->id}}"
+                          name="permission[]"
+                        >
                         </div>
-                        </td>
-                      @endforeach  
-                    </tr>
-                    @endforeach
-                  </tbody>
-              </table>
-            </div>
+                      @endforeach
+                    </div>
+                    <div class="line"></div>
+                  @endforeach
+                </div>
                <!--End Add Permission -->
             </div>
             <div class="tab-pane fade d-none" id="en">Anh</div>

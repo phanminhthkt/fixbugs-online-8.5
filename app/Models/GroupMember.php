@@ -22,4 +22,15 @@ class GroupMember extends Model
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
+    public function hasPermission(Permission $permission){
+        foreach($this->roles as $v){
+            if($v->permissions->contains($permission)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        // return !! optional(optional($this->roles->first())->permissions)->contains($permission);
+    }  
+    // !! ép kiểu true false
 }

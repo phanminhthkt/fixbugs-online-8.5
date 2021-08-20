@@ -45,7 +45,7 @@
 								<tr>
 									<td style="padding:8px"><strong>Link hoàn thành</strong></td>
 									<td style="padding:8px">
-										<a href="data.link_end" target="_blank">
+										<a :href="data.link_end" target="_blank">
 											{{data.link_end}}
 										</a>
 									</td>
@@ -104,6 +104,7 @@
             </div>
         </div>
     </div>
+    
 </template>
 <script>
 	export default {
@@ -119,6 +120,3 @@
       }
     };
 </script>
-<style>
-	
-</style>

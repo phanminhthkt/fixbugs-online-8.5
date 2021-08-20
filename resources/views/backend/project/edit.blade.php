@@ -76,7 +76,7 @@
             <div class="row">
                 <div class="col-sm-6 col-12">
                   <label>Sale phụ trách</label>
-                  <select class="selectpicker" data-live-search="true"  name="group_member[]" required="">
+                  <select class="selectpicker" data-live-search="true"  name="group_member[]" >
                       <option value="" >Chọn saler</option>
                         @foreach($sales as $v)
                         <option 
@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-sm-6 col-12">
                     <label>Dev phụ trách</label>
-                    <select class="selectpicker" data-live-search="true" name="group_member[]" required="">
+                    <select class="selectpicker" data-live-search="true" name="group_member[]" >
                       <option value="" >Chọn dev</option>
                         @foreach($devs as $v)
                         <option 
@@ -212,7 +212,7 @@
                       name="received_at" 
                       class="form-control flatpickr-input" 
                       id="received_at" 
-                      value="{{\Carbon\Carbon::parse($item->received_at)->format('d-m-Y H:i')}}"  
+                      value="{{\App\http\Helpers\helpers::formatDate($item->received_at,'Y-m-d H:i')}}"  
                       readonly="readonly"
                       placeholder="Ngày giao dự án"
                       >
@@ -235,7 +235,7 @@
                       enabletime="true" 
                       data-input="" 
                       id="begin_at" 
-                      value="{{\Carbon\Carbon::parse($item->begin_at)->format('d-m-Y H:i')}}" 
+                      value="{{\App\http\Helpers\helpers::formatDate($item->begin_at,'Y-m-d H:i')}}" 
                       readonly="readonly"
                       placeholder="Ngày lập trình"
                       >
@@ -255,7 +255,7 @@
                       name="estimated_at" 
                       class="form-control flatpickr-input" 
                       id="estimated_at" 
-                      value="{{\Carbon\Carbon::parse($item->estimated_at)->format('d-m-Y H:i')}}" 
+                      value="{{\App\http\Helpers\helpers::formatDate($item->estimated_at,'Y-m-d H:i')}}" 
                       readonly="readonly"
                       placeholder="Ngày dự kiến hoàn thành"
                       >
@@ -278,7 +278,7 @@
                       enabletime="true" 
                       data-input="" 
                       id="ended_at" 
-                      value="{{\Carbon\Carbon::parse($item->ended_at)->format('d-m-Y H:i')}}" 
+                      value="{{\App\http\Helpers\helpers::formatDate($item->ended_at,'Y-m-d H:i')}}" 
                       readonly="readonly"
                       placeholder="Ngày hoàn thành"
                       >

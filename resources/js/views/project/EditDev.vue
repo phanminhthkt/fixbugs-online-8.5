@@ -115,7 +115,10 @@
                    
                 </div>
                   <div class="modal-footer">
-                      <button type="button" v-on:click="sendMail()" class="btn btn-purple waves-effect waves-light mb-0"><strong>Gửi mail</strong></button>
+                      <button type="button" v-if="data && data.link_host===null" v-on:click="sendMail()" class="btn btn-purple waves-effect waves-light mb-0"
+                        v-html="buttonContent"
+                      >
+                      </button>
                       <button type="button" v-on:click="update()" class="btn btn-info waves-effect waves-light mb-0"><strong>Cập nhật</strong></button>
                   </div>
                 </div>
@@ -132,6 +135,7 @@
             type: ''
           },
           data: null,
+          buttonContent:'<strong>Gửi mail</strong>'
         };
       },
       mounted() {
@@ -141,7 +145,7 @@
       },
       methods: {
           async update() {
-             try {
+            try {
               var dataPost = new FormData()
               dataPost.append('begin_at', this.data.begin_at)
               dataPost.append('estimated_at', this.data.estimated_at)
@@ -152,23 +156,27 @@
               dataPost.append('note_end', this.data.note_end!=null ? this.data.note_end :'')
               dataPost.append('note_host', this.data.note_host!=null ? this.data.note_host :'')
               dataPost.append('_method', 'PUT')
-              const response = await axios.post('/api/project/update/'+this.data.id,dataPost)
+              const response = await axios.post('/api/project/update-dev/'+this.data.id,dataPost)
               this.message.type="success"
               this.message.text=response.data.success
               this.$bus.emit('flash-message', this.message)
-             }catch (error) {
-                this.$bus.emit('flash-messages', error.response.data)
-             }
+              const responseD = await axios.get('/api/project/edit-dev/'+this.data.id)
+              this.$bus.emit('data-edited', responseD.data[0])
+            }catch (error) {
+              this.$bus.emit('flash-messages', error.response.data)
+            }
           },
           async sendMail() {
-             try {
+            this.buttonContent = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+            try {
               const response = await axios.get('/api/project/send-mail/'+this.data.id)
               this.message.type="success"
               this.message.text=response.data.success
               this.$bus.emit('flash-message', this.message)
-             }catch (error) {
+              this.buttonContent = '<strong>Gửi mail</strong>';
+            }catch (error) {
                 this.$bus.emit('flash-messages', error.response.data)
-             }
+            }
           }     
        },
     };

@@ -36,6 +36,7 @@ class MemberController extends Controller
 
     public function index(Request $request)
     {
+        
         $sql  = Member::with(['group'])->where('type',$request->type)->where('is_status','1');
         $this->_pathType = '?type='.$request->type;
         if($request->has('term')){
@@ -43,7 +44,10 @@ class MemberController extends Controller
             $this->_pathType .= '&term='.$request->term;
         }
         $this->_data['items'] = $sql->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
-        return view('backend.member.index', $this->_data);
+        return response([
+            $this->_data['items']
+            // $this->_data
+        ], 200);
     }
 
     /**

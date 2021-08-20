@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,28 +19,26 @@ Route::group(['as' => 'api.','namespace' => 'App\Http\Controllers\Api', 'prefix'
  	Route::get('user/login',['uses' => 'UserController@getLogin','as'=>'user.login']);
  	Route::post('user/login',['uses' => 'UserController@postLogin']);
  	
-
-	// Route::group(['middleware' => 'auth:web'], function(){	
-		Route::put('/ajax/status/{id}', ['uses' => 'AjaxController@updateStatus']);
-		Route::put('/ajax/priority/{id}', ['uses' => 'AjaxController@updatePriority']);
-		// Route::resource('member', 'MemberController');
-		Route::get('',['uses' => 'IndexController@index','as'=>'index']);
-		
-		/*Member */
-		Route::get('/member',['uses' => 'MemberController@index','as' => 'member.index']);
-		Route::get('/member/add',['uses' => 'MemberController@create','as' => 'member.add']);
-		Route::post('/member/store',['uses' => 'MemberController@store','as' => 'member.store']);
-		Route::get('/member/edit/{id}',['uses' => 'MemberController@edit','as' => 'member.edit']);
-		Route::put('/member/update/{id}', ['uses' => 'MemberController@update','as' => 'member.update']);
-
+ 	
+	Route::group(['middleware' => 'auth:members'], function(){	
+		Route::get('/status',['uses' => 'StatusController@index','as' => 'status.index']);
 		/*Project */
-		Route::get('/project',['uses' => 'ProjectController@index','as' => 'project.index']);
-		Route::get('/project/add',['uses' => 'ProjectController@create','as' => 'project.add']);
-		Route::post('/project/store',['uses' => 'ProjectController@store','as' => 'project.store']);
+		Route::get('/project',['uses' => 'ProjectController@index','as' => 'project.index'])->middleware('can:member-view-project');
+
+		Route::get('/project/add',['uses' => 'ProjectController@create','as' => 'project.add'])->middleware('can:member-create-project');
+		
+		Route::post('/project/store',['uses' => 'ProjectController@store','as' => 'project.store'])->middleware('can:member-create-project');;
+		Route::get('/project/edit-dev/{id}',['uses' => 'ProjectController@editDev','as' => 'project.dev.edit'])->middleware('can:member-update-dev-project');
+		Route::put('/project/update-dev/{id}', ['uses' => 'ProjectController@updateDev','as' => 'project.dev.update'])->middleware('can:member-update-dev-project');
+
+		Route::get('/project/edit-sale/{id}',['uses' => 'ProjectController@editSale','as' => 'project.sale.edit'])->middleware('can:member-update-sale-project');
+		Route::put('/project/update-sale/{id}',['uses' => 'ProjectController@updateSale','as' => 'project.sale.edit'])->middleware('can:member-update-sale-project');
+
+
 		Route::get('/project/edit/{id}',['uses' => 'ProjectController@edit','as' => 'project.edit']);
-		Route::put('/project/update/{id}', ['uses' => 'ProjectController@update','as' => 'project.update']);
-		Route::get('/project/send-mail/{id}',['uses' => 'ProjectController@sendMailMember']);
-	// });
+
+		Route::get('/project/send-mail/{id}',['uses' => 'ProjectController@sendMailMember'])->middleware('can:member-send-mail-project');
+	});
 });
 
 
@@ -146,14 +143,9 @@ Route::group(['as'=>'client.', 'namespace'=>'App\Http\Controllers\Frontend'], fu
 	Route::post('/login',['uses' => 'MemberController@postLogin','as'=>'post.login']);
 	Route::get('/register',['uses' => 'MemberController@getRegister','as'=>'member.register']);
 	Route::post('/register', ['uses' => 'MemberController@postRegister','as'=>'post.register']);
-
 	Route::group(['middleware' => 'auth:members'], function(){
 		Route::get('/',['uses' => 'IndexController@index','as'=>'index']);
 		Route::get('/logout',['uses' => 'MemberController@logout','as'=>'member.logout']);
-
-		Route::get('/member',['uses' => 'MemberController@index','as' => 'member.index']);
-		// Route::get('/member/edit/{id}',['uses' => 'MemberController@edit','as' => 'member.edit']);
-		// Route::put('/member/update/{id}', ['uses' => 'MemberController@update','as' => 'member.update']);
 		Route::get('{any}', 'IndexController@index')->where("any", ".*");
 	});
 		// End Member
