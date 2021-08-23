@@ -164,8 +164,15 @@
           $(this).parents("div.form-group  label").children(".change-file").find("b.text-sm").html(fileName);
         });
       },
-      
+      created(){
+        this.checkPermission()
+      },
        methods: {
+          checkPermission(){
+            if(window.__user__.role!='nhom-kinh-doanh'){
+              this.$router.push({name: 'project.index'})
+            }
+          },
           handleFileUpload(){
             this.file = this.$refs.fileInput.files[0]
           },

@@ -38,6 +38,7 @@ const router = new VueRouter({
 const app = new Vue({
 	data: {
 	    user: window.__user__,
+        baseUrl:window.__baseUrl__,
 	    permission: window.__user__.permission,
 	},
   router
@@ -48,9 +49,6 @@ const app = new Vue({
 //     if (to.meta.requiredRole.includes(user.role)) {
 //         next();
 //     }else{
-//         // EventBus.$emit('flash-message', 'Bạn không được quyền thực hiện việc này.')
-//         // $bus.emit()
-//         alert('Bạn không được quyền thực hiện việc này.')
 //         next({path: '/'})
 //     }
 // })

@@ -212,7 +212,7 @@
                       name="received_at" 
                       class="form-control flatpickr-input" 
                       id="received_at" 
-                      value="{{\App\http\Helpers\helpers::formatDate($item->received_at,'Y-m-d H:i')}}"  
+                      value="{{formatDate($item->received_at,'d-m-Y H:i')}}"  
                       readonly="readonly"
                       placeholder="Ngày giao dự án"
                       >
@@ -235,7 +235,7 @@
                       enabletime="true" 
                       data-input="" 
                       id="begin_at" 
-                      value="{{\App\http\Helpers\helpers::formatDate($item->begin_at,'Y-m-d H:i')}}" 
+                      value="{{formatDate($item->begin_at,'d-m-Y H:i')}}" 
                       readonly="readonly"
                       placeholder="Ngày lập trình"
                       >
@@ -255,7 +255,7 @@
                       name="estimated_at" 
                       class="form-control flatpickr-input" 
                       id="estimated_at" 
-                      value="{{\App\http\Helpers\helpers::formatDate($item->estimated_at,'Y-m-d H:i')}}" 
+                      value="{{formatDate($item->estimated_at,'d-m-Y H:i')}}" 
                       readonly="readonly"
                       placeholder="Ngày dự kiến hoàn thành"
                       >
@@ -278,7 +278,7 @@
                       enabletime="true" 
                       data-input="" 
                       id="ended_at" 
-                      value="{{\App\http\Helpers\helpers::formatDate($item->ended_at,'Y-m-d H:i')}}" 
+                      value="{{formatDate($item->ended_at,'d-m-Y H:i')}}" 
                       readonly="readonly"
                       placeholder="Ngày hoàn thành"
                       >

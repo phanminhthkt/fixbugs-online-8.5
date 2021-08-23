@@ -81,9 +81,9 @@
                     </button>
                 </div>
                 <div class="col-sm-6 col-6">
-                    <a class="btn btn-danger text-white w-100" type="button" href="{{route('admin.project.index')}}">
+                    <button class="btn btn-danger text-white w-100" type="button" onclick="window.location='{{route('admin.project.index')}}'">
                         <i class="mdi mdi-close-circle mr-1"></i>Huỷ lọc
-                    </a>
+                    </button>
                 </div>
               </div>
                 

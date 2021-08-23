@@ -14,6 +14,7 @@
         <div class="rightbar-overlay"></div>
         <script>
             window.__user__ = @json(session('loginMember'));
+            window.__baseUrl__ = @json(url('/'));
         </script>
         <script src="/js/app.js"></script>
         @include('frontend.layouts.bot')

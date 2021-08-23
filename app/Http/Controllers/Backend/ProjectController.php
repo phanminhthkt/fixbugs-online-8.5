@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend;
 use Illuminate\Support\Facades\File; 
 use App\Http\Controllers\Controller;
-use App\Http\Helpers\helpers;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\Status;
@@ -117,12 +116,12 @@ class ProjectController extends Controller
             $data['file'] =  $nameFile;
         }
 
-        $data['begin_at'] = helpers::formatDate($request->begin_at,'Y-m-d H:i:s');
-        $data['ended_at'] = helpers::formatDate($request->ended_at,'Y-m-d H:i:s');
-        $data['estimated_at'] = helpers::formatDate($request->estimated_at,'Y-m-d H:i:s');
-        $data['received_at'] = helpers::formatDate($request->received_at,'Y-m-d H:i:s');
-        $request->group_member = helpers::rejectNullArray($request->group_member);
-        $request->group_status = helpers::rejectNullArray($request->group_status);
+        $data['begin_at'] = formatDate($request->begin_at,'Y-m-d H:i:s');
+        $data['ended_at'] = formatDate($request->ended_at,'Y-m-d H:i:s');
+        $data['estimated_at'] = formatDate($request->estimated_at,'Y-m-d H:i:s');
+        $data['received_at'] = formatDate($request->received_at,'Y-m-d H:i:s');
+        $request->group_member = rejectNullArray($request->group_member);
+        $request->group_status = rejectNullArray($request->group_status);
 
         if($projectId = $this->_model->create($data)->id){
             $project = $this->_model::find($projectId);
@@ -184,13 +183,13 @@ class ProjectController extends Controller
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
-
-        $data['begin_at'] = helpers::formatDate($request->begin_at,'Y-m-d H:i:s');
-        $data['ended_at'] = helpers::formatDate($request->ended_at,'Y-m-d H:i:s');
-        $data['estimated_at'] = helpers::formatDate($request->estimated_at,'Y-m-d H:i:s');
-        $data['received_at'] = helpers::formatDate($request->received_at,'Y-m-d H:i:s');
-        $request->group_member = helpers::rejectNullArray($request->group_member);
-        $request->group_status = helpers::rejectNullArray($request->group_status);
+        
+        $data['begin_at'] = formatDate($request->begin_at,'Y-m-d H:i:s');
+        $data['ended_at'] = formatDate($request->ended_at,'Y-m-d H:i:s');
+        $data['estimated_at'] = formatDate($request->estimated_at,'Y-m-d H:i:s');
+        $data['received_at'] = formatDate($request->received_at,'Y-m-d H:i:s');
+        $request->group_member = rejectNullArray($request->group_member);
+        $request->group_status = rejectNullArray($request->group_status);
 
         if($project->where('id', $id)->update($data)){
             $project->members()->sync($request->group_member); 

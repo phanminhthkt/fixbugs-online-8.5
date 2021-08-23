@@ -1,6 +1,6 @@
 <meta charset="utf-8">
-<title>Minton - Responsive Admin Dashboard Template</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0">
 <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
 <meta content="Coderthemes" name="author">
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -11,7 +11,7 @@
 <link href="{{asset('backend')}}\css\bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="{{asset('backend')}}\css\icons.min.css" rel="stylesheet" type="text/css">
 <link href="{{asset('backend')}}\libs\switchery\switchery.min.css" rel="stylesheet" type="text/css">
-<link href="{{asset('backend')}}\libs\dropzone\dropzone.min.css" rel="stylesheet" type="text/css">
+<!-- <link href="{{asset('backend')}}\libs\dropzone\dropzone.min.css" rel="stylesheet" type="text/css"> -->
 <link href="{{asset('backend')}}\libs\multiselect\multi-select.css" rel="stylesheet" type="text/css">
 <link href="{{asset('backend')}}\libs\bootstrap-select\bootstrap-select.min.css" rel="stylesheet" type="text/css">
 <link href="{{asset('backend')}}\libs\select2\select2.min.css" rel="stylesheet" type="text/css">

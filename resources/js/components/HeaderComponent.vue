@@ -67,7 +67,7 @@
 		        </li>
 		        <li class="dropdown notification-list">
 		            <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-		                <img src="frontend\images\users\avatar-1.jpg" alt="user-image" class="rounded-circle">
+		                <img v-bind:src="$root.baseUrl+'/frontend/images/users/avatar-1.jpg'" alt="user-image" class="rounded-circle">
 		                <span class="pro-user-name ml-1">
 		                	{{$root.user.username}}
 		                    <i class="mdi mdi-chevron-down"></i> 
@@ -75,10 +75,10 @@
 		            </a>
 		            <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
 		                <!-- item-->
-		                <router-link to="/project" class="dropdown-item notify-item">
+		                <!-- <router-link to="/project" class="dropdown-item notify-item">
 		                    <i class="remixicon-account-circle-line"></i>
 		                    <span>Thông tin cá nhân</span>
-		                </router-link>	
+		                </router-link>	 -->
 		                <a href="/logout" class="dropdown-item notify-item">
 		                    <i class="remixicon-logout-box-line"></i>
 		                    <span>Đăng xuất</span>
@@ -88,7 +88,7 @@
 		        </li>
 		    </ul>
 		    <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
-		        <li>
+		        <li >
 		            <button class="button-menu-mobile waves-effect waves-light">
 		                <i class="fe-menu"></i>
 		            </button>
@@ -102,27 +102,78 @@
 		            <div class="dropdown-menu"
 		            	>
 		                <!-- item-->
-
-		                <router-link :to="{ name: 'project.add'}"  class="dropdown-item">	
+		                <router-link 
+		                	v-if="$root.user.role === 'nhom-kinh-doanh'"
+		                	:to="{ name: 'project.add'}"  class="dropdown-item">	
 		                    <i class="fe-briefcase mr-1"></i>
 		                    <span>Khởi tạo dự án</span>
 		                </router-link>
+
 		                <!-- item-->
 		                <router-link 
-		                	
 		                	:to="{ name: 'project.index'}" class="dropdown-item">
 		                    <i class="fe-list mr-1"></i>
 		                    <span>Danh sách dự án</span>
 		                </router-link>
 		                <!-- item-->
-		                <a href="javascript:void(0);" class="dropdown-item">
+		               <!--  <a href="javascript:void(0);" class="dropdown-item">
 		                    <i class="fe-bar-chart-line- mr-1"></i>
 		                    <span>Xem thống kê</span>
-		                </a>
+		                </a> -->
 		            </div>
 		        </li>
 		    </ul>
 		</div>
+		<div class="left-side-menu">
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 115px;"><div class="slimscroll-menu" style="overflow: hidden; width: auto; height: 115px;">
+        <!--- Sidemenu -->
+        <div id="sidebar-menu" class="mm-active">
+            <ul class="metismenu mm-show" id="side-menu">
+                <li>
+                    <a href="http://127.0.0.1:8000/" class="waves-effect active">
+                        <i class="remixicon-home-8-line"></i>
+                        <span> Trang điều khiển </span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#" class="waves-effect">
+                        <i class="remixicon-book-mark-line"></i>
+                        <span>Quản lý dự án</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level mm-collapse" aria-expanded="false">
+                        <li>
+                        	<router-link 
+		                	v-if="$root.user.role === 'nhom-kinh-doanh'"
+		                	:to="{ name: 'project.add'}" >	
+		                    <i class="remixicon-movie-line"></i>
+		                    <span>Khởi tạo dự án</span>
+		                	</router-link>
+                        </li>
+                        <li>
+                        	<router-link 
+		                	:to="{ name: 'project.index'}" >
+			                    <i class="remixicon-movie-line"></i>
+			                    <span>Danh sách dự án</span>
+			                </router-link>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+        <!-- End Sidebar -->
+
+        <div class="clearfix"></div>
+
+    </div>
+    <div class="slimScrollBar" style="background: rgb(158, 165, 171); width: 8px; position: absolute; top: -466px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 30px;">
+	</div>
+	<div class="slimScrollRail" style="width: 8px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+	</div>
+    <!-- Sidebar -left -->
+
+</div>
 	</header>
 </template>
 

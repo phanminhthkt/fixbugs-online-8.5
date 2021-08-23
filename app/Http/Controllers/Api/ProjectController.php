@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMember;
 use Auth;
-use App\Http\Helpers\helpers;
 
 class ProjectController extends Controller
 {
@@ -55,14 +54,14 @@ class ProjectController extends Controller
         if($request->has('time') && $request->time !== $now_date){
             $from_date = $request->time.'-01';
             $next_date = Carbon::parse($from_date)->addMonth()->format('Y-m-d');
-            $sql->whereBetween('ended_at', array($from_date,$start_date));
+            $sql->whereBetween('ended_at', array($from_date,$next_date));
         }else{
             $sql->where('ended_at','>', $start_date)->orWhere('ended_at','=', '');
         }
-        if($request->has('term')){
-            $sql->where('name', 'Like', '%' . $request->term . '%');
-            $this->_pathType .= '?term='.$request->term;
-        }
+        // if($request->has('term')){
+        //     $sql->where('name', 'Like', '%' . $request->term . '%');
+        //     $this->_pathType .= '?term='.$request->term;
+        // }
         if($request->has('term')){
             $sql->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '?term='.$request->term;
@@ -109,7 +108,6 @@ class ProjectController extends Controller
     {
         $data = $request->except('_token');
         $data = $request->only($this->_data['column_sale']);
-        dd($data);
         $this->validate($request,
             [
                 'name' => 'required',
@@ -135,10 +133,10 @@ class ProjectController extends Controller
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
-        $data['begin_at'] = helpers::formatDate($request->begin_at,'Y-m-d H:i:s');
-        $data['ended_at'] = helpers::formatDate($request->ended_at,'Y-m-d H:i:s');
-        $data['estimated_at'] = helpers::formatDate($request->estimated_at,'Y-m-d H:i:s');
-        $data['received_at'] = helpers::formatDate($request->received_at,'Y-m-d H:i:s');
+        $data['begin_at'] = formatDate($request->begin_at,'Y-m-d H:i:s');
+        $data['ended_at'] = formatDate($request->ended_at,'Y-m-d H:i:s');
+        $data['estimated_at'] = formatDate($request->estimated_at,'Y-m-d H:i:s');
+        $data['received_at'] = formatDate($request->received_at,'Y-m-d H:i:s');
         if($projectId = $this->_model->create($data)->id){
             $project = $this->_model::find($projectId);
             $project->status()->attach([1,4]);
@@ -203,10 +201,10 @@ class ProjectController extends Controller
         $project = $this->_model->findOrFail($id);
         $data = $request->except('_token','_method');
         $data = $request->only($this->_data['column_dev']);
-        $data['begin_at'] = helpers::formatDate($request->begin_at,'Y-m-d H:i:s');
-        $data['ended_at'] = helpers::formatDate($request->ended_at,'Y-m-d H:i:s');
-        $data['estimated_at'] = helpers::formatDate($request->estimated_at,'Y-m-d H:i:s');
-        $data['received_at'] = helpers::formatDate($request->received_at,'Y-m-d H:i:s');
+        $data['begin_at'] = formatDate($request->begin_at,'Y-m-d H:i:s');
+        $data['ended_at'] = formatDate($request->ended_at,'Y-m-d H:i:s');
+        $data['estimated_at'] = formatDate($request->estimated_at,'Y-m-d H:i:s');
+        $data['received_at'] = formatDate($request->received_at,'Y-m-d H:i:s');
         $data['progress'] = $data['ended_at']!='' ? 100:$request->progress;
         if($project->where('id', $id)->update($data)){
             if($data['progress'] == 100) $project->status()->sync([3,4]);
@@ -262,6 +260,41 @@ class ProjectController extends Controller
                 ],500
             ); 
         }
+        if ($request->has(['name', 'contract_code', 'function', 'link_design'])) {    
+            $this->validate($request,
+                [
+                    'name' => 'required',
+                    'contract_code' => 'required',
+                    'function' => 'required',
+                    'link_design' => 'required',
+                ],          
+                [
+                    'name.required' => 'Vui lòng nhập tên dự án',
+                    'contract_code.required' => 'Vui lòng nhập mã hợp đồng',
+                    'function.required' => 'Vui lòng nhập chức năng',
+                    'link_design.required' => 'Vui lòng nhập link design',
+                ]
+            );
+        }
+        if($request->hasFile('file')){
+            $this->validate($request,
+                [
+                    'file' => 'required|mimes:doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS|max:2048'
+                ],          
+                [
+                    'file.mimes' => 'Chỉ chấp nhận file đuôi doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS',
+                    'file.max' => 'File giới hạn dung lượng không quá 2M',
+                ]
+            );
+            if($project->file!=''){
+                 File::delete(public_path('uploads/files/').$project->file);
+            }
+            $file = $request->file('file');
+            $nameFile =  time().'_'.$file->getClientOriginalName();
+            $file->move(public_path('uploads/files'),$nameFile);
+            $data['file'] =  $nameFile;
+        }
+        
         $data = $request->except('_token','_method');
         $data = $request->only($this->_data['column_sale']);
         if($project->where('id', $id)->update($data)){
@@ -327,10 +360,10 @@ class ProjectController extends Controller
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
-        $data['begin_at'] = helpers::formatDate($request->begin_at,'Y-m-d H:i:s');
-        $data['ended_at'] = helpers::formatDate($request->ended_at,'Y-m-d H:i:s');
-        $data['estimated_at'] = helpers::formatDate($request->estimated_at,'Y-m-d H:i:s');
-        $data['received_at'] = helpers::formatDate($request->received_at,'Y-m-d H:i:s');
+        $data['begin_at'] = formatDate($request->begin_at,'Y-m-d H:i:s');
+        $data['ended_at'] = formatDate($request->ended_at,'Y-m-d H:i:s');
+        $data['estimated_at'] = formatDate($request->estimated_at,'Y-m-d H:i:s');
+        $data['received_at'] = formatDate($request->received_at,'Y-m-d H:i:s');
 
         $data['progress'] = $data['ended_at']!='' ? 100:$request->progress;
         if($project->where('id', $id)->update($data)){

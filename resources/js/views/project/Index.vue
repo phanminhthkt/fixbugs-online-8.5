@@ -81,10 +81,14 @@
                                     {{project.contract_code}}
                                 </td>
                                 <td align="">
+                                  <div v-if="$root.user.role === 'nhom-kinh-doanh'" >
                                   <router-link :to="{ name: 'project.edit.sale' , params: { id: project.id }}">
-                                    <span class="text-dark">
-                                    {{project.name}}</span>
+                                    <span class="text-dark">{{project.name}}</span>
                                   </router-link>
+                                </div>
+                                  <div v-else>
+                                    <span class="text-dark">{{project.name}}</span>
+                                  </div>
                                 </td>
                                 
                                 <td align="center">
@@ -298,7 +302,7 @@
   .select-custom{
     background: #f1f5f7;
     border: none;
-    padding: 7px 10px;
+    padding: 7px 7px;
     outline: none;
   }
   .select-custom option{

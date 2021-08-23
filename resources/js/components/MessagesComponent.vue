@@ -51,9 +51,13 @@
             }, 5000);
         });
         this.$bus.on('flash-messages', errorList => {
-            this.errorList = errorList;
+            if(errorList.message){
+              var error = {text:errorList.message,type:'danger'}
+              this.message = error;
+            }else{this.errorList = errorList;}
             setTimeout(() => {
               this.errorList = null;
+              this.message = null;
             }, 5000);
         });
       

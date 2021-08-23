@@ -120,6 +120,7 @@ function sendMail(data)
     	data: { id: data.id },
 	    beforeSend: function() {
 	        // setting a timeout
+
 	        $('.send-mail-item-'+data.id).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 	    },
     	error:function(x,e) {
@@ -184,6 +185,10 @@ function login(id)
 		type: 'post',
 		data:$(id).serialize(),
 		dataType: 'json',
+		beforeSend: function() {
+	        // setting a timeout
+	        $("#form-login button[type='submit']").html('<span class="spinner-border spinner-border-sm mr-1"></span>Loading...');
+	    },
 		error:function(x,e) {
 		    backErrorAjax(x,e);
 		},
@@ -194,6 +199,7 @@ function login(id)
 			        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			    }
 			});
+			$("#form-login button[type='submit']").html('Đăng nhập');
 			if(result.status=='true'){
 				$(".text-response").html('<span class="d-block alert alert-success mt-2"></span>');
 				window.location = result.url_intended;

@@ -15,11 +15,6 @@ use Illuminate\Support\Facades\Route;
 	// Auth::routes();
 // });
 Route::group(['as' => 'api.','namespace' => 'App\Http\Controllers\Api', 'prefix' => 'api'], function(){	
-
- 	Route::get('user/login',['uses' => 'UserController@getLogin','as'=>'user.login']);
- 	Route::post('user/login',['uses' => 'UserController@postLogin']);
- 	
- 	
 	Route::group(['middleware' => 'auth:members'], function(){	
 		Route::get('/status',['uses' => 'StatusController@index','as' => 'status.index']);
 		/*Project */

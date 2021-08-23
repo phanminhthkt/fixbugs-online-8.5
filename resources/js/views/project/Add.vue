@@ -23,7 +23,7 @@
        </div>
        
       </div>
-        <form role="form"  @submit.prevent="create" action="" enctype="multipart/form-data" novalidate>
+      <form role="form"  @submit.prevent="create" action="" enctype="multipart/form-data" novalidate>
        <div class="row d-flex flex-sm-row-reverse">
         <div class="col-lg-4">
           <div class="card">
@@ -133,6 +133,7 @@
 </template>
 
 <script>
+
    export default {
       data() {
           return{
@@ -150,6 +151,7 @@
               },
           }
       },
+      
       mounted(){
         $('body').on('change','.custom-file-dev input[type=file]', function(){
           var fileName = $(this).val();
@@ -159,7 +161,15 @@
           $(this).parents("div.form-group  label").children(".change-file").find("b.text-sm").html(fileName);
         });
       },
+      created(){
+        this.checkPermission()
+      },
       methods: {
+        checkPermission(){
+          if(window.__user__.role!='nhom-kinh-doanh'){
+            this.$router.push({name: 'project.index'})
+          }
+        },
         handleFileUpload(){
             this.file = this.$refs.fileInput.files[0]
         },
