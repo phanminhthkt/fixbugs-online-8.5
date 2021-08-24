@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Gate;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMember;
-
+use App\Repositories\Project\ProjectRepositoryInterface;
 
 class ProjectController extends Controller
 {
@@ -29,9 +29,11 @@ class ProjectController extends Controller
     private $_data;
     private $_pathType;
     private $_model;
+    private $_repo;
 
-    public function __construct(Project $project)
+    public function __construct(Project $project,ProjectRepositoryInterface $projectRepo)
     {
+        $this->_repo = $projectRepo;
         $this->_model = $project;
         $this->_pathType = '';
         $this->_data['pageIndex'] = route('admin.project.index');
@@ -46,40 +48,7 @@ class ProjectController extends Controller
 
     public function index(Request $request)
     {
-        $sql  = $this->_model::with(['dev','saler','status_project','status_code'])->where('id','<>', 0);
-        if($request->has('term') && $request->term!=''){
-            $sql->where('name', 'Like', '%' . $request->term . '%');
-            $this->_pathType .= '?term='.$request->term;
-        }
-        if($request->has('dev') && $request->dev!=''){
-            $dev = $request->dev;
-            $sql->whereHas('members', function ($query) use ($dev) {
-                return $query->where([['members.id', '=', $dev],['members.group_id','=',1]]);
-            });
-            $this->_pathType .= '?dev='.$request->dev;
-        }
-        if($request->has('saler') && $request->saler!=''){
-            $saler = $request->saler;
-            $sql->whereHas('members', function ($query) use ($saler) {
-                $query->where('members.id', $saler)->where('members.group_id',2);
-            });
-            $this->_pathType .= '?dev='.$request->dev;
-        }
-        if($request->has('status_code') && $request->status_code!=''){
-            $status_code = $request->status_code;
-            $sql->whereHas('status', function ($query) use ($status_code) {
-                $query->where('status.id', $status_code)->where('status.group_id',1);
-            });
-            $this->_pathType .= '?status_code='.$status_code;
-        }
-        if($request->has('status_project') && $request->status_project!=''){
-            $status_project = $request->status_project;
-            $sql->whereHas('status', function ($query) use ($status_project) {
-                $query->where('status.id', $status_project)->where('status.group_id',2);
-            });
-            $this->_pathType .= '?status_project='.$request->status_project;
-        }
-        $this->_data['items'] = $sql->orderBy('id','desc')->paginate(10)->withPath(url()->current().$this->_pathType);
+        $this->_data['items'] = $this->_repo->getDataByCondition($request,$this->_pathType,10);
         return view('backend.project.index', $this->_data);
     }
 
@@ -101,32 +70,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except('_token');
-        if($request->hasFile('file')){
-            $this->validate($request,[
-                    'file' => 'mimes:doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS|max:2048',],          
-                [
-                    'file.mimes' => 'Chỉ chấp nhận file đuôi doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS',
-                    'file.max' => 'File giới hạn dung lượng không quá 2M',
-                ]
-            );
-            $file = $request->file('file');
-            $nameFile =  time().'_'.$file->getClientOriginalName();
-            $file->move(public_path('uploads/files'),$nameFile);
-            $data['file'] =  $nameFile;
-        }
-
-        $data['begin_at'] = formatDate($request->begin_at,'Y-m-d H:i:s');
-        $data['ended_at'] = formatDate($request->ended_at,'Y-m-d H:i:s');
-        $data['estimated_at'] = formatDate($request->estimated_at,'Y-m-d H:i:s');
-        $data['received_at'] = formatDate($request->received_at,'Y-m-d H:i:s');
-        $request->group_member = rejectNullArray($request->group_member);
-        $request->group_status = rejectNullArray($request->group_status);
-
-        if($projectId = $this->_model->create($data)->id){
-            $project = $this->_model::find($projectId);
-            $project->members()->attach($request->group_member); 
-            $project->status()->attach($request->group_status); 
+        if($this->_repo->createDataHasRelation($request)){
             return redirect()->route('admin.project.index',['type' => $request->type])->with('success', 'Thêm dự án <b>'. $request->name .'</b> thành công');
         }else{
             return redirect()->route('admin.project.index',['type' => $request->type])->with('danger', 'Thêm dự án <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');
@@ -165,35 +109,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $project = $this->_model->findOrFail($id);
-        $data = $request->except('_token','_method','group_member','group_status');
-        if($request->hasFile('file')){
-            $this->validate($request,[
-                    'file' => 'mimes:doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS|max:2048',],          
-                [
-                    'file.mimes' => 'Chỉ chấp nhận file đuôi doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS',
-                    'file.max' => 'File giới hạn dung lượng không quá 2M',
-                ]
-            );
-            if($project->file!=''){
-                 File::delete(public_path('uploads/files/').$project->file);
-            }
-            $file = $request->file('file');
-            $nameFile =  time().'_'.$file->getClientOriginalName();
-            $file->move(public_path('uploads/files'),$nameFile);
-            $data['file'] =  $nameFile;
-        }
-        
-        $data['begin_at'] = formatDate($request->begin_at,'Y-m-d H:i:s');
-        $data['ended_at'] = formatDate($request->ended_at,'Y-m-d H:i:s');
-        $data['estimated_at'] = formatDate($request->estimated_at,'Y-m-d H:i:s');
-        $data['received_at'] = formatDate($request->received_at,'Y-m-d H:i:s');
-        $request->group_member = rejectNullArray($request->group_member);
-        $request->group_status = rejectNullArray($request->group_status);
-
-        if($project->where('id', $id)->update($data)){
-            $project->members()->sync($request->group_member); 
-            $project->status()->sync($request->group_status); 
+        if($this->_repo->updateDataHasRelation($request,$id)){
             return redirect()->route('admin.project.index',['type' => $request->type])->with('success', 'Sửa dự án <b>'. $request->name .'</b> thành công');
         }else{
             return redirect()->route('admin.project.index',['type' => $request->type])->with('danger', 'Sửa dự án <b>'. $request->name .'</b> thất bại.Xin vui lòng thử lại');

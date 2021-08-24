@@ -73,3 +73,10 @@
 .line{width: 100%;height: 1px;background: #ccc;margin:10px 0px;}
 
 
+
+
+
+@media (max-width: 767px){
+    li.paginate_button{display: inline-block;}
+    li.paginate_button.next, li.paginate_button.previous{font-size: inherit;}
+}

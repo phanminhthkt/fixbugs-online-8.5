@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Status;
 use App\Models\GroupStatus;
 
+
 class StatusController extends Controller
 {
     /**
@@ -21,6 +22,7 @@ class StatusController extends Controller
     public function __construct(Status $status,Request $request)
     {
         $this->_model = $status;
+
         $this->_pathType = '';
         $this->_data['groups'] = GroupStatus::all();
         $this->_data['pageIndex'] = route('admin.status.index');
