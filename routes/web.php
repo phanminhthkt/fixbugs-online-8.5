@@ -93,12 +93,12 @@ Route::group(['as' => 'api.','namespace' => 'App\Http\Controllers\Api', 'prefix'
 
 		/*Nhóm thành viên */
 		Route::get('/group_member',['uses' => 'GroupMemberController@index','as' => 'group_member.index'])->middleware('can:view-group_member');
-		Route::get('/group_member/add',['uses' => 'GroupMemberController@create','as' => 'group_member.add'])->middleware('can:create-group_member');
+		// Route::get('/group_member/add',['uses' => 'GroupMemberController@create','as' => 'group_member.add'])->middleware('can:create-group_member');
 		Route::post('/group_member/store',['uses' => 'GroupMemberController@store','as' => 'group_member.store']);
 		Route::get('/group_member/edit/{id}',['uses' => 'GroupMemberController@edit','as' => 'group_member.edit'])->middleware('can:update-group_member');
-		Route::put('/group_member/update/{id}', ['uses' => 'GroupMemberController@update','as' => 'group_member.update']);
-		Route::delete('/group_member/delete/{id}',['uses' => 'GroupMemberController@delete','as' => 'group_member.delete'])->middleware('can:delete-group_member');
-		Route::delete('/group_member/delete-multiple/{id}',['uses' => 'GroupMemberController@deleteMultiple'])->middleware('can:delete-group_member');
+		// Route::put('/group_member/update/{id}', ['uses' => 'GroupMemberController@update','as' => 'group_member.update']);
+		// Route::delete('/group_member/delete/{id}',['uses' => 'GroupMemberController@delete','as' => 'group_member.delete'])->middleware('can:delete-group_member');
+		// Route::delete('/group_member/delete-multiple/{id}',['uses' => 'GroupMemberController@deleteMultiple'])->middleware('can:delete-group_member');
 
 		/*Nhóm trạng thái */
 		Route::get('/group_status',['uses' => 'GroupStatusController@index','as' => 'group_status.index'])->middleware('can:view-group_status');

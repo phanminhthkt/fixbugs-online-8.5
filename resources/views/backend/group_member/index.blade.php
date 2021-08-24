@@ -87,13 +87,13 @@
                                     class="btn btn-icon waves-effect waves-light btn-info">
                                     <i class="mdi mdi-pencil"></i>
                                   </a>
-                                  <a href="#" 
+                                  <!-- <a href="#" 
                                     data-url="{{url()->current().'/delete/'.$item->id}}"
                                     data-id="{{$item->id}}"
                                     class="delete-item btn btn-icon waves-effect waves-light btn-danger ml-1" 
                                     >
                                     <i class="mdi mdi-close"></i>
-                                  </a>
+                                  </a> -->
                                 </div>
                               </td>
                            </tr>
