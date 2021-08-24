@@ -79,16 +79,26 @@ Dự án được viết bằng laravel mix vue js.
 
 ## Sau khi clone dự án về thì thực hiện các bước: 
 
-1.Chạy lệnh.
--[composer install]
--[npm install ]
-2.Sau đó copy file env và cập nhật thông tin.
+1.Chạy lệnh:
+
+- [composer install]
+
+- [npm install ]
+
+2.Sau đó copy file env và cập nhật thông tin:
+
 -[cp .env.example .env]
-3.Tạo key cho dự án]
+
+3.Tạo key cho dự án]:
+
 -[php artisan key:generate
-4.Tạo ra các bảng và dữ liệu mẫu cho database
+
+4.Tạo ra các bảng và dữ liệu mẫu cho database:
+
 -[php artisan migrate]
+
 -[php artisan db:seed]
-Information login.
+
+Information login:
 -[user:admin]
 -[pass:123456]
