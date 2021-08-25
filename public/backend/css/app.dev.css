@@ -72,10 +72,17 @@
 .card .card-header{}
 .line{width: 100%;height: 1px;background: #ccc;margin:10px 0px;}
 
+.nav-tabs-custom{}
+.nav-tabs-custom.nav-bordered .nav-link{font-weight: normal;font-size: 15px;}
+.nav-tabs-custom.nav-bordered .nav-link.active{font-weight: 600;border-bottom: 2px solid #9a9a9a!important;}
 
+.page-title-box{margin: 0 -25px 15px;}
 
-
-
+.relative{position: relative;}
+.absolute{position: absolute;top:0;left: 0;right:0;}
+.z-index-0{z-index: 0;}
+.z-index-1{z-index: 1;}
+.rounded-white{background: #fff;border-radius: 50%;}
 @media (max-width: 767px){
     li.paginate_button{display: inline-block;}
     li.paginate_button.next, li.paginate_button.previous{font-size: inherit;}
