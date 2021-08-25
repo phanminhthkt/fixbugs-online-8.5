@@ -1,4 +1,4 @@
-    <div class="slimscroll-menu">
+<div class="slimscroll-menu">
         <!--- Sidemenu -->
         <div id="sidebar-menu">
             <ul class="metismenu" id="side-menu">
@@ -8,6 +8,7 @@
                         <span> Trang điều khiển </span>
                     </a>
                 </li>
+                <!-- <li class="menu-title">QUẢN LÝ CHỨC NĂNG</li> -->
                 @if(Auth::user()->can('view-group_member') || Auth::user()->can('view-member'))
                 <li 
                 class="{{ 
@@ -33,8 +34,7 @@
                 @endcan
 
                 @can('view-project')
-                <li class="menu-title">Quản lý dự án</li>
-                <li >
+                <li class="{{ request()->routeIs('admin.project.*') ? 'mm-active' : '' }}"> 
                     <a href="{{Route('admin.project.index')}}" class="waves-effect">
                         <i class="remixicon-book-mark-line"></i>
                         <span>Quản lý dự án</span>
@@ -43,7 +43,7 @@
                 @endcan
                
                 @if(Auth::user()->can('view-status') || Auth::user()->can('view-group_status'))
-                <li class="{{ request()->routeIs('admin.status.*') ? 'mm-active' : '' }}">
+                <li class="{{ request()->routeIs('admin.status.*') || request()->routeIs('admin.group_status.*') ? 'mm-active' : '' }}">
                     <a href="javascript: void(0)" class="waves-effect">
                         <i class="fas fa-tasks"></i>
                         <span>Quản lý trạng thái</span>
@@ -68,7 +68,6 @@
                 @endif
                 
                 @if(Auth::user()->can('view-permission') || Auth::user()->can('view-role'))
-                <li class="menu-title">Quản lý phân quyền</li>
                 <li 
                 class="{{ request()->routeIs('admin.role.*') || request()->routeIs('admin.permission.*') ? 'mm-active' : '' }}">
                     <a href="#" class="waves-effect">
@@ -92,8 +91,8 @@
                 @endif
 
                 @can('view-user')
-                <li class="menu-title">Quản lý người dùng</li>
-                <li >
+                <li 
+                class="{{ request()->routeIs('admin.user.*') ? 'mm-active' : '' }}">
                     <a href="{{Route('admin.user.index')}}" class="waves-effect">
                         <i class="fas fa-users-cog"></i>
                         <span>Quản lý người dùng</span>
@@ -141,7 +140,7 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
-                    	<li>
+                        <li>
                             <a href="extras-timeline.html"> <i class="remixicon-movie-line"></i>Slogan</a>
                         </li>
                         <li>
@@ -158,7 +157,7 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
-                    	<li>
+                        <li>
                             <a href="extras-timeline.html"> <i class="remixicon-movie-line"></i>Tags sản phẩm</a>
                         </li>
                         <li>
@@ -186,7 +185,7 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
-                    	<li>
+                        <li>
                             <a href="extras-timeline.html"> <i class="remixicon-movie-line"></i>Logo</a>
                         </li>
                         <li>

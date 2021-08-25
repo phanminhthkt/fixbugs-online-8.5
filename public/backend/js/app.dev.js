@@ -94,7 +94,8 @@ if(URL.type!=''){
 	})
 }
 if(URL.current!=''){
-	$('.mm-active ul li a').each(function(i,v){
+		$('li.mm-active > a').addClass('active')
+	$('li.mm-active ul li a').each(function(i,v){
 	    if(URL.current.indexOf($(this).attr('href')) == 0){
 	        $(this).addClass('waves-effect active');
 	    }
