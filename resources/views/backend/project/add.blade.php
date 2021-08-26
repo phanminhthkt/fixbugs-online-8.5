@@ -70,17 +70,20 @@
               <div class="card-body">
                   <div class="row">
                       <div class="col-sm-6 col-12">
-                        <label>Sale phụ trách</label>
-                        <select class="selectpicker" data-live-search="true"  name="group_member[]" >
-                            <option value="" >Chọn saler</option>
-                              @foreach($sales as $v)
-                              <option value="{{$v->id}}">
-                              {{$v->name}}
-                              </option>
-                              @endforeach
-                          </select>
+                        <div class="form-group">  
+                          <label>Sale phụ trách</label>
+                          <select class="selectpicker" data-live-search="true"  name="group_member[]" >
+                              <option value="" >Chọn saler</option>
+                                @foreach($sales as $v)
+                                <option value="{{$v->id}}">
+                                {{$v->name}}
+                                </option>
+                                @endforeach
+                            </select>
+                          </div>
                       </div>
                       <div class="col-sm-6 col-12">
+                        <div class="form-group">  
                           <label>Dev phụ trách</label>
                           <select class="selectpicker" data-live-search="true" name="group_member[]" >
                             <option value="" >Chọn dev</option>
@@ -90,10 +93,12 @@
                               </option>
                               @endforeach
                           </select>
+                          </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-sm-6 col-12">
+                        <div class="form-group">  
                           <label>Tình trạng lập trình</label>
                           <select class="selectpicker" data-live-search="true" name="group_status[]" required="">
                             @foreach($status_codes as $v)
@@ -102,8 +107,10 @@
                             </option>
                             @endforeach
                           </select>
+                          </div>
                       </div>
                       <div class="col-sm-6 col-12">
+                        <div class="form-group">  
                           <label>Tình trạng dự án</label>
                           <select class="selectpicker" data-live-search="true" name="group_status[]" required="">
                             @foreach($status_projects as $v)
@@ -112,6 +119,7 @@
                             </option>
                             @endforeach
                           </select>
+                          </div>
                       </div>
                     </div>
                 
