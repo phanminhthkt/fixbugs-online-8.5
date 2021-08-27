@@ -142,7 +142,7 @@ a{color:#29689e;}
     -webkit-transition: all 0s ease-out;
     transition: all 0s ease-out;
 }
-.card{transition: 1s;opacity:0;}
+.container-fluid{transition: 1s;opacity:0;}
 
 #pre-loader{position: absolute;height: 90vh;left: 0;right:0;}
 .app-loader {

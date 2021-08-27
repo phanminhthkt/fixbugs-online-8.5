@@ -141,7 +141,7 @@ $(document).on('click', function (e) {
 });
 
 $(window).on('load', function () {
-	$(".card").css({'opacity':'1'});
+	$(".content-fluid").css({'opacity':'1'});
     $('#pre-loader').delay(250).fadeOut(function () {
         $('#pre-loader').remove();
     });
