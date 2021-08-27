@@ -10,6 +10,9 @@
             @include('backend.layouts.navigation')
             </div>
             <div class="content-page">
+                <div id="pre-loader">
+                    <div id="pre-loade" class="app-loader"><div class="loading"></div></div>
+                </div>
                 <div class="content">
                     <div class="container-fluid">
                         @yield('content')

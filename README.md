@@ -24,11 +24,13 @@ Dự án được viết bằng laravel mix vue js.
 
 - cp .env.example .env
 
-3.Tạo key cho dự án:
+3.Cấu hình trong file .evn và đặt tên database.
+
+4.Tạo key cho dự án:
 
 - php artisan key:generate
 
-4.Tạo ra các bảng và dữ liệu mẫu cho database:
+5.Tạo ra các bảng và dữ liệu mẫu cho database:
 
 - php artisan migrate
 - php artisan db:seed

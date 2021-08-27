@@ -15,11 +15,11 @@ class CreatePermissionsTable extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->nullable();;
             $table->string('name');
             $table->string('module');
             $table->string('action');
-            $table->string('type');
+            $table->string('type')->nullable();;
             $table->string('slug')->unique();
             $table->integer('is_status')->default(0);
             $table->integer('is_priority')->default(0);

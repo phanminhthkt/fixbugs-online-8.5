@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use App\Models\Member;
 use Auth;
+use Illuminate\Support\Facades\Schema;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -35,18 +36,20 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
-        // if(Auth::guard('web')->check()) {
-        foreach(Permission::all() as $permission){//Check per permission
-            Gate::define($permission->slug,function($user) use ($permission){
-                return $user->hasPermission($permission);
-            });
-            
-        }
-        // }
-        foreach(Permission::all() as $permission){
-            Gate::define('member-'.$permission->slug,function($user) use ($permission){
-                return $user->group->hasPermission($permission);
-            });
+        if (Schema::hasTable('Permissions')) {
+
+            foreach(Permission::all() as $permission){//Check per permission
+                Gate::define($permission->slug,function($user) use ($permission){
+                    return $user->hasPermission($permission);
+                });
+                
+            }
+            // }
+            foreach(optional(Permission::all()) as $permission){
+                Gate::define('member-'.$permission->slug,function($user) use ($permission){
+                    return $user->group->hasPermission($permission);
+                });
+            }
         }
         
     }
