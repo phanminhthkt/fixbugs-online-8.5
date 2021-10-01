@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
-        if (Schema::hasTable('Permissions')) {
+        // if (Schema::hasTable('Permissions')) {
 
             foreach(Permission::all() as $permission){//Check per permission
                 Gate::define($permission->slug,function($user) use ($permission){
@@ -45,12 +45,12 @@ class AuthServiceProvider extends ServiceProvider
                 
             }
             // }
-            foreach(optional(Permission::all()) as $permission){
+            foreach(Permission::all() as $permission){
                 Gate::define('member-'.$permission->slug,function($user) use ($permission){
                     return $user->group->hasPermission($permission);
                 });
             }
-        }
+        // }
         
     }
 }

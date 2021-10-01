@@ -35,8 +35,11 @@
     </ul>
 </div>
 
-<form role="form" class="needs-validation" method="POST" action="{{$pageIndex.'/store'}}" enctype="multipart/form-data" novalidate>
+<form role="form" class="needs-validation" method="POST" 
+action="{{$pageIndex.'/update/'.$item->id.$path_type}}" 
+enctype="multipart/form-data" novalidate>
     @csrf
+    {{ method_field('PUT') }}
     <div class="tab-content">
         <div class="tab-pane fade active show" id="ttproject">
             <div class="row d-flex flex-sm-row-reverse">
@@ -65,10 +68,10 @@
                             </div>
                             @if($item->file!='')
                             <div class="text-center">
-                                <a href="{{public_path('uploads/files').$item->file}}">
+                                <a href="{{URL::to('/public/uploads/files').'/'.$item->file}}">
                                     <b class="btn btn-outline-warning waves-effect waves-light d-inline-block"><i class="fa fa-download mr-1"></i>Tải file</b>
                                 </a>
-                                <a href="http://docs.google.com/gview?url={{public_path('uploads/files').$item->file}}&embedded=true" target="_blank">
+                                <a href="https://view.officeapps.live.com/op/embed.aspx?src={{URL::to('/public/uploads/files').'/'.$item->file}}&embedded=true" target="_blank">
                                     <b class="btn btn-outline-success waves-effect waves-light d-inline-block"><i class="fa fa-eye mr-1"></i>Xem file</b>
                                 </a>
                             </div>

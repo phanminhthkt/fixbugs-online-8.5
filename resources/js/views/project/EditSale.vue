@@ -47,7 +47,7 @@
                             v-on:change="handleFileUpload()"
                           >
                         </div>
-                        <div class="change-file"><b class="text-sm text-split text-danger"></b></div>
+                        <div class="change-file" v-if="dataPost.file!=null"><b class="text-sm text-split text-danger">{{dataPost.file}}</b></div>
                       </label>
                       
                     </div>
@@ -55,10 +55,10 @@
               </div>
               <div class="text-left" v-if="dataPost.file!=null">
                 <a 
-                :href="'http://docs.google.com/gview?url=uploads/files/' + dataPost.file + '&embedded=true'">
+                :href="'https://view.officeapps.live.com/op/embed.aspx?src='+ $root.baseUrl +'/public/uploads/files/' + dataPost.file + '&embedded=true'">
                 <b class="btn btn-outline-success waves-effect waves-light d-inline-block"><i class="fa fa-eye mr-1"></i>Xem file</b></a>
                 <a 
-                :href="'uploads/files/' + dataPost.file">
+                :href="$root.baseUrl +'/public/uploads/files/' + dataPost.file">
                   <b class="btn btn-outline-warning waves-effect waves-light d-inline-block"><i class="fa fa-download mr-1"></i>Tải file</b>
                 </a>
               </div>
@@ -152,9 +152,6 @@
               file:null
            }
        },
-       created() {
-         this.getItemProjects()
-       },
        mounted(){
         $('body').on('change','.custom-file-dev input[type=file]', function(){
           var fileName = $(this).val();
@@ -166,6 +163,7 @@
       },
       created(){
         this.checkPermission()
+        this.getItemProjects()
       },
        methods: {
           checkPermission(){

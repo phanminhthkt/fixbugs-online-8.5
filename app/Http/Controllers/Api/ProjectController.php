@@ -66,10 +66,12 @@ class ProjectController extends Controller
             $sql->where('name', 'Like', '%' . $request->term . '%');
             $this->_pathType .= '?term='.$request->term;
         }
+
         if(Auth::guard('members')->user()->group_id !== ''){
             $member_group = Auth::guard('members')->user()->group_id;
-            $sql->whereHas('members', function ($query) use ($member_group) {
-                $query->where('members.id', $member_group)->where('members.group_id',$member_group);
+            $member_id = Auth::guard('members')->user()->id;
+            $sql->whereHas('members', function ($query) use ($member_group,$member_id) {
+                $query->where('members.id', $member_id)->where('members.group_id',$member_group);
             });
             $this->_pathType .= '?group='.$request->member_group;
         }

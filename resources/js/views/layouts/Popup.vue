@@ -89,7 +89,7 @@
 									<td style="padding:8px"><strong>File đặc tả lập trình</strong></td>
 									<td style="padding:8px">
 					    				<a 
-                :href="'http://docs.google.com/gview?url=uploads/files/' + data.file + '&embedded=true'">
+                :href="'https://view.officeapps.live.com/op/embed.aspx?src='+ $root.baseUrl +'/public/uploads/files/' + data.file + '&embedded=true'" target="_blank">
                 <b class="text-success">Xem file</b></a>
 									</td>
 								</tr>

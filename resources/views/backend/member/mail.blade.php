@@ -8,7 +8,7 @@
 				<div style="background: #fbfbfb;padding: 30px;">
 					<div style="padding: 10px;max-width: 620px;margin:0 auto;background: #fff;border: 2px solid #0067c0;">
 						
-						<img src="{{asset('backend/')}}\images\logo-idtvn.png" alt="logo company">
+						<img src="{{URL::to('/backend')}}/images/logo-idtvn.png" alt="logo company">
 						<table style="background:#fff;border-collapse:collapse;border-style:solid;border-color: #fff;border-bottom:1px solid #efefef;color: #696969;font-family: 'Nunito';margin-top:10px;font-size:10pt;" width="100%" cellspacing="0" cellpadding="0" border="1">
 							<tbody>
 								<tr>
@@ -46,14 +46,14 @@
 										</a>
 									</td>
 								</tr>
-								<tr>
+								<!-- <tr>
 									<td style="padding:8px 8px"><strong>Tên đăng nhập</strong></td>
 									<td style="padding:8px 8px">{{$item->username}}</td>
 								</tr>
 								<tr>
 									<td style="padding:8px 8px"><strong>Mật khẩu</strong></td>
 									<td style="padding:8px 8px">{{$item->password}}</td>
-								</tr>
+								</tr> -->
 								<tr>
 									<td style="padding:8px 8px"><strong>Ghi chú</strong></td>
 									<td style="padding:8px 8px">{{$item->note_end}}</td>
@@ -105,7 +105,7 @@
 								<tr>
 									<td style="padding:8px 8px"><strong>File đặc tả lập trình</strong></td>
 									<td style="padding:8px 8px">
-					    				<a href="http://docs.google.com/gview?url={{public_path('uploads/files').$item->file}}&embedded=true">Click vào xem file</a>
+					    				<a href="https://view.officeapps.live.com/op/embed.aspx?src={{URL::to('/public/uploads/files').'/'.$item->file}}&embedded=true">Click vào xem file</a>
 									</td>
 								</tr>
 								<tr>

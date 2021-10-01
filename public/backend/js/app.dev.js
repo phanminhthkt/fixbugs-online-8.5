@@ -139,9 +139,8 @@ $(document).on('click', function (e) {
         $(".dropdown-menu-custom").removeClass('show');
     }
 });
-
 $(window).on('load', function () {
-	$(".content-fluid").css({'opacity':'1'});
+	$(".container-fluid").css({'opacity':'1'});
     $('#pre-loader').delay(250).fadeOut(function () {
         $('#pre-loader').remove();
     });

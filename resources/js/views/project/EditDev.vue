@@ -11,7 +11,7 @@
                       <div class="col-lg-6">
                         <div class="form-group">
                           <label>Ngày bắt đầu</label>
-                            <div class="input-group" v-if="data.begin_at==''">
+                            <div class="input-group" v-if="this.check.begin_at == ''">
                               <input 
                               type="datetime-local" 
                               class="form-control" 
@@ -25,7 +25,7 @@
                       <div class="col-lg-6">
                         <div class="form-group">
                           <label>Ngày dự kiến hoàn thành</label>
-                            <div class="input-group" v-if="data.estimated_at==''">
+                            <div class="input-group" v-if="this.check.estimated_at==''">
                               <input 
                               type="datetime-local" 
                               class="form-control" 
@@ -55,7 +55,7 @@
                       <div class="col-lg-6">
                         <div class="form-group">
                           <label>Ngày kết thúc</label>
-                            <div class="input-group" v-if="data.ended_at==''">
+                            <div class="input-group" v-if="this.check.ended_at==''">
                               <input 
                               type="datetime-local" 
                               class="form-control" 
@@ -135,12 +135,20 @@
             type: ''
           },
           data: null,
+          check: {
+            begin_at:null,
+            estimated_at:null,
+            ended_at:null
+          },
           buttonContent:'<strong>Gửi mail</strong>'
         };
       },
       mounted() {
         this.$bus.on('data-project', data => {
-            this.data = data;
+            this.check.begin_at = data.begin_at
+            this.check.estimated_at = data.estimated_at
+            this.check.ended_at = data.ended_at
+            this.data = data
         });
       },
       methods: {

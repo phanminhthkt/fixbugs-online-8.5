@@ -166,7 +166,7 @@
                                     </button>
                                     
                                     <router-link 
-                                    v-check="{action:'update',component:'project'}"
+                                    v-check="{action:'update-sale',component:'project'}"
                                     :to="{ name: 'project.edit.sale' , params: { id: project.id }}"
                                     class="btn btn-icon waves-effect waves-light btn-success ml-1"
                                     title="Sửa dự án"

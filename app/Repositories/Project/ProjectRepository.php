@@ -1,8 +1,8 @@
 <?php
 namespace App\Repositories\Project;
-
+use Illuminate\Support\Str;
 use App\Repositories\BaseRepository;
-
+use Illuminate\Support\Facades\Storage;
 class ProjectRepository extends BaseRepository implements ProjectRepositoryInterface
 {
     //lấy model tương ứng
@@ -51,7 +51,7 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
     public function createDataHasRelation($request){
     	$data = $request->except('_token');
         if($request->hasFile('file')){
-            $this->validate($request,[
+            $request->validate([
                     'file' => 'mimes:doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS|max:2048',],          
                 [
                     'file.mimes' => 'Chỉ chấp nhận file đuôi doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS',
@@ -59,7 +59,7 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
                 ]
             );
             $file = $request->file('file');
-            $nameFile =  time().'_'.$file->getClientOriginalName();
+            $nameFile =  Str::slug(time().'_'.$file->getClientOriginalName(),'_');
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
@@ -84,7 +84,7 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
 		$project = $this->_model->findOrFail($id);
         $data = $request->except('_token','_method','group_member','group_status');
         if($request->hasFile('file')){
-            $this->validate($request,[
+            $request->validate([
                     'file' => 'mimes:doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS|max:2048',],          
                 [
                     'file.mimes' => 'Chỉ chấp nhận file đuôi doc,docx,pdf,DOC,DOCX,PDF,xlsx,XLSX,xls,XLS',
@@ -92,10 +92,12 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
                 ]
             );
             if($project->file!=''){
+                if(Storage::disk('local')->exists(public_path('uploads/files/').$project->file)){
                  File::delete(public_path('uploads/files/').$project->file);
+                }
             }
             $file = $request->file('file');
-            $nameFile =  time().'_'.$file->getClientOriginalName();
+            $nameFile =  Str::slug(time().'_'.$file->getClientOriginalName(),'_');
             $file->move(public_path('uploads/files'),$nameFile);
             $data['file'] =  $nameFile;
         }
